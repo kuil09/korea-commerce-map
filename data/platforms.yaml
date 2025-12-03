@@ -1,6 +1,6 @@
 # Korea Commerce Map - Platforms Data (YAML Format)
-# This file provides the same data as platforms.json in YAML format
-# for easier parsing in environments where JSON parsing is unstable.
+# 이 파일이 플랫폼 데이터의 주요 소스입니다.
+# platforms.json은 이 파일에서 자동으로 생성됩니다.
 
 platforms:
   - id: gmarket
