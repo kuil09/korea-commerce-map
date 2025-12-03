@@ -103,6 +103,7 @@ korea-commerce-map/
 - 무신사 당일배송
 - 배민 라이더스
 - 번개택배
+- 산지직송 / 특산물 직배송
 - 새벽배송
 - 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
@@ -125,6 +126,7 @@ korea-commerce-map/
 - 택배대여
 - 택배배송
 - 택배배송 (검수 후 발송)
+- 택배배송 (우체국택배)
 - 판매자배송
 - 포장 주문
 - 하루배송
@@ -191,6 +193,7 @@ korea-commerce-map/
 
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
+| 우체국쇼핑 | ePOST Mall | https://mall.epost.go.kr | 2~5일 (상품 및 지역에 따라 다름) |
 | 농협몰 | Nonghyup Mall | https://www.nonghyupmall.com | 2~5일 (상품 및 지역에 따라 변동) |
 | 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
 | 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |

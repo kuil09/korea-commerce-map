@@ -1,5 +1,28 @@
 [
   {
+    "id": "epostmall",
+    "name": "우체국쇼핑",
+    "nameEn": "ePOST Mall",
+    "description": "국내 농수산물, 특산물, 곡물·잡곡, 가공식품, 전통시장 상품 등을 판매하는 공공 온라인 식품몰. 전국 우체국택배 배송망을 통해 신선식품 및 가공식품을 소비자에게 직배송",
+    "url": "https://mall.epost.go.kr",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "택배배송 (우체국택배)",
+      "산지직송 / 특산물 직배송"
+    ],
+    "deliveryTime": "2~5일 (상품 및 지역에 따라 다름)",
+    "minOrderAmount": "무료배송 기준은 상품/지역별 상이",
+    "features": [
+      "농수산물·특산물 중심 쇼핑몰",
+      "전국 우체국택배망 이용",
+      "전통시장 상품 및 지역 특산물 판매",
+      "곡물, 잡곡, 가공식품, 건강식품, 밀키트, 선물세트 등 다양한 식품군 취급"
+    ]
+  },
+  {
     "id": "nonghyupmall",
     "name": "농협몰",
     "nameEn": "Nonghyup Mall",
