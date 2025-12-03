@@ -3,6 +3,24 @@
 # platforms.json은 이 파일에서 자동으로 생성됩니다.
 
 platforms:
+  - id: domeggook
+    name: "도매꾹"
+    nameEn: "Domeggook"
+    description: "국내 최대 B2B 온라인 도매 오픈마켓. 사업자·소매업체 대상 도매가 공급, 다양한 품목(의류, 잡화, 생활용품, 가전, 식품 등)을 도매 및 소량구매 방식으로 중개"
+    url: "https://domeggook.com"
+    categories:
+      - general
+    deliveryMethods:
+      - "택배배송"
+      - "판매자배송"
+    deliveryTime: "상품 및 판매자별 상이"
+    minOrderAmount: "판매자/상품별 상이"
+    features:
+      - "B2B 도매 중개 마켓"
+      - "다양한 품목군 취급 (의류, 잡화, 가전, 생활용품, 식품 등)"
+      - "도매가 공급 / 대량구매 지원"
+      - "사업자회원 중심 / 일반 소비자도 일부 이용 가능"
+
   - id: epostmall
     name: "우체국쇼핑"
     nameEn: "ePOST Mall"
