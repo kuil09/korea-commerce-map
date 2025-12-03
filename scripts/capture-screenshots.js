@@ -72,14 +72,29 @@ async function capturePlatformScreenshot(browser, platform) {
   try {
     console.log(`📸 캡처 중: ${platform.name} (${platform.url})`);
     
-    // 페이지 로드 (최대 30초 대기)
-    await page.goto(platform.url, {
-      waitUntil: 'networkidle',
-      timeout: 30000
-    });
+    // 페이지 로드 - domcontentloaded 사용 (networkidle보다 안정적)
+    // 일부 사이트는 지속적인 네트워크 활동으로 인해 networkidle에 도달하지 못함
+    try {
+      await page.goto(platform.url, {
+        waitUntil: 'domcontentloaded',
+        timeout: 30000
+      });
+    } catch (firstError) {
+      // 첫 번째 시도 실패 시, 더 기본적인 commit 이벤트로 재시도
+      console.log(`⚠️ 첫 번째 로드 시도 실패 (${firstError.message.split('\n')[0]}), 재시도 중: ${platform.name}`);
+      try {
+        await page.goto(platform.url, {
+          waitUntil: 'commit',
+          timeout: 30000
+        });
+      } catch (secondError) {
+        // 두 번째 시도도 실패 - 원래 에러 메시지와 함께 throw
+        throw new Error(`페이지 로드 실패 (2회 시도): ${secondError.message}`);
+      }
+    }
     
     // 추가 대기 (동적 콘텐츠 로딩용)
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
     
     // 스크린샷 캡처
     await page.screenshot({
