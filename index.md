@@ -31,7 +31,8 @@
 
 | 파일 | 설명 |
 |---|---|
-| data/platforms.json | 플랫폼(커머스 서비스) 정보 (JSON) |
+| data/platforms.yaml | 플랫폼(커머스 서비스) 정보 (YAML) - 주요 데이터 소스 |
+| data/platforms.json | 플랫폼(커머스 서비스) 정보 (JSON) - YAML에서 자동 생성됨 |
 | data/categories.json | 카테고리 정보 |
 
 ## 면책조항 (Disclaimer)

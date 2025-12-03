@@ -7,13 +7,28 @@
 
 const fs = require('fs');
 const path = require('path');
+const { parseYAML } = require('./yaml-parser');
 
 // 경로 설정
 const ROOT_DIR = path.join(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const TEMPLATES_DIR = path.join(ROOT_DIR, 'templates');
 
-// 데이터 파일 로드
+// YAML 파일 로드
+function loadYAML(filename) {
+  const filepath = path.join(DATA_DIR, filename);
+  try {
+    const content = fs.readFileSync(filepath, 'utf8');
+    return parseYAML(content);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      throw new Error(`데이터 파일을 찾을 수 없습니다: ${filepath}`);
+    }
+    throw error;
+  }
+}
+
+// JSON 데이터 파일 로드
 function loadJSON(filename) {
   const filepath = path.join(DATA_DIR, filename);
   try {
@@ -188,9 +203,9 @@ function main() {
   try {
     console.log('🚀 llms.txt 생성 시작...');
     
-    // 데이터 로드
+    // 데이터 로드 (YAML에서 플랫폼 데이터 읽기)
     const categories = loadJSON('categories.json');
-    const platforms = loadJSON('platforms.json');
+    const platforms = loadYAML('platforms.yaml');
     
     console.log(`📦 ${categories.length}개의 카테고리 로드됨`);
     console.log(`📦 ${platforms.length}개의 플랫폼 로드됨`);
