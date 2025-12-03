@@ -1,0 +1,12 @@
+[
+  { "id": "grocery", "name": "식료품/마트", "nameEn": "Grocery", "icon": "🛒" },
+  { "id": "food-delivery", "name": "음식 배달", "nameEn": "Food Delivery", "icon": "🍔" },
+  { "id": "fashion", "name": "패션/의류", "nameEn": "Fashion", "icon": "👗" },
+  { "id": "electronics", "name": "가전/전자", "nameEn": "Electronics", "icon": "📱" },
+  { "id": "beauty", "name": "뷰티/화장품", "nameEn": "Beauty", "icon": "💄" },
+  { "id": "living", "name": "생활/가구", "nameEn": "Living/Furniture", "icon": "🛋️" },
+  { "id": "quick-commerce", "name": "퀵커머스", "nameEn": "Quick Commerce", "icon": "⚡" },
+  { "id": "general", "name": "종합쇼핑몰", "nameEn": "General Mall", "icon": "🏬" },
+  { "id": "fresh", "name": "신선식품", "nameEn": "Fresh Food", "icon": "🥬" },
+  { "id": "secondhand", "name": "중고거래", "nameEn": "Secondhand", "icon": "♻️" }
+]
