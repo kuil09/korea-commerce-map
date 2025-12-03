@@ -79,13 +79,18 @@ async function capturePlatformScreenshot(browser, platform) {
         waitUntil: 'domcontentloaded',
         timeout: 30000
       });
-    } catch (navigationError) {
+    } catch (firstError) {
       // 첫 번째 시도 실패 시, 더 기본적인 commit 이벤트로 재시도
-      console.log(`⚠️ 첫 번째 로드 시도 실패, 재시도 중: ${platform.name}`);
-      await page.goto(platform.url, {
-        waitUntil: 'commit',
-        timeout: 30000
-      });
+      console.log(`⚠️ 첫 번째 로드 시도 실패 (${firstError.message.split('\n')[0]}), 재시도 중: ${platform.name}`);
+      try {
+        await page.goto(platform.url, {
+          waitUntil: 'commit',
+          timeout: 30000
+        });
+      } catch (secondError) {
+        // 두 번째 시도도 실패 - 원래 에러 메시지와 함께 throw
+        throw new Error(`페이지 로드 실패 (2회 시도): ${secondError.message}`);
+      }
     }
     
     // 추가 대기 (동적 콘텐츠 로딩용)
