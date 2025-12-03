@@ -98,6 +98,7 @@ korea-commerce-map/
 - 로켓직송
 - 로켓프레시
 - 롯데마트 당일배송
+- 마트배송 / 산지직송
 - 매직배송 (당일매장배송)
 - 무신사 당일배송
 - 배민 라이더스
@@ -190,6 +191,7 @@ korea-commerce-map/
 
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
+| 농협몰 | Nonghyup Mall | https://www.nonghyupmall.com | 2~5일 (상품 및 지역에 따라 변동) |
 | 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
 | 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |
 | 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
