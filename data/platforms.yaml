@@ -10,8 +10,6 @@ platforms:
     url: "https://www.gmarket.co.kr"
     categories:
       - general
-      - electronics
-      - fashion
     deliveryMethods:
       - "판매자배송"
       - "스마일배송"
@@ -101,8 +99,6 @@ platforms:
     url: "https://www.11st.co.kr"
     categories:
       - general
-      - electronics
-      - fashion
     deliveryMethods:
       - "일반배송"
       - "로켓직송"
@@ -121,8 +117,6 @@ platforms:
     url: "https://www.auction.co.kr"
     categories:
       - general
-      - electronics
-      - fashion
     deliveryMethods:
       - "판매자배송"
       - "스마일배송"
@@ -140,7 +134,6 @@ platforms:
     url: "https://www.interpark.com"
     categories:
       - general
-      - electronics
     deliveryMethods:
       - "일반배송"
     deliveryTime: "2~5일"
@@ -157,9 +150,6 @@ platforms:
     url: "https://shopping.naver.com"
     categories:
       - general
-      - electronics
-      - fashion
-      - beauty
     deliveryMethods:
       - "스마트스토어 판매자배송"
       - "네이버 도착보장"
@@ -177,8 +167,6 @@ platforms:
     url: "https://www.coupang.com"
     categories:
       - general
-      - grocery
-      - fresh
     deliveryMethods:
       - "로켓배송"
       - "로켓프레시"
@@ -305,9 +293,6 @@ platforms:
     url: "https://www.ssg.com"
     categories:
       - general
-      - grocery
-      - fresh
-      - fashion
     deliveryMethods:
       - "쓱배송 (당일배송)"
       - "새벽배송"
@@ -326,8 +311,6 @@ platforms:
     url: "https://www.lotteon.com"
     categories:
       - general
-      - grocery
-      - fashion
     deliveryMethods:
       - "롯데마트 당일배송"
       - "새벽배송"
@@ -364,7 +347,6 @@ platforms:
     url: "https://www.costco.co.kr"
     categories:
       - general
-      - grocery
     deliveryMethods:
       - "일반배송"
     deliveryTime: "2~5일 (물류센터 배송)"
