@@ -14,3 +14,10 @@
 .vscode/
 *.swp
 *.swo
+
+# Screenshots (generated during CI)
+screenshots/
+
+# Node modules (only used for screenshot capture)
+node_modules/
+package-lock.json
