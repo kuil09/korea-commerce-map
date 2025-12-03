@@ -1,0 +1,55 @@
+# 대한민국 커머스 지도 (Korea Commerce Map)
+
+> 대한민국에 존재하는 커머스 서비스들의 특화 카테고리, 상호, 배송 수단, 배송 도착 보장 시간, 최소 주문 금액 등을 총 망라한 사이트입니다.
+
+이 사이트는 대한민국 온라인 쇼핑 서비스들을 한눈에 비교할 수 있도록 정보를 제공합니다.
+
+## 카테고리 (Categories)
+
+{{#each categories}}
+- {{name}} ({{nameEn}}): {{icon}}
+{{/each}}
+
+## 주요 서비스 목록 (Major Services)
+
+{{#each platformsByCategory}}
+### {{categoryName}}
+
+{{#each platforms}}
+- {{name}} ({{nameEn}}): {{url}} - {{deliveryTime}}
+{{/each}}
+
+{{/each}}
+
+## 데이터 구조 (Data Structure)
+
+각 서비스는 다음 정보를 포함합니다:
+- id: 고유 식별자
+- name: 한글 상호명
+- nameEn: 영문 상호명
+- description: 서비스 설명
+- logo: 로고 이미지 경로
+- url: 메인 페이지 링크
+- categories: 특화 카테고리 목록
+- deliveryMethods: 배송 수단 목록
+- deliveryTime: 배송 도착 보장 시간
+- minOrderAmount: 최소 주문 금액
+- features: 주요 특징/서비스
+
+## 기술 정보 (Technical Information)
+
+이 사이트는 순수 HTML, CSS, JavaScript로 구성된 정적 웹사이트입니다.
+별도의 빌드 과정 없이 GitHub Pages에 직접 배포됩니다.
+모든 데이터는 JSON 파일로 관리됩니다:
+- data/categories.json: 카테고리 정보
+- data/platforms.json: 플랫폼(커머스 서비스) 정보
+
+## 연락처 (Contact)
+
+- GitHub: https://github.com/kuil09/korea-commerce-map
+- 이슈/기여: GitHub Issues 및 Pull Requests 환영
+
+## 면책조항 (Disclaimer)
+
+이 사이트의 정보는 참고용으로 제공되며, 실제 서비스 내용은 각 커머스 사이트에서 확인하시기 바랍니다.
+정보의 정확성을 보장하지 않으며, 변경될 수 있습니다.

@@ -6,76 +6,144 @@
 
 ## 카테고리 (Categories)
 
-- 식료품/마트 (Grocery): 일반 식료품 및 마트 상품
-- 음식 배달 (Food Delivery): 음식 배달 서비스
-- 패션/의류 (Fashion): 의류 및 패션 아이템
-- 가전/전자 (Electronics): 가전제품 및 전자기기
-- 뷰티/화장품 (Beauty): 화장품 및 뷰티 제품
-- 생활/가구 (Living/Furniture): 가구 및 생활용품
-- 퀵커머스 (Quick Commerce): 즉시 배송 서비스
-- 종합쇼핑몰 (General Mall): 다양한 상품을 취급하는 종합몰
-- 신선식품 (Fresh Food): 신선한 농수산물
-- 중고거래 (Secondhand): 중고 물품 거래
+
+- 식료품/마트 (Grocery): 🛒
+
+- 음식 배달 (Food Delivery): 🍔
+
+- 패션/의류 (Fashion): 👗
+
+- 가전/전자 (Electronics): 📱
+
+- 뷰티/화장품 (Beauty): 💄
+
+- 생활/가구 (Living/Furniture): 🛋️
+
+- 퀵커머스 (Quick Commerce): ⚡
+
+- 종합쇼핑몰 (General Mall): 🏬
+
+- 신선식품 (Fresh Food): 🥬
+
+- 중고거래 (Secondhand): ♻️
+
 
 ## 주요 서비스 목록 (Major Services)
 
+
 ### 종합쇼핑몰
 
-- 쿠팡 (Coupang): https://www.coupang.com - 로켓배송, 로켓프레시, 당일~익일 배송
-- G마켓 (Gmarket): https://www.gmarket.co.kr - 스마일배송, 2~5일 배송
-- 11번가 (11st): https://www.11st.co.kr - 아마존 글로벌 스토어, 슈팅배송
-- 옥션 (Auction): https://www.auction.co.kr - 오픈마켓, 스마일배송
-- 인터파크 (Interpark): https://www.interpark.com - 공연/티켓 예매 포함
-- 네이버 쇼핑 (Naver Shopping): https://shopping.naver.com - 가격비교, 스마트스토어
-- SSG닷컴: https://www.ssg.com - 이마트/신세계 통합, 새벽배송
-- 롯데ON: https://www.lotteon.com - 롯데 그룹 통합몰
-- 티몬 (TMON): https://www.tmon.co.kr - 타임특가
-- 위메프 (WeMakePrice): https://www.wemakeprice.com - 특가 전문
 
-### 퀵커머스/새벽배송
+- 쿠팡 (Coupang): https://www.coupang.com - 당일~익일 (로켓배송)
 
-- 마켓컬리 (Market Kurly): https://www.kurly.com - 새벽배송 선구자, 샛별배송
-- B마트: https://www.baemin.com - 30분~1시간 즉시배송
-- 오아시스마켓 (Oasis Market): https://www.oasis.co.kr - 친환경 유기농 새벽배송
-- 홈플러스 온라인: https://front.homeplus.co.kr - 당일/새벽배송
+- G마켓 (Gmarket): https://www.gmarket.co.kr - 2~5일
+
+- 11번가 (11st): https://www.11st.co.kr - 2~4일
+
+- 옥션 (Auction): https://www.auction.co.kr - 2~5일
+
+- 인터파크 (Interpark): https://www.interpark.com - 2~5일
+
+- 네이버 쇼핑 (Naver Shopping): https://shopping.naver.com - 판매자별 상이
+
+- 티몬 (TMON): https://www.tmon.co.kr - 2~5일
+
+- 위메프 (WeMakePrice): https://www.wemakeprice.com - 2~5일
+
+- SSG닷컴 (SSG.com): https://www.ssg.com - 당일~익일
+
+- 롯데ON (Lotte ON): https://www.lotteon.com - 당일~익일
+
+
+
+### 퀵커머스
+
+
+- 마켓컬리 (Market Kurly): https://www.kurly.com - 당일 주문 시 익일 새벽 도착
+
+- B마트 (B-Mart): https://www.baemin.com - 30분~1시간 이내
+
+- 배달의민족 (Baemin): https://www.baemin.com - 30분~1시간
+
+- 오아시스마켓 (Oasis Market): https://www.oasis.co.kr - 익일 새벽 도착
+
+
+
+### 신선식품
+
+
+- 홈플러스 온라인 (Homeplus Online): https://front.homeplus.co.kr - 당일~익일 새벽
+
+
 
 ### 음식 배달
 
-- 배달의민족 (Baemin): https://www.baemin.com - 배민배달, 배민1
-- 쿠팡이츠 (Coupang Eats): https://www.coupangeats.com - 단건배달
-- 요기요 (Yogiyo): https://www.yogiyo.co.kr - 슈퍼클럽, 요마트
 
-### 패션
+- 쿠팡이츠 (Coupang Eats): https://www.coupangeats.com - 30분~1시간
 
-- 무신사 (Musinsa): https://www.musinsa.com - 최대 패션 스토어
-- 에이블리 (Ably): https://m.a-bly.com - 2030 여성 패션
-- 지그재그 (Zigzag): https://www.zigzag.kr - 직진배송, 동대문 쇼핑
-- 브랜디 (Brandi): https://www.brandi.co.kr - 하루배송
-- W컨셉 (W Concept): https://www.wconcept.co.kr - 프리미엄 디자이너
-- 29CM: https://www.29cm.co.kr - 감도 높은 취향, 셀렉트샵
+- 요기요 (Yogiyo): https://www.yogiyo.co.kr - 30분~1시간
 
-### 뷰티
 
-- 올리브영 (Olive Young): https://www.oliveyoung.co.kr - H&B 스토어, 오늘드림 3시간 배송
-- 세포라 (Sephora): https://www.sephora.co.kr - 글로벌 프리미엄 뷰티
+
+### 패션/의류
+
+
+- 무신사 (Musinsa): https://www.musinsa.com - 1~3일
+
+- 에이블리 (Ably): https://m.a-bly.com - 2~5일
+
+- 지그재그 (Zigzag): https://www.zigzag.kr - 2~4일 (직진배송 익일)
+
+- 브랜디 (Brandi): https://www.brandi.co.kr - 익일~3일
+
+- W컨셉 (W Concept): https://www.wconcept.co.kr - 2~4일
+
+- 29CM (29CM): https://www.29cm.co.kr - 2~4일
+
+
+
+### 뷰티/화장품
+
+
+- 올리브영 (Olive Young): https://www.oliveyoung.co.kr - 오늘드림 3시간, 일반 2~3일
+
+- 세포라 (Sephora): https://www.sephora.co.kr - 2~4일
+
+
 
 ### 가전/전자
 
-- 하이마트 (Himart): https://www.e-himart.co.kr - 가전 전문, 설치배송
-- 삼성닷컴 (Samsung.com): https://www.samsung.com/sec - 삼성 공식몰
-- LG전자 베스트샵: https://www.lge.co.kr - LG 공식몰
+
+- 하이마트 (Himart): https://www.e-himart.co.kr - 2~7일 (설치 예약 필요)
+
+- 삼성닷컴 (Samsung.com): https://www.samsung.com/sec - 2~7일
+
+- LG전자 베스트샵 (LG Best Shop): https://www.lge.co.kr - 2~7일
+
+
 
 ### 생활/가구
 
-- 이케아 (IKEA): https://www.ikea.com/kr - 글로벌 가구 브랜드
-- 한샘몰 (Hanssem Mall): https://mall.hanssem.com - 국내 인테리어 브랜드
-- 오늘의집 (Ohouse): https://ohou.se - 인테리어 플랫폼, 시공 서비스
+
+- 이케아 (IKEA): https://www.ikea.com/kr - 2~7일 (지역별 상이)
+
+- 한샘몰 (Hanssem Mall): https://mall.hanssem.com - 상품별 상이
+
+- 오늘의집 (Ohouse): https://ohou.se - 상품별 상이
+
+
 
 ### 중고거래
 
-- 당근마켓 (Karrot): https://www.daangn.com - 동네 기반 중고거래
-- 번개장터 (Bungae Jangter): https://www.bunjang.co.kr - 번개페이 안전거래
-- 중고나라 (Joongonara): https://cafe.naver.com/joonggonara - 네이버 카페 기반
+
+- 당근마켓 (Karrot): https://www.daangn.com - 판매자 협의
+
+- 번개장터 (Bungae Jangter): https://www.bunjang.co.kr - 판매자 협의
+
+- 중고나라 (Joongonara): https://cafe.naver.com/joonggonara - 판매자 협의
+
+
+
 
 ## 데이터 구조 (Data Structure)
 
@@ -96,7 +164,9 @@
 
 이 사이트는 순수 HTML, CSS, JavaScript로 구성된 정적 웹사이트입니다.
 별도의 빌드 과정 없이 GitHub Pages에 직접 배포됩니다.
-모든 데이터는 index.html 파일 내의 JavaScript에 포함되어 있습니다.
+모든 데이터는 JSON 파일로 관리됩니다:
+- data/categories.json: 카테고리 정보
+- data/platforms.json: 플랫폼(커머스 서비스) 정보
 
 ## 연락처 (Contact)
 
