@@ -159,6 +159,35 @@
       margin-top: 1.5rem;
     }
 
+    /* Sticky Filters Container */
+    .sticky-filters {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--zinc-50);
+      padding: 1rem 0;
+      margin: -1rem 0 0 0;
+    }
+
+    .sticky-filters.scrolled {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .sticky-filters {
+        background-color: var(--zinc-950);
+      }
+      .sticky-filters.scrolled {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .sticky-filters-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     /* Search Bar */
     .search-container {
       position: relative;
@@ -737,24 +766,28 @@
     <main>
       <div class="main-container">
         <div class="space-y-6">
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="서비스 이름, 특징으로 검색..."
-              class="search-input"
-            >
-            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </div>
+          <div id="stickyFilters" class="sticky-filters">
+            <div class="sticky-filters-content">
+              <div class="search-container">
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="서비스 이름, 특징으로 검색..."
+                  class="search-input"
+                >
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
 
-          <div id="categoryFilter" class="category-filter"></div>
+              <div id="categoryFilter" class="category-filter"></div>
 
-          <div class="filter-section">
-            <button id="fastDeliveryFilter" class="filter-toggle" aria-pressed="false" aria-label="빠른 배송 필터 (당일에서 1일 이내 배송)">
-              ⚡ 빠른 배송 (당일~1일)
-            </button>
+              <div class="filter-section">
+                <button id="fastDeliveryFilter" class="filter-toggle" aria-pressed="false" aria-label="빠른 배송 필터 (당일에서 1일 이내 배송)">
+                  ⚡ 빠른 배송 (당일~1일)
+                </button>
+              </div>
+            </div>
           </div>
 
           <div id="serviceCount" class="service-count"></div>
@@ -1117,6 +1150,16 @@
         fastDeliveryBtn.addEventListener('click', () => {
           fastDeliveryOnly = !fastDeliveryOnly;
           render();
+        });
+
+        // Sticky filters scroll shadow handler
+        const stickyFilters = document.getElementById('stickyFilters');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 10) {
+            stickyFilters.classList.add('scrolled');
+          } else {
+            stickyFilters.classList.remove('scrolled');
+          }
         });
       } else {
         document.getElementById("servicesContainer").innerHTML = 
