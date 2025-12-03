@@ -131,21 +131,24 @@ function renderTemplate(template, data) {
   result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
   
   // 여러 개의 {{#each categories}} 블록 처리
-  while (result.includes('{{#each categories}}')) {
+  // Safety counter to prevent infinite loop
+  const MAX_ITERATIONS = 100;
+  let iterations = 0;
+  while (result.includes('{{#each categories}}') && iterations < MAX_ITERATIONS) {
+    iterations++;
     const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
-    if (categoriesBlock) {
-      const rendered = data.categories.map(category => {
-        let itemContent = categoriesBlock.content;
-        itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
-        itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
-        itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
-        itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
-        return itemContent;
-      }).join('');
-      result = result.replace(categoriesBlock.fullMatch, rendered);
-    } else {
+    if (!categoriesBlock) {
       break;
     }
+    const rendered = data.categories.map(category => {
+      let itemContent = categoriesBlock.content;
+      itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
+      itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
+      itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
+      itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
+      return itemContent;
+    }).join('');
+    result = result.replace(categoriesBlock.fullMatch, rendered);
   }
   
   // {{#each platformsByCategory}} ... {{/each}} 처리 (중첩된 each 포함)
