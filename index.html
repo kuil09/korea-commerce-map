@@ -259,8 +259,9 @@
       }
 
       .collapsible-filters.expanded {
-        max-height: 1000px;
+        max-height: 500px;
         opacity: 1;
+        overflow-y: auto;
       }
 
       .collapsible-filters-content {
@@ -278,9 +279,12 @@
 
     /* Show desktop filters only on larger screens */
     @media (min-width: 640px) {
-      .collapsible-filters,
+      .collapsible-filters {
+        display: none;
+      }
+      
       .filter-toggle-header {
-        display: none !important;
+        display: none;
       }
 
       .desktop-filters {
@@ -944,12 +948,12 @@
               <!-- Mobile Filter Toggle Header -->
               <div class="filter-toggle-header">
                 <button id="filterToggleBtn" class="filter-toggle-btn" aria-expanded="false" aria-controls="collapsibleFilters">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                   </svg>
                   필터
                   <span id="activeFilterBadge" class="filter-badge hidden">0</span>
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
@@ -1370,7 +1374,10 @@
       const collapsibleFilters = document.getElementById('collapsibleFilters');
       const toggleBtn = document.getElementById('filterToggleBtn');
       
-      if (!collapsibleFilters || !toggleBtn) return;
+      if (!collapsibleFilters || !toggleBtn) {
+        console.warn('Mobile filter toggle elements not found');
+        return;
+      }
       
       const isExpanded = collapsibleFilters.classList.contains('expanded');
       
