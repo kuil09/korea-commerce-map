@@ -1,17 +1,5 @@
 [
   {
-    "id": "coupang",
-    "name": "쿠팡",
-    "nameEn": "Coupang",
-    "description": "대한민국 최대 이커머스 플랫폼. 로켓배송, 로켓프레시 등 빠른 배송 서비스 제공",
-    "url": "https://www.coupang.com",
-    "categories": ["general", "grocery", "electronics", "fashion", "fresh"],
-    "deliveryMethods": ["로켓배송", "로켓프레시", "로켓직구", "판매자배송"],
-    "deliveryTime": "당일~익일 (로켓배송)",
-    "minOrderAmount": "무료배송 기준 있음",
-    "features": ["로켓와우 멤버십", "쿠팡플레이", "로켓프레시"]
-  },
-  {
     "id": "gmarket",
     "name": "G마켓",
     "nameEn": "Gmarket",
@@ -70,30 +58,6 @@
     "deliveryTime": "판매자별 상이",
     "minOrderAmount": "판매자별 상이",
     "features": ["네이버페이", "찜한상품 알림", "리뷰 기반 추천"]
-  },
-  {
-    "id": "tmon",
-    "name": "티몬",
-    "nameEn": "TMON",
-    "description": "소셜커머스에서 시작한 종합쇼핑몰",
-    "url": "https://www.tmon.co.kr",
-    "categories": ["general", "fashion", "beauty"],
-    "deliveryMethods": ["일반배송", "슈퍼마트"],
-    "deliveryTime": "2~5일",
-    "minOrderAmount": "상품별 상이",
-    "features": ["타임특가", "슈퍼마트", "여행/레저"]
-  },
-  {
-    "id": "wemakeprice",
-    "name": "위메프",
-    "nameEn": "WeMakePrice",
-    "description": "특가 상품과 할인에 강점이 있는 쇼핑 플랫폼",
-    "url": "https://www.wemakeprice.com",
-    "categories": ["general", "fashion", "beauty"],
-    "deliveryMethods": ["일반배송"],
-    "deliveryTime": "2~5일",
-    "minOrderAmount": "상품별 상이",
-    "features": ["특가", "포인트 적립", "여행/레저"]
   },
   {
     "id": "kurly",
