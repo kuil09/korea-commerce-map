@@ -62,6 +62,7 @@ platforms:
     url: "https://direct.maeil.com"
     categories:
       - fresh
+      - kids      
       - grocery
     deliveryMethods:
       - "냉장배송"
