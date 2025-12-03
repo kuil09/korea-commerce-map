@@ -114,13 +114,32 @@ function findMatchingEachBlock(str, startTag) {
   return null;
 }
 
+// 배송 수단 목록 추출
+function extractDeliveryMethods(platforms) {
+  const methods = new Set();
+  platforms.forEach(p => p.deliveryMethods.forEach(d => methods.add(d)));
+  return Array.from(methods).sort();
+}
+
 // 간단한 템플릿 렌더링
 function renderTemplate(template, data) {
   let result = template;
   
-  // {{#each categories}} ... {{/each}} 처리
-  const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
-  if (categoriesBlock) {
+  // {{deliveryMethodsList}} 처리 (단순 변수 치환)
+  const deliveryMethods = extractDeliveryMethods(data.platforms);
+  const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
+  result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+  
+  // 여러 개의 {{#each categories}} 블록 처리
+  // Safety counter to prevent infinite loop
+  const MAX_ITERATIONS = 100;
+  let iterations = 0;
+  while (result.includes('{{#each categories}}') && iterations < MAX_ITERATIONS) {
+    iterations++;
+    const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
+    if (!categoriesBlock) {
+      break;
+    }
     const rendered = data.categories.map(category => {
       let itemContent = categoriesBlock.content;
       itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);

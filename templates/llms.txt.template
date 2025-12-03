@@ -4,52 +4,159 @@
 
 이 사이트는 대한민국 온라인 쇼핑 서비스들을 한눈에 비교할 수 있도록 정보를 제공합니다.
 
-## 카테고리 (Categories)
+## Site Map (사이트 구조)
 
-{{#each categories}}
-- {{name}} ({{nameEn}}): {{icon}}
+```
+korea-commerce-map/
+├── index.html           # 메인 페이지 (웹 UI)
+├── index.md             # 메인 페이지 (LLM용 Markdown 버전)
+├── llms.txt             # LLM용 사이트 설명서
+├── llms-ctx-full.txt    # LLM용 전체 데이터 포함 확장 context
+├── data/
+│   ├── categories.json  # 카테고리 정의
+│   ├── platforms.json   # 플랫폼 데이터 (JSON)
+│   └── platforms.yaml   # 플랫폼 데이터 (YAML)
+├── scripts/
+│   └── generate-llms.js # llms.txt 생성 스크립트
+└── templates/
+    └── llms.txt.template # llms.txt 템플릿
+```
+
+## File List (데이터 파일 목록)
+
+| 파일 경로 | 형식 | 설명 |
+|---|---|---|
+| data/categories.json | JSON | 카테고리 정의 (id, name, nameEn, icon) |
+| data/platforms.json | JSON | 플랫폼(커머스 서비스) 전체 데이터 |
+| data/platforms.yaml | YAML | 플랫폼 데이터 (JSON 대체용) |
+| index.md | Markdown | 메인 페이지 LLM-friendly 버전 |
+| llms-ctx-full.txt | Text | 확장 context (전체 데이터 포함) |
+
+## Data Schema (데이터 스키마)
+
+### Category Schema
+
+```json
+{
+  "id": "string (unique identifier, e.g., 'grocery', 'fashion')",
+  "name": "string (Korean name, e.g., '식료품/마트')",
+  "nameEn": "string (English name, e.g., 'Grocery')",
+  "icon": "string (emoji icon, e.g., '🛒')"
+}
+```
+
+### Platform Schema
+
+```json
+{
+  "id": "string (unique identifier, e.g., 'kurly', 'coupang')",
+  "name": "string (Korean name, e.g., '마켓컬리')",
+  "nameEn": "string (English name, e.g., 'Market Kurly')",
+  "description": "string (service description)",
+  "url": "string (main page URL)",
+  "categories": ["string (category IDs from categories.json)"],
+  "deliveryMethods": ["string (delivery method names)"],
+  "deliveryTime": "string (delivery time description)",
+  "minOrderAmount": "string (minimum order amount)",
+  "features": ["string (key features/services)"]
+}
+```
+
+## Vocabulary (정규화된 용어)
+
+### Categories (카테고리 ID)
+
+| ID | 한글명 | 영문명 |
+|---|---|---|
+{{#each categories}}| {{id}} | {{name}} | {{nameEn}} |
 {{/each}}
 
-## 주요 서비스 목록 (Major Services)
+### Delivery Methods (배송 수단)
+
+{{deliveryMethodsList}}
+
+## Categories (카테고리)
+
+| ID | 한글명 | 영문명 | 아이콘 |
+|---|---|---|---|
+{{#each categories}}| {{id}} | {{name}} | {{nameEn}} | {{icon}} |
+{{/each}}
+
+## Major Services (주요 서비스 목록)
+
+전체 플랫폼 목록은 다음 파일에서 확인할 수 있습니다:
+- JSON: data/platforms.json
+- YAML: data/platforms.yaml
+- 전체 context: llms-ctx-full.txt
 
 {{#each platformsByCategory}}
 ### {{categoryName}}
 
-{{#each platforms}}
-- {{name}} ({{nameEn}}): {{url}} - {{deliveryTime}}
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+{{#each platforms}}| {{name}} | {{nameEn}} | {{url}} | {{deliveryTime}} |
 {{/each}}
 
 {{/each}}
 
-## 데이터 구조 (Data Structure)
+## Usage Notes for LLMs (LLM 사용 안내)
 
-각 서비스는 다음 정보를 포함합니다:
-- id: 고유 식별자
-- name: 한글 상호명
-- nameEn: 영문 상호명
-- description: 서비스 설명
-- logo: 로고 이미지 경로
-- url: 메인 페이지 링크
-- categories: 특화 카테고리 목록
-- deliveryMethods: 배송 수단 목록
-- deliveryTime: 배송 도착 보장 시간
-- minOrderAmount: 최소 주문 금액
-- features: 주요 특징/서비스
+### 자주 수행되는 작업
 
-## 기술 정보 (Technical Information)
+1. **카테고리별 서비스 그룹핑**
+   - `platforms.json`의 각 서비스에서 `categories` 배열을 기준으로 그룹화
+   - 하나의 서비스가 여러 카테고리에 속할 수 있음
+
+2. **배송 속도 비교**
+   - `deliveryTime` 필드를 파싱하여 비교
+   - 속도 순서: "30분~1시간" < "당일" < "익일" < "2~3일" < "2~7일"
+
+3. **최소 주문 금액 비교**
+   - `minOrderAmount` 필드 파싱
+   - "없음" = 0원, 숫자 추출 필요
+
+4. **배송 방식 필터링**
+   - `deliveryMethods` 배열에서 특정 배송 방식 포함 여부 확인
+   - 예: "새벽배송" 포함 서비스 필터링
+
+5. **특징 기반 검색**
+   - `features` 배열에서 키워드 매칭
+
+### 배송 속도 정규화 가이드
+
+| 패턴 | 의미 | 예상 시간(시간) |
+|---|---|---|
+| "30분~1시간" | 즉시배송 | 0.5-1 |
+| "3시간" | 오늘드림 | 3 |
+| "당일" | 당일배송 | 12 |
+| "익일", "새벽" | 다음날 도착 | 24 |
+| "1~3일" | 일반배송 | 24-72 |
+| "2~5일" | 오픈마켓 | 48-120 |
+| "2~7일" | 가전/가구 | 48-168 |
+| "판매자별 상이" | 가변적 | - |
+
+## Optional (확장 파일)
+
+전체 데이터를 한 번에 로드해야 하는 경우:
+- **llms-ctx-full.txt**: 전체 데이터 구조, 스키마, 플랫폼 JSON 데이터 포함
+
+JSON 파싱이 불안정한 환경에서:
+- **data/platforms.yaml**: YAML 형식의 플랫폼 데이터
+
+LLM-friendly 메인 페이지:
+- **index.md**: HTML 대신 Markdown 구조로 제공
+
+## Technical Information (기술 정보)
 
 이 사이트는 순수 HTML, CSS, JavaScript로 구성된 정적 웹사이트입니다.
 별도의 빌드 과정 없이 GitHub Pages에 직접 배포됩니다.
-모든 데이터는 JSON 파일로 관리됩니다:
-- data/categories.json: 카테고리 정보
-- data/platforms.json: 플랫폼(커머스 서비스) 정보
 
-## 연락처 (Contact)
+## Contact (연락처)
 
 - GitHub: https://github.com/kuil09/korea-commerce-map
 - 이슈/기여: GitHub Issues 및 Pull Requests 환영
 
-## 면책조항 (Disclaimer)
+## Disclaimer (면책조항)
 
 이 사이트의 정보는 참고용으로 제공되며, 실제 서비스 내용은 각 커머스 사이트에서 확인하시기 바랍니다.
 정보의 정확성을 보장하지 않으며, 변경될 수 있습니다.
