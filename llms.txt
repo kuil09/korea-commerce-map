@@ -100,7 +100,6 @@ korea-commerce-map/
 - 롯데마트 당일배송
 - 매직배송 (당일매장배송)
 - 무신사 당일배송
-- 바로배달 (1시간)
 - 배민 라이더스
 - 번개택배
 - 새벽배송
@@ -111,7 +110,6 @@ korea-commerce-map/
 - 스마트스토어 판매자배송
 - 쓱배송 (당일배송)
 - 안전결제(번개페이)
-- 예약배송
 - 오늘도착 (당일배송)
 - 오늘드림 (당일 3시간 배송)
 - 요기요 익스프레스
@@ -185,7 +183,6 @@ korea-commerce-map/
 | B마트 | B-Mart | https://www.baemin.com | 주문 후 30분~1시간 이내 도착 |
 | 배달의민족 | Baemin | https://www.baemin.com | 주문 후 평균 30~60분 |
 | 오아시스마켓 | Oasis Market | https://www.oasis.co.kr | 밤 10시 이전 주문 시 익일 새벽 도착 |
-| GS프레시몰 | GS Fresh Mall | https://m.gsfresh.com | 주문 1시간 내 또는 지정일 배송 |
 
 
 
