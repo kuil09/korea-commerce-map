@@ -136,11 +136,18 @@ function extractDeliveryMethods(platforms) {
   return Array.from(methods).sort();
 }
 
-// 공통 템플릿 변수 치환: deliveryMethodsList
+// 배송 수단 목록을 생성하고 템플릿에 삽입
 function replaceDeliveryMethodsList(template, platforms) {
   const deliveryMethods = extractDeliveryMethods(platforms);
   const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
   return template.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+}
+
+// JSON 데이터를 템플릿 플레이스홀더에 삽입
+function replaceJsonPlaceholder(template, placeholder, data) {
+  const jsonStr = JSON.stringify(data, null, 2);
+  const regex = new RegExp(`\\{\\{${placeholder}\\}\\}`, 'g');
+  return template.replace(regex, jsonStr);
 }
 
 // 공통 템플릿 블록 처리: {{#each categories}}
@@ -218,13 +225,9 @@ function renderFullContextTemplate(template, data) {
   // {{deliveryMethodsList}} 처리 (공통 함수 사용)
   result = replaceDeliveryMethodsList(result, data.platforms);
   
-  // {{categoriesJson}} 처리 - JSON 형식으로 카테고리 데이터 삽입
-  const categoriesJson = JSON.stringify(data.categories, null, 2);
-  result = result.replace(/\{\{categoriesJson\}\}/g, categoriesJson);
-  
-  // {{platformsJson}} 처리 - JSON 형식으로 플랫폼 데이터 삽입
-  const platformsJson = JSON.stringify(data.platforms, null, 2);
-  result = result.replace(/\{\{platformsJson\}\}/g, platformsJson);
+  // JSON 데이터 플레이스홀더 처리
+  result = replaceJsonPlaceholder(result, 'categoriesJson', data.categories);
+  result = replaceJsonPlaceholder(result, 'platformsJson', data.platforms);
   
   // {{#each categories}} 블록 처리 (공통 함수 사용)
   result = processCategoriesBlocks(result, data.categories);
