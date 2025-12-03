@@ -114,22 +114,38 @@ function findMatchingEachBlock(str, startTag) {
   return null;
 }
 
+// 배송 수단 목록 추출
+function extractDeliveryMethods(platforms) {
+  const methods = new Set();
+  platforms.forEach(p => p.deliveryMethods.forEach(d => methods.add(d)));
+  return Array.from(methods).sort();
+}
+
 // 간단한 템플릿 렌더링
 function renderTemplate(template, data) {
   let result = template;
   
-  // {{#each categories}} ... {{/each}} 처리
-  const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
-  if (categoriesBlock) {
-    const rendered = data.categories.map(category => {
-      let itemContent = categoriesBlock.content;
-      itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
-      itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
-      itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
-      itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
-      return itemContent;
-    }).join('');
-    result = result.replace(categoriesBlock.fullMatch, rendered);
+  // {{deliveryMethodsList}} 처리 (단순 변수 치환)
+  const deliveryMethods = extractDeliveryMethods(data.platforms);
+  const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
+  result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+  
+  // 여러 개의 {{#each categories}} 블록 처리
+  while (result.includes('{{#each categories}}')) {
+    const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
+    if (categoriesBlock) {
+      const rendered = data.categories.map(category => {
+        let itemContent = categoriesBlock.content;
+        itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
+        itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
+        itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
+        itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
+        return itemContent;
+      }).join('');
+      result = result.replace(categoriesBlock.fullMatch, rendered);
+    } else {
+      break;
+    }
   }
   
   // {{#each platformsByCategory}} ... {{/each}} 처리 (중첩된 each 포함)

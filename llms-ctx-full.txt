@@ -1,0 +1,832 @@
+# 대한민국 커머스 지도 - 확장 Context (Full Context)
+
+> 이 파일은 LLM이 전체 데이터 구조를 한 번에 로드할 수 있도록 설계되었습니다.
+
+## Site Structure (사이트 구조)
+
+```
+korea-commerce-map/
+├── index.html        # 메인 페이지 (웹 UI)
+├── index.md          # 메인 페이지 (LLM용 Markdown 버전)
+├── llms.txt          # LLM용 사이트 설명서
+├── llms-ctx-full.txt # LLM용 전체 데이터 포함 확장 context
+├── data/
+│   ├── categories.json  # 카테고리 정의
+│   ├── platforms.json   # 플랫폼 데이터 (JSON)
+│   └── platforms.yaml   # 플랫폼 데이터 (YAML)
+├── scripts/
+│   └── generate-llms.js # llms.txt 생성 스크립트
+└── templates/
+    └── llms.txt.template # llms.txt 템플릿
+```
+
+## Data Schema (데이터 스키마)
+
+### Category Schema
+
+```json
+{
+  "id": "string (unique identifier)",
+  "name": "string (Korean name)",
+  "nameEn": "string (English name)",
+  "icon": "string (emoji icon)"
+}
+```
+
+### Platform Schema
+
+```json
+{
+  "id": "string (unique identifier)",
+  "name": "string (Korean name)",
+  "nameEn": "string (English name)",
+  "description": "string (service description)",
+  "url": "string (main page URL)",
+  "categories": "string[] (category IDs)",
+  "deliveryMethods": "string[] (delivery method names)",
+  "deliveryTime": "string (delivery time description)",
+  "minOrderAmount": "string (minimum order amount)",
+  "features": "string[] (key features)"
+}
+```
+
+## Vocabulary (정규화된 용어)
+
+### Category IDs
+
+| ID | 한글명 | 영문명 |
+|---|---|---|
+| grocery | 식료품/마트 | Grocery |
+| food-delivery | 음식 배달 | Food Delivery |
+| fashion | 패션/의류 | Fashion |
+| electronics | 가전/전자 | Electronics |
+| beauty | 뷰티/화장품 | Beauty |
+| living | 생활/가구 | Living/Furniture |
+| quick-commerce | 퀵커머스 | Quick Commerce |
+| general | 종합쇼핑몰 | General Mall |
+| fresh | 신선식품 | Fresh Food |
+| secondhand | 중고거래 | Secondhand |
+
+### Delivery Methods (배송 수단)
+
+- 가게배달
+- 낮배송
+- 네이버 도착보장
+- 단건배달
+- 당일배송
+- 로켓직송
+- 롯데배송
+- 무신사 익일배송
+- 배민배달
+- 번개페이 안전거래
+- 새벽배송
+- 샛별배송 (새벽배송)
+- 설치배송
+- 스마일배송
+- 스마트스토어 판매자배송
+- 쓱배송
+- 오늘드림 (3시간 배송)
+- 요기요 배달
+- 음식점 배달
+- 일반배송
+- 즉시배송
+- 직거래
+- 직진배송
+- 택배거래
+- 택배배송
+- 트럭배송
+- 판매자배송
+- 편의점택배
+- 포장
+- 하루배송
+
+## Full Platform Data (전체 플랫폼 데이터)
+
+### Categories (categories.json)
+
+```json
+[
+  {
+    "id": "grocery",
+    "name": "식료품/마트",
+    "nameEn": "Grocery",
+    "icon": "🛒"
+  },
+  {
+    "id": "food-delivery",
+    "name": "음식 배달",
+    "nameEn": "Food Delivery",
+    "icon": "🍔"
+  },
+  {
+    "id": "fashion",
+    "name": "패션/의류",
+    "nameEn": "Fashion",
+    "icon": "👗"
+  },
+  {
+    "id": "electronics",
+    "name": "가전/전자",
+    "nameEn": "Electronics",
+    "icon": "📱"
+  },
+  {
+    "id": "beauty",
+    "name": "뷰티/화장품",
+    "nameEn": "Beauty",
+    "icon": "💄"
+  },
+  {
+    "id": "living",
+    "name": "생활/가구",
+    "nameEn": "Living/Furniture",
+    "icon": "🛋️"
+  },
+  {
+    "id": "quick-commerce",
+    "name": "퀵커머스",
+    "nameEn": "Quick Commerce",
+    "icon": "⚡"
+  },
+  {
+    "id": "general",
+    "name": "종합쇼핑몰",
+    "nameEn": "General Mall",
+    "icon": "🏬"
+  },
+  {
+    "id": "fresh",
+    "name": "신선식품",
+    "nameEn": "Fresh Food",
+    "icon": "🥬"
+  },
+  {
+    "id": "secondhand",
+    "name": "중고거래",
+    "nameEn": "Secondhand",
+    "icon": "♻️"
+  }
+]
+```
+
+### Platforms (platforms.json)
+
+```json
+[
+  {
+    "id": "gmarket",
+    "name": "G마켓",
+    "nameEn": "Gmarket",
+    "description": "국내 대표 오픈마켓. 다양한 판매자의 상품을 비교하고 구매 가능",
+    "url": "https://www.gmarket.co.kr",
+    "categories": [
+      "general",
+      "electronics",
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "판매자배송",
+      "스마일배송"
+    ],
+    "deliveryTime": "2~5일",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "스마일클럽",
+      "스마일배송",
+      "G마켓 라이브"
+    ]
+  },
+  {
+    "id": "11st",
+    "name": "11번가",
+    "nameEn": "11st",
+    "description": "SK 그룹 계열 종합쇼핑몰. 아마존 글로벌 스토어 운영",
+    "url": "https://www.11st.co.kr",
+    "categories": [
+      "general",
+      "electronics",
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "로켓직송",
+      "새벽배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "무료배송 기준 있음",
+    "features": [
+      "아마존 글로벌 스토어",
+      "슈팅배송",
+      "11번가 라이브"
+    ]
+  },
+  {
+    "id": "auction",
+    "name": "옥션",
+    "nameEn": "Auction",
+    "description": "대한민국 최초의 온라인 경매 사이트. 현재는 오픈마켓으로 운영",
+    "url": "https://www.auction.co.kr",
+    "categories": [
+      "general",
+      "electronics",
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "판매자배송",
+      "스마일배송"
+    ],
+    "deliveryTime": "2~5일",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "스마일클럽",
+      "올킬",
+      "옥션라이브"
+    ]
+  },
+  {
+    "id": "interpark",
+    "name": "인터파크",
+    "nameEn": "Interpark",
+    "description": "공연, 티켓, 쇼핑을 아우르는 종합 플랫폼",
+    "url": "https://www.interpark.com",
+    "categories": [
+      "general",
+      "electronics"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~5일",
+    "minOrderAmount": "상품별 상이",
+    "features": [
+      "공연/티켓 예매",
+      "투어/여행",
+      "도서"
+    ]
+  },
+  {
+    "id": "naver-shopping",
+    "name": "네이버 쇼핑",
+    "nameEn": "Naver Shopping",
+    "description": "국내 최대 가격비교 및 쇼핑 플랫폼. 스마트스토어 운영",
+    "url": "https://shopping.naver.com",
+    "categories": [
+      "general",
+      "electronics",
+      "fashion",
+      "beauty"
+    ],
+    "deliveryMethods": [
+      "스마트스토어 판매자배송",
+      "네이버 도착보장"
+    ],
+    "deliveryTime": "판매자별 상이",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "네이버페이",
+      "찜한상품 알림",
+      "리뷰 기반 추천"
+    ]
+  },
+  {
+    "id": "kurly",
+    "name": "마켓컬리",
+    "nameEn": "Market Kurly",
+    "description": "새벽배송의 선구자. 프리미엄 식품 및 신선식품 전문",
+    "url": "https://www.kurly.com",
+    "categories": [
+      "fresh",
+      "grocery",
+      "quick-commerce"
+    ],
+    "deliveryMethods": [
+      "샛별배송 (새벽배송)",
+      "낮배송"
+    ],
+    "deliveryTime": "당일 주문 시 익일 새벽 도착",
+    "minOrderAmount": "15,000원 이상 (무료배송 40,000원)",
+    "features": [
+      "100% 신선보장",
+      "컬리퍼플박스",
+      "뷰티컬리"
+    ]
+  },
+  {
+    "id": "bmart",
+    "name": "B마트",
+    "nameEn": "B-Mart",
+    "description": "배달의민족이 운영하는 즉시 배송 서비스",
+    "url": "https://www.baemin.com",
+    "categories": [
+      "quick-commerce",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "즉시배송"
+    ],
+    "deliveryTime": "30분~1시간 이내",
+    "minOrderAmount": "5,000원 이상",
+    "features": [
+      "24시간 운영",
+      "즉시배송",
+      "다양한 생필품"
+    ]
+  },
+  {
+    "id": "coupang-eats",
+    "name": "쿠팡이츠",
+    "nameEn": "Coupang Eats",
+    "description": "쿠팡이 운영하는 음식 배달 서비스",
+    "url": "https://www.coupangeats.com",
+    "categories": [
+      "food-delivery"
+    ],
+    "deliveryMethods": [
+      "단건배달"
+    ],
+    "deliveryTime": "30분~1시간",
+    "minOrderAmount": "음식점별 상이",
+    "features": [
+      "단건배달",
+      "와우 무료배달",
+      "예상시간 보장"
+    ]
+  },
+  {
+    "id": "yogiyo",
+    "name": "요기요",
+    "nameEn": "Yogiyo",
+    "description": "대한민국 주요 음식 배달 플랫폼",
+    "url": "https://www.yogiyo.co.kr",
+    "categories": [
+      "food-delivery"
+    ],
+    "deliveryMethods": [
+      "음식점 배달",
+      "요기요 배달"
+    ],
+    "deliveryTime": "30분~1시간",
+    "minOrderAmount": "음식점별 상이",
+    "features": [
+      "슈퍼클럽",
+      "요마트",
+      "포인트 적립"
+    ]
+  },
+  {
+    "id": "baemin",
+    "name": "배달의민족",
+    "nameEn": "Baemin",
+    "description": "대한민국 1위 음식 배달 앱. B마트, 배민스토어 등 다양한 서비스 운영",
+    "url": "https://www.baemin.com",
+    "categories": [
+      "food-delivery",
+      "quick-commerce"
+    ],
+    "deliveryMethods": [
+      "배민배달",
+      "가게배달",
+      "포장"
+    ],
+    "deliveryTime": "30분~1시간",
+    "minOrderAmount": "음식점별 상이",
+    "features": [
+      "배민1",
+      "B마트",
+      "배민스토어",
+      "배민클럽"
+    ]
+  },
+  {
+    "id": "oasis",
+    "name": "오아시스마켓",
+    "nameEn": "Oasis Market",
+    "description": "친환경 유기농 식품 전문 새벽배송 서비스",
+    "url": "https://www.oasis.co.kr",
+    "categories": [
+      "fresh",
+      "grocery",
+      "quick-commerce"
+    ],
+    "deliveryMethods": [
+      "새벽배송",
+      "낮배송"
+    ],
+    "deliveryTime": "익일 새벽 도착",
+    "minOrderAmount": "25,000원 이상",
+    "features": [
+      "친환경 인증",
+      "유기농 전문",
+      "재사용 포장재"
+    ]
+  },
+  {
+    "id": "ssglive",
+    "name": "SSG닷컴",
+    "nameEn": "SSG.com",
+    "description": "신세계 그룹 통합 온라인 쇼핑몰. 이마트몰, 신세계몰 통합",
+    "url": "https://www.ssg.com",
+    "categories": [
+      "general",
+      "grocery",
+      "fresh",
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "쓱배송",
+      "새벽배송",
+      "당일배송"
+    ],
+    "deliveryTime": "당일~익일",
+    "minOrderAmount": "40,000원 이상 무료배송",
+    "features": [
+      "이마트 온라인",
+      "신세계백화점",
+      "SSG페이"
+    ]
+  },
+  {
+    "id": "lotteon",
+    "name": "롯데ON",
+    "nameEn": "Lotte ON",
+    "description": "롯데 그룹 통합 온라인 쇼핑몰",
+    "url": "https://www.lotteon.com",
+    "categories": [
+      "general",
+      "grocery",
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "롯데배송",
+      "새벽배송",
+      "당일배송"
+    ],
+    "deliveryTime": "당일~익일",
+    "minOrderAmount": "40,000원 이상 무료배송",
+    "features": [
+      "롯데마트",
+      "롯데백화점",
+      "L.Point"
+    ]
+  },
+  {
+    "id": "musinsa",
+    "name": "무신사",
+    "nameEn": "Musinsa",
+    "description": "대한민국 최대 온라인 패션 스토어",
+    "url": "https://www.musinsa.com",
+    "categories": [
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "무신사 익일배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "무료배송 기준 있음",
+    "features": [
+      "무신사 스탠다드",
+      "스타일 추천",
+      "코디 SNS"
+    ]
+  },
+  {
+    "id": "ably",
+    "name": "에이블리",
+    "nameEn": "Ably",
+    "description": "2030 여성 패션 전문 쇼핑 플랫폼",
+    "url": "https://m.a-bly.com",
+    "categories": [
+      "fashion",
+      "beauty"
+    ],
+    "deliveryMethods": [
+      "판매자배송"
+    ],
+    "deliveryTime": "2~5일",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "AI 스타일 추천",
+      "셀럽 마켓",
+      "무료반품"
+    ]
+  },
+  {
+    "id": "zigzag",
+    "name": "지그재그",
+    "nameEn": "Zigzag",
+    "description": "여성 의류 쇼핑 플랫폼. 동대문 쇼핑몰 통합 검색",
+    "url": "https://www.zigzag.kr",
+    "categories": [
+      "fashion",
+      "beauty"
+    ],
+    "deliveryMethods": [
+      "판매자배송",
+      "직진배송"
+    ],
+    "deliveryTime": "2~4일 (직진배송 익일)",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "직진배송",
+      "Z결제",
+      "스토어 즐겨찾기"
+    ]
+  },
+  {
+    "id": "brandi",
+    "name": "브랜디",
+    "nameEn": "Brandi",
+    "description": "MZ세대 여성 패션 쇼핑 플랫폼",
+    "url": "https://www.brandi.co.kr",
+    "categories": [
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "하루배송",
+      "판매자배송"
+    ],
+    "deliveryTime": "익일~3일",
+    "minOrderAmount": "판매자별 상이",
+    "features": [
+      "하루배송",
+      "라이브 방송",
+      "셀럽 스토어"
+    ]
+  },
+  {
+    "id": "wconcept",
+    "name": "W컨셉",
+    "nameEn": "W Concept",
+    "description": "프리미엄 디자이너 패션 플랫폼",
+    "url": "https://www.wconcept.co.kr",
+    "categories": [
+      "fashion"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "브랜드별 상이",
+    "features": [
+      "프리미엄 브랜드",
+      "단독 상품",
+      "세일"
+    ]
+  },
+  {
+    "id": "29cm",
+    "name": "29CM",
+    "nameEn": "29CM",
+    "description": "감도 높은 취향을 위한 온라인 셀렉트샵",
+    "url": "https://www.29cm.co.kr",
+    "categories": [
+      "fashion",
+      "living"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "브랜드별 상이",
+    "features": [
+      "에디터 큐레이션",
+      "브랜드 스토리",
+      "PT(특가전)"
+    ]
+  },
+  {
+    "id": "olive-young",
+    "name": "올리브영",
+    "nameEn": "Olive Young",
+    "description": "대한민국 대표 H&B 스토어. 화장품, 건강식품 전문",
+    "url": "https://www.oliveyoung.co.kr",
+    "categories": [
+      "beauty"
+    ],
+    "deliveryMethods": [
+      "오늘드림 (3시간 배송)",
+      "일반배송"
+    ],
+    "deliveryTime": "오늘드림 3시간, 일반 2~3일",
+    "minOrderAmount": "30,000원 이상 무료배송",
+    "features": [
+      "오늘드림",
+      "매장픽업",
+      "CJ ONE 포인트"
+    ]
+  },
+  {
+    "id": "himart",
+    "name": "하이마트",
+    "nameEn": "Himart",
+    "description": "롯데 그룹 가전제품 전문 유통 채널",
+    "url": "https://www.e-himart.co.kr",
+    "categories": [
+      "electronics"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "설치배송"
+    ],
+    "deliveryTime": "2~7일 (설치 예약 필요)",
+    "minOrderAmount": "상품별 상이",
+    "features": [
+      "가전 설치",
+      "렌탈 서비스",
+      "중고 가전"
+    ]
+  },
+  {
+    "id": "samsung",
+    "name": "삼성닷컴",
+    "nameEn": "Samsung.com",
+    "description": "삼성전자 공식 온라인 쇼핑몰",
+    "url": "https://www.samsung.com/sec",
+    "categories": [
+      "electronics"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "설치배송"
+    ],
+    "deliveryTime": "2~7일",
+    "minOrderAmount": "무료배송",
+    "features": [
+      "멤버십 혜택",
+      "트레이드인",
+      "체험 스토어"
+    ]
+  },
+  {
+    "id": "lg-best",
+    "name": "LG전자 베스트샵",
+    "nameEn": "LG Best Shop",
+    "description": "LG전자 공식 온라인 쇼핑몰",
+    "url": "https://www.lge.co.kr",
+    "categories": [
+      "electronics"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "설치배송"
+    ],
+    "deliveryTime": "2~7일",
+    "minOrderAmount": "무료배송",
+    "features": [
+      "멤버십",
+      "렌탈",
+      "AS 예약"
+    ]
+  },
+  {
+    "id": "ikea",
+    "name": "이케아",
+    "nameEn": "IKEA",
+    "description": "스웨덴 글로벌 가구 및 인테리어 브랜드",
+    "url": "https://www.ikea.com/kr",
+    "categories": [
+      "living"
+    ],
+    "deliveryMethods": [
+      "택배배송",
+      "트럭배송"
+    ],
+    "deliveryTime": "2~7일 (지역별 상이)",
+    "minOrderAmount": "구매금액별 배송비 상이",
+    "features": [
+      "DIY 조립",
+      "플래닝 서비스",
+      "가구 조립 서비스"
+    ]
+  },
+  {
+    "id": "hanssem",
+    "name": "한샘몰",
+    "nameEn": "Hanssem Mall",
+    "description": "국내 대표 인테리어 가구 브랜드",
+    "url": "https://mall.hanssem.com",
+    "categories": [
+      "living"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "설치배송"
+    ],
+    "deliveryTime": "상품별 상이",
+    "minOrderAmount": "상품별 상이",
+    "features": [
+      "인테리어 컨설팅",
+      "리모델링",
+      "A/S"
+    ]
+  },
+  {
+    "id": "ohouse",
+    "name": "오늘의집",
+    "nameEn": "Ohouse",
+    "description": "인테리어 플랫폼. 가구, 소품, 시공 서비스 제공",
+    "url": "https://ohou.se",
+    "categories": [
+      "living"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "설치배송"
+    ],
+    "deliveryTime": "상품별 상이",
+    "minOrderAmount": "상품별 상이",
+    "features": [
+      "인테리어 커뮤니티",
+      "시공 서비스",
+      "3D 인테리어"
+    ]
+  },
+  {
+    "id": "daangn",
+    "name": "당근마켓",
+    "nameEn": "Karrot",
+    "description": "동네 기반 중고거래 플랫폼",
+    "url": "https://www.daangn.com",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "직거래",
+      "택배거래"
+    ],
+    "deliveryTime": "판매자 협의",
+    "minOrderAmount": "없음",
+    "features": [
+      "동네 인증",
+      "당근페이",
+      "비즈프로필"
+    ]
+  },
+  {
+    "id": "bunjang",
+    "name": "번개장터",
+    "nameEn": "Bungae Jangter",
+    "description": "대한민국 대표 중고거래 플랫폼",
+    "url": "https://www.bunjang.co.kr",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "직거래",
+      "번개페이 안전거래",
+      "편의점택배"
+    ],
+    "deliveryTime": "판매자 협의",
+    "minOrderAmount": "없음",
+    "features": [
+      "번개페이",
+      "안전결제",
+      "스타샵"
+    ]
+  },
+  {
+    "id": "joonggonara",
+    "name": "중고나라",
+    "nameEn": "Joongonara",
+    "description": "국내 최대 중고거래 커뮤니티",
+    "url": "https://cafe.naver.com/joonggonara",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "직거래",
+      "택배거래"
+    ],
+    "deliveryTime": "판매자 협의",
+    "minOrderAmount": "없음",
+    "features": [
+      "네이버 카페 기반",
+      "안전결제"
+    ]
+  }
+]
+```
+
+## Usage Notes for LLMs (LLM 사용 안내)
+
+### 자주 수행되는 작업
+
+1. **카테고리별 서비스 그룹핑**: `platforms.json`의 각 서비스에서 `categories` 배열을 기준으로 그룹화
+2. **배송 속도 비교**: `deliveryTime` 필드를 파싱하여 비교 (예: "30분~1시간" < "당일" < "익일" < "2~3일")
+3. **최소 주문 금액 비교**: `minOrderAmount` 필드 파싱 ("없음" = 0, 숫자 추출)
+4. **배송 방식 필터링**: `deliveryMethods` 배열에서 특정 배송 방식 포함 여부 확인
+5. **특징 기반 검색**: `features` 배열에서 키워드 매칭
+
+### 배송 속도 정규화 가이드
+
+| 패턴 | 의미 | 예상 시간(시간) |
+|---|---|---|
+| "30분~1시간" | 즉시배송 | 0.5-1 |
+| "3시간" | 오늘드림 | 3 |
+| "당일" | 당일배송 | 12 |
+| "익일", "새벽" | 다음날 도착 | 24 |
+| "1~3일" | 일반배송 | 24-72 |
+| "2~5일" | 오픈마켓 | 48-120 |
+| "2~7일" | 가전/가구 | 48-168 |
+| "판매자별 상이", "상품별 상이" | 가변적 | - |
