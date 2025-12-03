@@ -638,7 +638,7 @@
           <div id="categoryFilter" class="category-filter"></div>
 
           <div class="filter-section">
-            <button id="fastDeliveryFilter" class="filter-toggle">
+            <button id="fastDeliveryFilter" class="filter-toggle" aria-pressed="false" aria-label="빠른 배송 필터 (당일에서 1일 이내 배송)">
               ⚡ 빠른 배송 (당일~1일)
             </button>
           </div>
@@ -709,6 +709,9 @@
 
     // Check if platform has fast delivery (same day ~ within 1 day)
     function isFastDelivery(service) {
+      if (!service.deliveryTime) {
+        return false;
+      }
       const deliveryTime = service.deliveryTime.toLowerCase();
       const fastKeywords = [
         '당일', '익일', '새벽', '1시간', '30분', '즉시', 
@@ -852,8 +855,10 @@
       const btn = document.getElementById('fastDeliveryFilter');
       if (fastDeliveryOnly) {
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
       } else {
         btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
       }
     }
 
