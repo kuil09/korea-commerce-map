@@ -460,6 +460,82 @@
       }
     }
 
+    /* Category Tags */
+    .category-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .category-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 0.375rem;
+      background-color: var(--zinc-200);
+      padding: 0.125rem 0.5rem;
+      font-size: 0.625rem;
+      color: var(--zinc-600);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .category-tag {
+        background-color: var(--zinc-700);
+        color: var(--zinc-300);
+      }
+    }
+
+    /* Fast Delivery Filter */
+    .filter-section {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 9999px;
+      border: 1px solid var(--zinc-300);
+      background-color: white;
+      color: var(--zinc-700);
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .filter-toggle:hover {
+      background-color: var(--zinc-100);
+      border-color: var(--zinc-400);
+    }
+
+    .filter-toggle.active {
+      background-color: var(--blue-600);
+      border-color: var(--blue-600);
+      color: white;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .filter-toggle {
+        border-color: var(--zinc-600);
+        background-color: var(--zinc-800);
+        color: var(--zinc-300);
+      }
+      .filter-toggle:hover {
+        background-color: var(--zinc-700);
+        border-color: var(--zinc-500);
+      }
+      .filter-toggle.active {
+        background-color: var(--blue-600);
+        border-color: var(--blue-600);
+        color: white;
+      }
+    }
+
     /* Empty State */
     .empty-state {
       padding: 3rem 0;
@@ -561,6 +637,12 @@
 
           <div id="categoryFilter" class="category-filter"></div>
 
+          <div class="filter-section">
+            <button id="fastDeliveryFilter" class="filter-toggle" aria-pressed="false" aria-label="빠른 배송 필터 (당일에서 1일 이내 배송)">
+              ⚡ 빠른 배송 (당일~1일)
+            </button>
+          </div>
+
           <div id="serviceCount" class="service-count"></div>
 
           <div id="servicesGrid" class="services-grid"></div>
@@ -589,6 +671,7 @@
     // State
     let selectedCategory = null;
     let searchQuery = "";
+    let fastDeliveryOnly = false;
 
     // Load data from JSON files
     async function loadData() {
@@ -624,6 +707,24 @@
       );
     }
 
+    // Check if platform has fast delivery (same day ~ within 1 day)
+    function isFastDelivery(service) {
+      if (!service.deliveryTime) {
+        return false;
+      }
+      const deliveryTime = service.deliveryTime.toLowerCase();
+      const fastKeywords = [
+        '당일', '익일', '새벽', '1시간', '30분', '즉시', 
+        '1일', '하루', '오늘', '내일', '60분'
+      ];
+      return fastKeywords.some(keyword => deliveryTime.includes(keyword));
+    }
+
+    // Get category name by id
+    function getCategoryById(categoryId) {
+      return categories.find(cat => cat.id === categoryId);
+    }
+
     function getFilteredServices() {
       let services = selectedCategory
         ? getServicesByCategory(selectedCategory)
@@ -632,6 +733,10 @@
       if (searchQuery.trim()) {
         const searchResults = searchServices(searchQuery);
         services = services.filter(s => searchResults.some(sr => sr.id === s.id));
+      }
+
+      if (fastDeliveryOnly) {
+        services = services.filter(isFastDelivery);
       }
 
       return services;
@@ -680,6 +785,15 @@
         ? `<span class="feature-tag">+${service.features.length - 3}</span>` 
         : '';
 
+      // Generate category tags
+      const categoryTagsHtml = service.categories.map(categoryId => {
+        const category = getCategoryById(categoryId);
+        if (category) {
+          return `<span class="category-tag">${category.icon} ${category.name}</span>`;
+        }
+        return '';
+      }).join('');
+
       return `
         <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="service-card">
           <div class="card-header">
@@ -690,6 +804,7 @@
                 <span class="card-title-en">${service.nameEn}</span>
               </h3>
               <p class="card-description">${service.description}</p>
+              <div class="category-tags">${categoryTagsHtml}</div>
             </div>
           </div>
           <div class="card-details">
@@ -732,7 +847,19 @@
 
     function render() {
       renderCategoryFilter();
+      renderFastDeliveryFilter();
       renderServicesGrid();
+    }
+
+    function renderFastDeliveryFilter() {
+      const btn = document.getElementById('fastDeliveryFilter');
+      if (fastDeliveryOnly) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      }
     }
 
     // Initialize
@@ -746,6 +873,13 @@
         searchInput.addEventListener('input', (e) => {
           searchQuery = e.target.value;
           renderServicesGrid();
+        });
+
+        // Fast delivery filter handler
+        const fastDeliveryBtn = document.getElementById('fastDeliveryFilter');
+        fastDeliveryBtn.addEventListener('click', () => {
+          fastDeliveryOnly = !fastDeliveryOnly;
+          render();
         });
       } else {
         document.getElementById("servicesGrid").innerHTML = 
