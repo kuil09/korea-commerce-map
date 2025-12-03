@@ -15,6 +15,15 @@
 
 ```
 /
+├── data/
+│   ├── categories.json   # 카테고리 정의
+│   ├── platforms.yaml    # 플랫폼 데이터 (원본)
+│   └── platforms.json    # 플랫폼 데이터 (자동 생성)
+├── docs/
+│   └── data-contribution.md  # 데이터 기여 가이드
+├── scripts/
+│   ├── sync-yaml-to-json.js  # YAML→JSON 동기화
+│   └── generate-llms.js      # llms.txt 생성
 ├── index.html       # 메인 페이지 (HTML, CSS, JS 포함)
 ├── favicon.ico      # 파비콘
 ├── llms.txt         # LLM 친화적 정보 파일
@@ -46,13 +55,23 @@ GitHub Pages를 통해 자동 배포됩니다. `main` 브랜치에 push하면 �
 
 이 사이트는 LLM(Large Language Model)이 쉽게 정보를 파싱할 수 있도록 `/llms.txt` 파일을 제공합니다. 이 파일에는 모든 커머스 서비스의 핵심 정보가 구조화된 텍스트 형태로 포함되어 있습니다.
 
+## 📊 데이터 기여
+
+커머스 서비스 및 카테고리 데이터는 `data/` 디렉토리에서 관리됩니다:
+
+- `data/categories.json`: 카테고리 정의
+- `data/platforms.yaml`: 플랫폼(서비스) 데이터 (**단일 진실 공급원**)
+- `data/platforms.json`: YAML에서 자동 생성 (직접 편집 금지)
+
+👉 **상세한 데이터 편집 규칙과 PR 체크리스트는 [데이터 기여 가이드](docs/data-contribution.md)를 참조하세요.**
+
 ## 🤝 기여하기
 
 새로운 커머스 서비스 추가나 정보 수정은 Pull Request를 통해 기여해 주세요!
 
 1. 이 저장소를 Fork
 2. 새 브랜치 생성 (`git checkout -b feature/new-service`)
-3. `index.html` 파일의 `commerceServices` 배열 수정
+3. 데이터 파일 수정 ([데이터 기여 가이드](docs/data-contribution.md) 참조)
 4. 변경사항 커밋 (`git commit -m 'Add new service'`)
 5. Push (`git push origin feature/new-service`)
 6. Pull Request 생성
