@@ -6,7 +6,7 @@ on:
       - 'data/platforms.yaml'
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -95,18 +95,130 @@ jobs:
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}`;
             
             /**
-             * 스크린샷 이미지를 포함한 마크다운 생성
-             * @param {boolean} includeImages - base64 이미지 포함 여부
+             * 스크린샷을 GitHub에 업로드하고 URL을 반환
+             * GitHub의 user-content CDN에 업로드하여 PR 코멘트에 표시 가능한 URL 생성
+             * @param {string} filePath - 이미지 파일 경로
+             * @param {string} fileName - 파일 이름
+             * @returns {Promise<string|null>} 업로드된 이미지 URL 또는 null
+             */
+            async function uploadScreenshot(filePath, fileName) {
+              try {
+                if (!fs.existsSync(filePath)) {
+                  console.log(`File not found: ${filePath}`);
+                  return null;
+                }
+                
+                const imageData = fs.readFileSync(filePath);
+                const base64Data = imageData.toString('base64');
+                
+                // GitHub API를 통해 이미지 업로드 (repository content API 사용)
+                // PR 브랜치에 스크린샷을 커밋하여 raw URL로 접근 가능하게 함
+                const prNumber = ${{ github.event.pull_request.number }};
+                // PR 번호 유효성 검증 (숫자만 허용)
+                if (!Number.isInteger(prNumber) || prNumber <= 0) {
+                  console.log(`Invalid PR number: ${prNumber}`);
+                  return null;
+                }
+                const screenshotBranch = `screenshots-pr-${prNumber}`;
+                const screenshotPath = `screenshots/${fileName}`;
+                
+                // 브랜치가 존재하는지 확인
+                let branchExists = false;
+                try {
+                  await github.rest.repos.getBranch({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    branch: screenshotBranch
+                  });
+                  branchExists = true;
+                } catch (e) {
+                  branchExists = false;
+                }
+                
+                // 브랜치가 없으면 생성
+                if (!branchExists) {
+                  // 기본 브랜치의 SHA 가져오기 (기본값: main)
+                  const defaultBranchName = '${{ github.event.repository.default_branch }}' || 'main';
+                  const { data: defaultBranch } = await github.rest.repos.getBranch({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    branch: defaultBranchName
+                  });
+                  
+                  await github.rest.git.createRef({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    ref: `refs/heads/${screenshotBranch}`,
+                    sha: defaultBranch.commit.sha
+                  });
+                  console.log(`Created branch: ${screenshotBranch}`);
+                }
+                
+                // 파일이 이미 존재하는지 확인
+                let existingSha = null;
+                try {
+                  const { data: existingFile } = await github.rest.repos.getContent({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    path: screenshotPath,
+                    ref: screenshotBranch
+                  });
+                  existingSha = existingFile.sha;
+                } catch (e) {
+                  // 파일이 없음 - 정상
+                }
+                
+                // 파일 생성/업데이트
+                const commitMessage = `📸 Update screenshot: ${fileName}`;
+                const params = {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  path: screenshotPath,
+                  message: commitMessage,
+                  content: base64Data,
+                  branch: screenshotBranch
+                };
+                
+                if (existingSha) {
+                  params.sha = existingSha;
+                }
+                
+                await github.rest.repos.createOrUpdateFileContents(params);
+                
+                // Raw URL 생성 (캐시 무효화를 위한 타임스탬프 추가)
+                const timestamp = Date.now();
+                const rawUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${screenshotBranch}/${screenshotPath}?t=${timestamp}`;
+                console.log(`Uploaded: ${fileName} -> ${rawUrl}`);
+                return rawUrl;
+                
+              } catch (error) {
+                console.log(`Failed to upload ${fileName}: ${error.message}`);
+                return null;
+              }
+            }
+            
+            // 모든 스크린샷 업로드
+            const uploadedUrls = new Map();
+            for (const result of results) {
+              if (result.success && result.screenshotPath && fs.existsSync(result.screenshotPath)) {
+                const fileName = `${result.id}.png`;
+                const url = await uploadScreenshot(result.screenshotPath, fileName);
+                if (url) {
+                  uploadedUrls.set(result.id, url);
+                }
+              }
+            }
+            
+            console.log(`Uploaded ${uploadedUrls.size} screenshots`);
+            
+            /**
+             * 마크다운 생성 (업로드된 URL 사용)
              * @returns {string} 마크다운 문자열
              */
-            function generateBody(includeImages) {
+            function generateBody() {
               let body = '## 📸 플랫폼 스크린샷 미리보기\n\n';
               body += '> 아래는 PR에서 추가/변경된 플랫폼의 실제 웹사이트 화면입니다.\n';
-              body += `> 스크린샷은 [GitHub Actions 아티팩트](${artifactUrl})에서 다운로드할 수 있습니다.\n\n`;
-              
-              if (!includeImages) {
-                body += '> ⚠️ 스크린샷 수가 많아 이미지가 생략되었습니다. 아티팩트에서 다운로드해 주세요.\n\n';
-              }
+              body += `> 스크린샷은 [GitHub Actions 아티팩트](${artifactUrl})에서도 다운로드할 수 있습니다.\n\n`;
               
               for (const result of results) {
                 const changeLabel = result.changeType === 'added' ? '🆕 신규 추가' : '🔄 URL 변경';
@@ -120,16 +232,12 @@ jobs:
                 if (result.success) {
                   body += `| 상태 | ✅ 캡처 성공 |\n\n`;
                   
-                  // includeImages가 true이고 스크린샷 파일이 존재하면 base64로 인코딩하여 삽입
-                  if (includeImages) {
-                    const screenshotPath = result.screenshotPath;
-                    if (screenshotPath && fs.existsSync(screenshotPath)) {
-                      const imageData = fs.readFileSync(screenshotPath);
-                      const base64 = imageData.toString('base64');
-                      body += `<details>\n<summary>📷 스크린샷 보기 (클릭하여 펼치기)</summary>\n\n`;
-                      body += `![${result.name}](data:image/png;base64,${base64})\n\n`;
-                      body += `</details>\n\n`;
-                    }
+                  // 업로드된 URL이 있으면 이미지 표시
+                  const imageUrl = uploadedUrls.get(result.id);
+                  if (imageUrl) {
+                    body += `<details>\n<summary>📷 스크린샷 보기 (클릭하여 펼치기)</summary>\n\n`;
+                    body += `![${result.name}](${imageUrl})\n\n`;
+                    body += `</details>\n\n`;
                   }
                 } else {
                   body += `| 상태 | ❌ 캡처 실패 |\n`;
@@ -142,14 +250,7 @@ jobs:
               return body;
             }
             
-            // 먼저 이미지 포함 버전 생성
-            let body = generateBody(true);
-            
-            // 길이가 최대치를 초과하면 이미지 없는 버전으로 대체
-            if (body.length > MAX_BODY_LENGTH) {
-              console.log(`Comment body too long (${body.length} chars), generating without images`);
-              body = generateBody(false);
-            }
+            const body = generateBody();
             
             // 기존 코멘트 찾기
             const { data: comments } = await github.rest.issues.listComments({
@@ -190,21 +291,8 @@ jobs:
             try {
               await postComment(body);
             } catch (error) {
-              // body 크기 초과 등의 오류 처리
               console.log(`Error posting comment: ${error.message}`);
-              console.log('Attempting to post without images...');
-              
-              // 이미지 없는 간단한 버전으로 재시도
-              const fallbackBody = generateBody(false);
-              
-              try {
-                await postComment(fallbackBody);
-                console.log('Posted comment without images');
-              } catch (fallbackError) {
-                // 최종 fallback: 에러가 발생해도 빌드는 계속 진행
-                console.log(`Failed to post fallback comment: ${fallbackError.message}`);
-                console.log('Skipping comment - screenshots are available in artifacts');
-              }
+              console.log('Screenshots are available in artifacts');
             }
 
       - name: No changes comment
