@@ -22,6 +22,20 @@ function ensureScreenshotsDir() {
 }
 
 /**
+ * URL이 유효한 HTTP/HTTPS URL인지 확인합니다.
+ * @param {string} url - 검증할 URL
+ * @returns {boolean} 유효한 URL인지 여부
+ */
+function isValidUrl(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+/**
  * 단일 플랫폼의 스크린샷을 캡처합니다.
  * @param {Object} browser - Playwright 브라우저 인스턴스
  * @param {Object} platform - 플랫폼 정보 {id, name, url}
@@ -39,6 +53,13 @@ async function capturePlatformScreenshot(browser, platform) {
     success: false,
     error: null
   };
+  
+  // URL 유효성 검증
+  if (!isValidUrl(platform.url)) {
+    result.error = `Invalid URL format: ${platform.url}`;
+    console.error(`❌ 실패: ${platform.name} - ${result.error}`);
+    return result;
+  }
   
   const context = await browser.newContext({
     viewport: { width: 1280, height: 800 },
@@ -164,8 +185,8 @@ async function main() {
   if (process.argv[2]) {
     try {
       platforms = JSON.parse(process.argv[2]);
-    } catch {
-      console.error('❌ 플랫폼 JSON 파싱 오류');
+    } catch (parseError) {
+      console.error(`❌ 플랫폼 JSON 파싱 오류: ${parseError.message}`);
       process.exit(1);
     }
   } else {
@@ -178,8 +199,8 @@ async function main() {
     if (input.trim()) {
       try {
         platforms = JSON.parse(input);
-      } catch {
-        console.error('❌ stdin JSON 파싱 오류');
+      } catch (parseError) {
+        console.error(`❌ stdin JSON 파싱 오류: ${parseError.message}`);
         process.exit(1);
       }
     }

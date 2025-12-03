@@ -15,6 +15,18 @@ const { parseYAML } = require('./yaml-parser');
  * @returns {string|null} 파일 내용 또는 null
  */
 function getFileAtRef(ref, filepath) {
+  // Validate ref to prevent command injection
+  // Allow alphanumeric, slashes, dashes, underscores, dots, and HEAD
+  if (!/^[a-zA-Z0-9/_.\-]+$/.test(ref)) {
+    console.error(`Invalid ref format: ${ref}`);
+    return null;
+  }
+  // Validate filepath - only allow alphanumeric, slashes, dashes, underscores, dots
+  if (!/^[a-zA-Z0-9/_.\-]+$/.test(filepath)) {
+    console.error(`Invalid filepath format: ${filepath}`);
+    return null;
+  }
+  
   try {
     return execSync(`git show ${ref}:${filepath}`, { encoding: 'utf8' });
   } catch {
@@ -107,6 +119,7 @@ function findChangedPlatforms(baseRef, headRef) {
 function main() {
   const baseRef = process.argv[2] || 'origin/main';
   const headRef = process.argv[3] || 'HEAD';
+  const outputFile = process.argv[4]; // Optional: file path to write JSON output
   
   console.log(`🔍 플랫폼 변경 감지 중...`);
   console.log(`   Base: ${baseRef}`);
@@ -128,9 +141,18 @@ function main() {
     }
   }
   
-  // JSON 출력 (GitHub Actions에서 사용)
-  console.log('\n📤 JSON 출력:');
-  console.log(JSON.stringify(changedPlatforms, null, 2));
+  const jsonOutput = JSON.stringify(changedPlatforms, null, 2);
+  
+  // If output file is specified, write to file
+  if (outputFile) {
+    const fs = require('fs');
+    fs.writeFileSync(outputFile, jsonOutput, 'utf8');
+    console.log(`\n📤 JSON 파일 저장됨: ${outputFile}`);
+  } else {
+    // Output to stdout (after all console logs)
+    console.log('\n📤 JSON 출력:');
+    console.log(jsonOutput);
+  }
   
   return changedPlatforms;
 }
