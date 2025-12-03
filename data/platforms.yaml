@@ -3,6 +3,25 @@
 # platforms.json은 이 파일에서 자동으로 생성됩니다.
 
 platforms:
+  - id: nonghyupmall
+    name: "농협몰"
+    nameEn: "Nonghyup Mall"
+    description: "농협이 운영하는 농축산물 및 식료품 중심의 온라인 마트. 과일·채소·쌀/잡곡·축산·수산물부터 가공식품, 생활잡화까지 폭넓게 취급하며 전국 배송 서비스 제공"
+    url: "https://www.nonghyupmall.com"
+    categories:
+      - fresh
+      - grocery
+    deliveryMethods:
+      - "택배배송"
+      - "마트배송 / 산지직송"
+    deliveryTime: "2~5일 (상품 및 지역에 따라 변동)"
+    minOrderAmount: "무료배송 기준은 지역/상품별 상이"
+    features:
+      - "농축산물 직거래 기반 마트배송"
+      - "곡물·쌀/잡곡, 과일, 축산, 수산, 가공식품 등 다양한 품목"
+      - "NH멤버스 통합회원 및 할인/쿠폰 혜택"
+      - "산지직송 / 마트배송 형태 제공"
+
   - id: gmarket
     name: "G마켓"
     nameEn: "Gmarket"
