@@ -74,6 +74,9 @@ jobs:
             const fs = require('fs');
             const path = require('path');
             
+            // GitHub comment body의 최대 길이 (65536자)
+            const MAX_BODY_LENGTH = 65536;
+            
             // 결과 JSON 읽기
             const resultsPath = './screenshots/results.json';
             if (!fs.existsSync(resultsPath)) {
@@ -91,38 +94,61 @@ jobs:
             // 아티팩트 URL 생성
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}`;
             
-            // 마크다운 생성
-            let body = '## 📸 플랫폼 스크린샷 미리보기\n\n';
-            body += '> 아래는 PR에서 추가/변경된 플랫폼의 실제 웹사이트 화면입니다.\n';
-            body += `> 스크린샷은 [GitHub Actions 아티팩트](${artifactUrl})에서 다운로드할 수 있습니다.\n\n`;
-            
-            for (const result of results) {
-              const changeLabel = result.changeType === 'added' ? '🆕 신규 추가' : '🔄 URL 변경';
+            /**
+             * 스크린샷 이미지를 포함한 마크다운 생성
+             * @param {boolean} includeImages - base64 이미지 포함 여부
+             * @returns {string} 마크다운 문자열
+             */
+            function generateBody(includeImages) {
+              let body = '## 📸 플랫폼 스크린샷 미리보기\n\n';
+              body += '> 아래는 PR에서 추가/변경된 플랫폼의 실제 웹사이트 화면입니다.\n';
+              body += `> 스크린샷은 [GitHub Actions 아티팩트](${artifactUrl})에서 다운로드할 수 있습니다.\n\n`;
               
-              body += `### ${result.name} (${result.nameEn})\n\n`;
-              body += `| 항목 | 내용 |\n`;
-              body += `|------|------|\n`;
-              body += `| 변경 유형 | ${changeLabel} |\n`;
-              body += `| URL | ${result.url} |\n`;
-              
-              if (result.success) {
-                body += `| 상태 | ✅ 캡처 성공 |\n\n`;
-                
-                // 스크린샷을 base64로 인코딩하여 삽입
-                const screenshotPath = result.screenshotPath;
-                if (fs.existsSync(screenshotPath)) {
-                  const imageData = fs.readFileSync(screenshotPath);
-                  const base64 = imageData.toString('base64');
-                  body += `<details>\n<summary>📷 스크린샷 보기 (클릭하여 펼치기)</summary>\n\n`;
-                  body += `![${result.name}](data:image/png;base64,${base64})\n\n`;
-                  body += `</details>\n\n`;
-                }
-              } else {
-                body += `| 상태 | ❌ 캡처 실패 |\n`;
-                body += `| 오류 | ${result.error} |\n\n`;
+              if (!includeImages) {
+                body += '> ⚠️ 스크린샷 수가 많아 이미지가 생략되었습니다. 아티팩트에서 다운로드해 주세요.\n\n';
               }
               
-              body += '---\n\n';
+              for (const result of results) {
+                const changeLabel = result.changeType === 'added' ? '🆕 신규 추가' : '🔄 URL 변경';
+                
+                body += `### ${result.name} (${result.nameEn})\n\n`;
+                body += `| 항목 | 내용 |\n`;
+                body += `|------|------|\n`;
+                body += `| 변경 유형 | ${changeLabel} |\n`;
+                body += `| URL | ${result.url} |\n`;
+                
+                if (result.success) {
+                  body += `| 상태 | ✅ 캡처 성공 |\n\n`;
+                  
+                  // includeImages가 true이고 스크린샷 파일이 존재하면 base64로 인코딩하여 삽입
+                  if (includeImages) {
+                    const screenshotPath = result.screenshotPath;
+                    if (screenshotPath && fs.existsSync(screenshotPath)) {
+                      const imageData = fs.readFileSync(screenshotPath);
+                      const base64 = imageData.toString('base64');
+                      body += `<details>\n<summary>📷 스크린샷 보기 (클릭하여 펼치기)</summary>\n\n`;
+                      body += `![${result.name}](data:image/png;base64,${base64})\n\n`;
+                      body += `</details>\n\n`;
+                    }
+                  }
+                } else {
+                  body += `| 상태 | ❌ 캡처 실패 |\n`;
+                  body += `| 오류 | ${result.error} |\n\n`;
+                }
+                
+                body += '---\n\n';
+              }
+              
+              return body;
+            }
+            
+            // 먼저 이미지 포함 버전 생성
+            let body = generateBody(true);
+            
+            // 길이가 최대치를 초과하면 이미지 없는 버전으로 대체
+            if (body.length > MAX_BODY_LENGTH) {
+              console.log(`Comment body too long (${body.length} chars), generating without images`);
+              body = generateBody(false);
             }
             
             // 기존 코멘트 찾기
@@ -137,24 +163,48 @@ jobs:
               comment.body.includes('📸 플랫폼 스크린샷 미리보기')
             );
             
-            if (botComment) {
-              // 기존 코멘트 업데이트
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: body
-              });
-              console.log('Updated existing comment');
-            } else {
-              // 새 코멘트 작성
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: body
-              });
-              console.log('Created new comment');
+            /**
+             * 코멘트를 생성하거나 업데이트하는 함수
+             * @param {string} commentBody - 코멘트 본문
+             */
+            async function postComment(commentBody) {
+              if (botComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: commentBody
+                });
+                console.log('Updated existing comment');
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: commentBody
+                });
+                console.log('Created new comment');
+              }
+            }
+            
+            try {
+              await postComment(body);
+            } catch (error) {
+              // body 크기 초과 등의 오류 처리
+              console.log(`Error posting comment: ${error.message}`);
+              console.log('Attempting to post without images...');
+              
+              // 이미지 없는 간단한 버전으로 재시도
+              const fallbackBody = generateBody(false);
+              
+              try {
+                await postComment(fallbackBody);
+                console.log('Posted comment without images');
+              } catch (fallbackError) {
+                // 최종 fallback: 에러가 발생해도 빌드는 계속 진행
+                console.log(`Failed to post fallback comment: ${fallbackError.message}`);
+                console.log('Skipping comment - screenshots are available in artifacts');
+              }
             }
 
       - name: No changes comment
