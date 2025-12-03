@@ -136,26 +136,26 @@ function extractDeliveryMethods(platforms) {
   return Array.from(methods).sort();
 }
 
-// 간단한 템플릿 렌더링
-function renderTemplate(template, data) {
-  let result = template;
-  
-  // {{deliveryMethodsList}} 처리 (단순 변수 치환)
-  const deliveryMethods = extractDeliveryMethods(data.platforms);
+// 공통 템플릿 변수 치환: deliveryMethodsList
+function replaceDeliveryMethodsList(template, platforms) {
+  const deliveryMethods = extractDeliveryMethods(platforms);
   const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
-  result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
-  
-  // 여러 개의 {{#each categories}} 블록 처리
-  // Safety counter to prevent infinite loop
+  return template.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+}
+
+// 공통 템플릿 블록 처리: {{#each categories}}
+function processCategoriesBlocks(template, categories) {
+  let result = template;
   const MAX_ITERATIONS = 100;
   let iterations = 0;
+  
   while (result.includes('{{#each categories}}') && iterations < MAX_ITERATIONS) {
     iterations++;
     const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
     if (!categoriesBlock) {
       break;
     }
-    const rendered = data.categories.map(category => {
+    const rendered = categories.map(category => {
       let itemContent = categoriesBlock.content;
       itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
       itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
@@ -165,6 +165,19 @@ function renderTemplate(template, data) {
     }).join('');
     result = result.replace(categoriesBlock.fullMatch, rendered);
   }
+  
+  return result;
+}
+
+// 간단한 템플릿 렌더링
+function renderTemplate(template, data) {
+  let result = template;
+  
+  // {{deliveryMethodsList}} 처리
+  result = replaceDeliveryMethodsList(result, data.platforms);
+  
+  // {{#each categories}} 블록 처리
+  result = processCategoriesBlocks(result, data.categories);
   
   // {{#each platformsByCategory}} ... {{/each}} 처리 (중첩된 each 포함)
   const platformsByCategoryBlock = findMatchingEachBlock(result, '{{#each platformsByCategory}}');
@@ -202,10 +215,8 @@ function renderTemplate(template, data) {
 function renderFullContextTemplate(template, data) {
   let result = template;
   
-  // {{deliveryMethodsList}} 처리
-  const deliveryMethods = extractDeliveryMethods(data.platforms);
-  const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
-  result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+  // {{deliveryMethodsList}} 처리 (공통 함수 사용)
+  result = replaceDeliveryMethodsList(result, data.platforms);
   
   // {{categoriesJson}} 처리 - JSON 형식으로 카테고리 데이터 삽입
   const categoriesJson = JSON.stringify(data.categories, null, 2);
@@ -215,25 +226,8 @@ function renderFullContextTemplate(template, data) {
   const platformsJson = JSON.stringify(data.platforms, null, 2);
   result = result.replace(/\{\{platformsJson\}\}/g, platformsJson);
   
-  // {{#each categories}} ... {{/each}} 블록 처리
-  const MAX_ITERATIONS = 100;
-  let iterations = 0;
-  while (result.includes('{{#each categories}}') && iterations < MAX_ITERATIONS) {
-    iterations++;
-    const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
-    if (!categoriesBlock) {
-      break;
-    }
-    const rendered = data.categories.map(category => {
-      let itemContent = categoriesBlock.content;
-      itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
-      itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
-      itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
-      itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
-      return itemContent;
-    }).join('');
-    result = result.replace(categoriesBlock.fullMatch, rendered);
-  }
+  // {{#each categories}} 블록 처리 (공통 함수 사용)
+  result = processCategoriesBlocks(result, data.categories);
   
   return result;
 }

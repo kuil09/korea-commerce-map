@@ -15,9 +15,10 @@ korea-commerce-map/
 │   ├── platforms.json   # 플랫폼 데이터 (JSON)
 │   └── platforms.yaml   # 플랫폼 데이터 (YAML)
 ├── scripts/
-│   └── generate-llms.js # llms.txt 생성 스크립트
+│   └── generate-llms.js # llms.txt 및 llms-ctx-full.txt 생성 스크립트
 └── templates/
-    └── llms.txt.template # llms.txt 템플릿
+    ├── llms.txt.template           # llms.txt 템플릿
+    └── llms-ctx-full.txt.template  # llms-ctx-full.txt 템플릿
 ```
 
 ## Data Schema (데이터 스키마)
