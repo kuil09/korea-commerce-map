@@ -6,9 +6,7 @@
     "description": "국내 대표 오픈마켓. 다양한 판매자의 상품을 비교하고 구매 가능",
     "url": "https://www.gmarket.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "판매자배송",
@@ -117,9 +115,7 @@
     "description": "SK텔레콤 계열의 종합쇼핑몰. 아마존 글로벌 스토어 운영",
     "url": "https://www.11st.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "일반배송",
@@ -141,9 +137,7 @@
     "description": "대한민국 최초의 온라인 경매 사이트 출신 오픈마켓",
     "url": "https://www.auction.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "판매자배송",
@@ -164,8 +158,7 @@
     "description": "공연/티켓부터 쇼핑까지 아우르는 종합 플랫폼",
     "url": "https://www.interpark.com",
     "categories": [
-      "general",
-      "electronics"
+      "general"
     ],
     "deliveryMethods": [
       "일반배송"
@@ -185,10 +178,7 @@
     "description": "국내 최대 포털의 가격비교 및 쇼핑 플랫폼. 스마트스토어 등을 통해 오픈마켓 기능 제공",
     "url": "https://shopping.naver.com",
     "categories": [
-      "general",
-      "electronics",
-      "fashion",
-      "beauty"
+      "general"
     ],
     "deliveryMethods": [
       "스마트스토어 판매자배송",
@@ -209,9 +199,7 @@
     "description": "국내 최대 이커머스. 로켓배송(익일)과 로켓프레시(새벽배송)로 빠른 배송 제공",
     "url": "https://www.coupang.com",
     "categories": [
-      "general",
-      "grocery",
-      "fresh"
+      "general"
     ],
     "deliveryMethods": [
       "로켓배송",
@@ -365,10 +353,7 @@
     "description": "신세계 그룹 통합 온라인몰. 이마트몰과 백화점몰을 한곳에 운영",
     "url": "https://www.ssg.com",
     "categories": [
-      "general",
-      "grocery",
-      "fresh",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "쓱배송 (당일배송)",
@@ -390,9 +375,7 @@
     "description": "롯데쇼핑 통합 온라인몰. 롯데마트, 롯데백화점 등을 통합 운영",
     "url": "https://www.lotteon.com",
     "categories": [
-      "general",
-      "grocery",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "롯데마트 당일배송",
@@ -436,8 +419,7 @@
     "description": "코스트코 회원전용 온라인몰. 대용량 식료품 및 생활용품 판매",
     "url": "https://www.costco.co.kr",
     "categories": [
-      "general",
-      "grocery"
+      "general"
     ],
     "deliveryMethods": [
       "일반배송"
