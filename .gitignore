@@ -20,4 +20,5 @@ screenshots/
 
 # Node modules (only used for screenshot capture)
 node_modules/
+package.json
 package-lock.json
