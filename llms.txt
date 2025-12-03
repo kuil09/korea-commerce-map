@@ -34,8 +34,6 @@
 ### 종합쇼핑몰
 
 
-- 쿠팡 (Coupang): https://www.coupang.com - 당일~익일 (로켓배송)
-
 - G마켓 (Gmarket): https://www.gmarket.co.kr - 2~5일
 
 - 11번가 (11st): https://www.11st.co.kr - 2~4일
@@ -45,10 +43,6 @@
 - 인터파크 (Interpark): https://www.interpark.com - 2~5일
 
 - 네이버 쇼핑 (Naver Shopping): https://shopping.naver.com - 판매자별 상이
-
-- 티몬 (TMON): https://www.tmon.co.kr - 2~5일
-
-- 위메프 (WeMakePrice): https://www.wemakeprice.com - 2~5일
 
 - SSG닷컴 (SSG.com): https://www.ssg.com - 당일~익일
 
