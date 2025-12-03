@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate llms.txt
+      - name: Generate llms.txt and llms-ctx-full.txt
         run: node scripts/generate-llms.js
 
       - name: Setup Pages

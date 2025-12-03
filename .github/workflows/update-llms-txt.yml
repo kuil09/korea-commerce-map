@@ -8,6 +8,7 @@ on:
       - 'data/categories.json'
       - 'data/platforms.yaml'
       - 'templates/llms.txt.template'
+      - 'templates/llms-ctx-full.txt.template'
       - 'scripts/generate-llms.js'
       - 'scripts/sync-yaml-to-json.js'
 
@@ -29,15 +30,15 @@ jobs:
       - name: Sync YAML to JSON
         run: node scripts/sync-yaml-to-json.js
 
-      - name: Generate llms.txt
+      - name: Generate llms.txt and llms-ctx-full.txt
         run: node scripts/generate-llms.js
 
       - name: Check for changes
         id: check
         run: |
-          if [ ! -f llms.txt ]; then
+          if [ ! -f llms.txt ] || [ ! -f llms-ctx-full.txt ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
-          elif git diff --quiet -- llms.txt data/platforms.json 2>/dev/null; then
+          elif git diff --quiet -- llms.txt llms-ctx-full.txt data/platforms.json 2>/dev/null; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -48,7 +49,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add llms.txt data/platforms.json
-          git commit -m "chore: auto-update llms.txt and sync platforms.json from YAML"
+          git add llms.txt llms-ctx-full.txt data/platforms.json
+          git commit -m "chore: auto-update llms.txt, llms-ctx-full.txt and sync platforms.json from YAML"
           git pull --rebase --autostash || true
           git push
