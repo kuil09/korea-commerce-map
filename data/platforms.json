@@ -23,6 +23,27 @@
     ]
   },
   {
+    "id": "daiso",
+    "name": "다이소",
+    "nameEn": "Daiso",
+    "description": "전국 1,300여 개 오프라인 매장을 보유한 생활용품 전문 브랜드. 온라인몰을 통해 생활·주방·욕실·수납·문구 등 다양한 상품을 저렴한 가격에 제공",
+    "url": "https://www.daisomall.co.kr",
+    "categories": [
+      "living",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "30,000원 이상 무료배송",
+    "features": [
+      "1,000원 균일가 기반 인기 브랜드",
+      "생활잡화 전문 카테고리",
+      "오프라인 매장 연계 상품"
+    ]
+  },
+  {
     "id": "11st",
     "name": "11번가",
     "nameEn": "11st",
