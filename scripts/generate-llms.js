@@ -16,14 +16,31 @@ const TEMPLATES_DIR = path.join(ROOT_DIR, 'templates');
 // 데이터 파일 로드
 function loadJSON(filename) {
   const filepath = path.join(DATA_DIR, filename);
-  const content = fs.readFileSync(filepath, 'utf8');
-  return JSON.parse(content);
+  try {
+    const content = fs.readFileSync(filepath, 'utf8');
+    return JSON.parse(content);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      throw new Error(`데이터 파일을 찾을 수 없습니다: ${filepath}`);
+    }
+    if (error instanceof SyntaxError) {
+      throw new Error(`JSON 파싱 오류 (${filename}): ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 // 템플릿 파일 로드
 function loadTemplate(filename) {
   const filepath = path.join(TEMPLATES_DIR, filename);
-  return fs.readFileSync(filepath, 'utf8');
+  try {
+    return fs.readFileSync(filepath, 'utf8');
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      throw new Error(`템플릿 파일을 찾을 수 없습니다: ${filepath}`);
+    }
+    throw error;
+  }
 }
 
 // 카테고리별로 플랫폼 그룹화
@@ -149,36 +166,45 @@ function renderTemplate(template, data) {
 
 // 메인 실행
 function main() {
-  console.log('🚀 llms.txt 생성 시작...');
-  
-  // 데이터 로드
-  const categories = loadJSON('categories.json');
-  const platforms = loadJSON('platforms.json');
-  
-  console.log(`📦 ${categories.length}개의 카테고리 로드됨`);
-  console.log(`📦 ${platforms.length}개의 플랫폼 로드됨`);
-  
-  // 템플릿 로드
-  const template = loadTemplate('llms.txt.template');
-  
-  // 카테고리별로 플랫폼 그룹화
-  const platformsByCategory = groupPlatformsByCategory(categories, platforms);
-  
-  // 템플릿 데이터 준비
-  const templateData = {
-    categories,
-    platforms,
-    platformsByCategory
-  };
-  
-  // 템플릿 렌더링
-  const output = renderTemplate(template, templateData);
-  
-  // 파일 저장
-  const outputPath = path.join(ROOT_DIR, 'llms.txt');
-  fs.writeFileSync(outputPath, output, 'utf8');
-  
-  console.log(`✅ llms.txt 생성 완료: ${outputPath}`);
+  try {
+    console.log('🚀 llms.txt 생성 시작...');
+    
+    // 데이터 로드
+    const categories = loadJSON('categories.json');
+    const platforms = loadJSON('platforms.json');
+    
+    console.log(`📦 ${categories.length}개의 카테고리 로드됨`);
+    console.log(`📦 ${platforms.length}개의 플랫폼 로드됨`);
+    
+    // 템플릿 로드
+    const template = loadTemplate('llms.txt.template');
+    
+    // 카테고리별로 플랫폼 그룹화
+    const platformsByCategory = groupPlatformsByCategory(categories, platforms);
+    
+    // 템플릿 데이터 준비
+    const templateData = {
+      categories,
+      platforms,
+      platformsByCategory
+    };
+    
+    // 템플릿 렌더링
+    const output = renderTemplate(template, templateData);
+    
+    // 파일 저장
+    const outputPath = path.join(ROOT_DIR, 'llms.txt');
+    try {
+      fs.writeFileSync(outputPath, output, 'utf8');
+    } catch (error) {
+      throw new Error(`파일 저장 실패 (${outputPath}): ${error.message}`);
+    }
+    
+    console.log(`✅ llms.txt 생성 완료: ${outputPath}`);
+  } catch (error) {
+    console.error(`❌ 오류 발생: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 main();
