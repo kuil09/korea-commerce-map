@@ -13,5 +13,6 @@
   { "id": "kids", "name": "키즈/유아", "nameEn": "Kids/Baby", "icon": "🍼" },
   { "id": "health", "name": "헬스/건강식품", "nameEn": "Health", "icon": "💊" },
   { "id": "pet", "name": "반려동물", "nameEn": "Pet", "icon": "🐾" },
-  { "id": "subscription", "name": "구독형 커머스", "nameEn": "Subscription", "icon": "📦" }
+  { "id": "subscription", "name": "구독형 커머스", "nameEn": "Subscription", "icon": "📦" },
+  { "id": "travel", "name": "여행", "nameEn": "Travel", "icon": "✈️" }
 ]
