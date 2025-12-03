@@ -166,6 +166,7 @@
       z-index: 100;
       background-color: var(--zinc-50);
       padding: 1rem 0;
+      /* Negative margin compensates for parent .space-y-6 spacing to maintain visual alignment */
       margin: -1rem 0 0 0;
     }
 
@@ -1154,8 +1155,9 @@
 
         // Sticky filters scroll shadow handler
         const stickyFilters = document.getElementById('stickyFilters');
+        const SCROLL_SHADOW_THRESHOLD = 10; // Pixels scrolled before showing shadow
         window.addEventListener('scroll', () => {
-          if (window.scrollY > 10) {
+          if (window.scrollY > SCROLL_SHADOW_THRESHOLD) {
             stickyFilters.classList.add('scrolled');
           } else {
             stickyFilters.classList.remove('scrolled');
