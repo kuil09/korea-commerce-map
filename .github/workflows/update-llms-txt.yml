@@ -31,7 +31,9 @@ jobs:
       - name: Check for changes
         id: check
         run: |
-          if git diff --quiet llms.txt; then
+          if [ ! -f llms.txt ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          elif git diff --quiet llms.txt 2>/dev/null; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -44,4 +46,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add llms.txt
           git commit -m "chore: auto-update llms.txt"
+          git pull --rebase
           git push
