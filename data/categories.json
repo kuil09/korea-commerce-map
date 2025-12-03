@@ -8,5 +8,10 @@
   { "id": "quick-commerce", "name": "퀵커머스", "nameEn": "Quick Commerce", "icon": "⚡" },
   { "id": "general", "name": "종합쇼핑몰", "nameEn": "General Mall", "icon": "🏬" },
   { "id": "fresh", "name": "신선식품", "nameEn": "Fresh Food", "icon": "🥬" },
-  { "id": "secondhand", "name": "중고거래", "nameEn": "Secondhand", "icon": "♻️" }
+  { "id": "secondhand", "name": "중고거래", "nameEn": "Secondhand", "icon": "♻️" },
+  { "id": "rental", "name": "렌탈/대여", "nameEn": "Rental", "icon": "🔄" },
+  { "id": "kids", "name": "키즈/유아", "nameEn": "Kids/Baby", "icon": "🍼" },
+  { "id": "health", "name": "헬스/건강식품", "nameEn": "Health", "icon": "💊" },
+  { "id": "pet", "name": "반려동물", "nameEn": "Pet", "icon": "🐾" },
+  { "id": "subscription", "name": "구독형 커머스", "nameEn": "Subscription", "icon": "📦" }
 ]
