@@ -14,46 +14,33 @@
 ## 📁 프로젝트 구조
 
 ```
-src/
-├── app/
-│   ├── page.tsx          # 메인 페이지
-│   ├── layout.tsx        # 레이아웃
-│   └── globals.css       # 전역 스타일
-├── components/
-│   ├── CommerceList.tsx  # 커머스 리스트 컴포넌트
-│   ├── ServiceCard.tsx   # 서비스 카드 컴포넌트
-│   ├── CategoryFilter.tsx # 카테고리 필터 컴포넌트
-│   └── SearchBar.tsx     # 검색바 컴포넌트
-└── data/
-    └── commerce.ts       # 커머스 데이터
-public/
-└── llms.txt              # LLM 친화적 정보 파일
+/
+├── index.html       # 메인 페이지 (HTML, CSS, JS 포함)
+├── favicon.ico      # 파비콘
+├── llms.txt         # LLM 친화적 정보 파일
+└── README.md        # 프로젝트 설명
 ```
 
 ## 🛠️ 시작하기
 
-### 요구 사항
+이 프로젝트는 순수 HTML, CSS, JavaScript로 구성된 정적 웹사이트입니다.
+별도의 빌드 과정이 필요하지 않으며, 파일을 직접 열거나 웹 서버에서 호스팅하면 됩니다.
 
-- Node.js 18.0 이상
-- npm 또는 yarn
-
-### 설치 및 실행
+### 로컬에서 실행
 
 ```bash
-# 의존성 설치
-npm install
+# Python 3을 사용한 간단한 로컬 서버
+python -m http.server 8000
 
-# 개발 서버 실행
-npm run dev
-
-# 빌드
-npm run build
-
-# 프로덕션 서버 실행
-npm start
+# 또는 Node.js npx를 사용
+npx serve .
 ```
 
-[http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+[http://localhost:8000](http://localhost:8000) 또는 [http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+
+## 🌐 배포
+
+GitHub Pages를 통해 자동 배포됩니다. `main` 브랜치에 push하면 자동으로 배포됩니다.
 
 ## 📊 포함된 커머스 서비스
 
@@ -91,7 +78,7 @@ npm start
 
 1. 이 저장소를 Fork
 2. 새 브랜치 생성 (`git checkout -b feature/new-service`)
-3. `src/data/commerce.ts` 파일 수정
+3. `index.html` 파일의 `commerceServices` 배열 수정
 4. 변경사항 커밋 (`git commit -m 'Add new service'`)
 5. Push (`git push origin feature/new-service`)
 6. Pull Request 생성

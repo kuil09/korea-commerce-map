@@ -92,10 +92,11 @@
 - minOrderAmount: 최소 주문 금액
 - features: 주요 특징/서비스
 
-## API 정보 (API Information)
+## 기술 정보 (Technical Information)
 
-이 사이트는 정적으로 생성된 React/Next.js 기반 사이트입니다.
-데이터는 `/src/data/commerce.ts` 파일에서 관리됩니다.
+이 사이트는 순수 HTML, CSS, JavaScript로 구성된 정적 웹사이트입니다.
+별도의 빌드 과정 없이 GitHub Pages에 직접 배포됩니다.
+모든 데이터는 index.html 파일 내의 JavaScript에 포함되어 있습니다.
 
 ## 연락처 (Contact)
 
