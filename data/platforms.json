@@ -1,25 +1,5 @@
 [
   {
-    "id": "schezade",
-    "name": "셰에라자드",
-    "nameEn": "Schezade",
-    "description": "프리미엄 이어폰·헤드폰 및 고음질 오디오 기기 전문 쇼핑몰. 온라인몰과 서울 청담 오프라인 청음샵을 함께 운영.",
-    "url": "https://www.schezade.co.kr",
-    "categories": [
-      "electronics"
-    ],
-    "deliveryMethods": [
-      "일반배송"
-    ],
-    "deliveryTime": "2~5일",
-    "minOrderAmount": "판매자별 상이",
-    "features": [
-      "프리미엄 이어폰/헤드폰 전문",
-      "DAC/AMP/DAP, 커스텀 케이블 등 고급 음향 기기 취급",
-      "온라인 + 오프라인 청음샵 병행 운영"
-    ]
-  },
-  {
     "id": "gmarket",
     "name": "G마켓",
     "nameEn": "Gmarket",
