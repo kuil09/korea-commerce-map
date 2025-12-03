@@ -549,6 +549,120 @@
       }
     }
 
+    /* Phone Book Index Styles */
+    .index-section {
+      margin-bottom: 2rem;
+    }
+
+    .index-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--blue-500);
+    }
+
+    .index-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--blue-600);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .index-header {
+        border-color: var(--blue-400);
+      }
+    }
+
+    .index-count {
+      font-size: 0.875rem;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .index-count {
+        color: var(--zinc-400);
+      }
+    }
+
+    .index-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+      padding: 0.75rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      border: 1px solid var(--zinc-200);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .index-nav {
+        background-color: var(--zinc-900);
+        border-color: var(--zinc-800);
+      }
+    }
+
+    .index-nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      border-radius: 0.25rem;
+      background-color: var(--zinc-100);
+      color: var(--zinc-700);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .index-nav-btn:hover {
+      background-color: var(--blue-100);
+      color: var(--blue-700);
+    }
+
+    .index-nav-btn.active {
+      background-color: var(--blue-600);
+      color: white;
+    }
+
+    .index-nav-btn.disabled {
+      background-color: var(--zinc-50);
+      color: var(--zinc-300);
+      cursor: not-allowed;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .index-nav-btn {
+        background-color: var(--zinc-800);
+        color: var(--zinc-300);
+      }
+      .index-nav-btn:hover {
+        background-color: var(--blue-900-30);
+        color: var(--blue-300);
+      }
+      .index-nav-btn.active {
+        background-color: var(--blue-600);
+        color: white;
+      }
+      .index-nav-btn.disabled {
+        background-color: var(--zinc-900);
+        color: var(--zinc-700);
+      }
+    }
+
     /* Footer */
     footer {
       border-top: 1px solid var(--zinc-200);
@@ -645,7 +759,9 @@
 
           <div id="serviceCount" class="service-count"></div>
 
-          <div id="servicesGrid" class="services-grid"></div>
+          <div id="indexNav" class="index-nav"></div>
+
+          <div id="servicesContainer"></div>
         </div>
       </div>
     </main>
@@ -723,6 +839,67 @@
     // Get category name by id
     function getCategoryById(categoryId) {
       return categories.find(cat => cat.id === categoryId);
+    }
+
+    // Korean initial consonant (초성) extraction and sorting
+    const KOREAN_INITIALS = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+    const KOREAN_BASE = 0xAC00;
+    const INITIAL_OFFSET = 588; // 21 * 28
+
+    function getInitialConsonant(char) {
+      const code = char.charCodeAt(0);
+      
+      // Korean syllable block range: 0xAC00 ~ 0xD7A3
+      if (code >= 0xAC00 && code <= 0xD7A3) {
+        const initialIndex = Math.floor((code - KOREAN_BASE) / INITIAL_OFFSET);
+        return KOREAN_INITIALS[initialIndex];
+      }
+      
+      // Number
+      if (char >= '0' && char <= '9') {
+        return '#';
+      }
+      
+      // English letter
+      if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
+        return char.toUpperCase();
+      }
+      
+      // Other characters
+      return '#';
+    }
+
+    // Get sorted index letters for navigation
+    function getAllIndexLetters() {
+      return ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+    }
+
+    function groupServicesByInitial(services) {
+      const groups = {};
+      
+      // Sort services alphabetically by name first
+      const sortedServices = [...services].sort((a, b) => {
+        return a.name.localeCompare(b.name, 'ko');
+      });
+      
+      sortedServices.forEach(service => {
+        const firstChar = service.name.charAt(0);
+        let initial = getInitialConsonant(firstChar);
+        
+        // Merge double consonants with single ones for display
+        if (initial === 'ㄲ') initial = 'ㄱ';
+        if (initial === 'ㄸ') initial = 'ㄷ';
+        if (initial === 'ㅃ') initial = 'ㅂ';
+        if (initial === 'ㅆ') initial = 'ㅅ';
+        if (initial === 'ㅉ') initial = 'ㅈ';
+        
+        if (!groups[initial]) {
+          groups[initial] = [];
+        }
+        groups[initial].push(service);
+      });
+      
+      return groups;
     }
 
     function getFilteredServices() {
@@ -830,19 +1007,70 @@
       `;
     }
 
+    function renderIndexNav(groups) {
+      const container = document.getElementById("indexNav");
+      const allLetters = getAllIndexLetters();
+      
+      let html = '';
+      allLetters.forEach(letter => {
+        const hasServices = groups[letter] && groups[letter].length > 0;
+        const className = hasServices ? 'index-nav-btn' : 'index-nav-btn disabled';
+        html += `<button class="${className}" data-letter="${letter}" ${!hasServices ? 'disabled' : ''}>${letter}</button>`;
+      });
+      
+      container.innerHTML = html;
+      
+      // Add click handlers for navigation
+      container.querySelectorAll('.index-nav-btn:not(.disabled)').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const letter = btn.dataset.letter;
+          const section = document.getElementById(`section-${letter}`);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
     function renderServicesGrid() {
-      const container = document.getElementById("servicesGrid");
+      const container = document.getElementById("servicesContainer");
       const countContainer = document.getElementById("serviceCount");
+      const indexNavContainer = document.getElementById("indexNav");
       const services = getFilteredServices();
 
       countContainer.textContent = `총 ${services.length}개의 서비스`;
 
       if (services.length === 0) {
         container.innerHTML = '<div class="empty-state">검색 결과가 없습니다.</div>';
+        indexNavContainer.innerHTML = '';
         return;
       }
 
-      container.innerHTML = services.map(renderServiceCard).join('');
+      const groups = groupServicesByInitial(services);
+      const allLetters = getAllIndexLetters();
+      
+      // Render index navigation
+      renderIndexNav(groups);
+      
+      // Render grouped services
+      let html = '';
+      allLetters.forEach(letter => {
+        if (groups[letter] && groups[letter].length > 0) {
+          html += `
+            <div id="section-${letter}" class="index-section">
+              <div class="index-header">
+                <span class="index-letter">${letter}</span>
+                <span class="index-count">${groups[letter].length}개</span>
+              </div>
+              <div class="services-grid">
+                ${groups[letter].map(renderServiceCard).join('')}
+              </div>
+            </div>
+          `;
+        }
+      });
+      
+      container.innerHTML = html;
     }
 
     function render() {
@@ -882,7 +1110,7 @@
           render();
         });
       } else {
-        document.getElementById("servicesGrid").innerHTML = 
+        document.getElementById("servicesContainer").innerHTML = 
           '<div class="empty-state">데이터를 불러오는 중 오류가 발생했습니다.</div>';
       }
     });
