@@ -66,39 +66,60 @@ korea-commerce-map/
 | general | 종합쇼핑몰 | General Mall |
 | fresh | 신선식품 | Fresh Food |
 | secondhand | 중고거래 | Secondhand |
+| rental | 렌탈/대여 | Rental |
+| kids | 키즈/유아 | Kids/Baby |
+| health | 헬스/건강식품 | Health |
+| pet | 반려동물 | Pet |
+| subscription | 구독형 커머스 | Subscription |
+
 
 ### Delivery Methods (배송 수단)
 
-- 가게배달
+- 국제배송 (직구)
 - 낮배송
+- 냉장배송
 - 네이버 도착보장
 - 단건배달
+- 당근택배
 - 당일배송
+- 로켓배송
 - 로켓직송
-- 롯데배송
-- 무신사 익일배송
-- 배민배달
-- 번개페이 안전거래
+- 로켓프레시
+- 롯데마트 당일배송
+- 마트배송 / 산지직송
+- 매직배송 (당일매장배송)
+- 무신사 당일배송
+- 배민 라이더스
+- 번개택배
+- 산지직송 / 특산물 직배송
 - 새벽배송
+- 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
 - 설치배송
 - 스마일배송
 - 스마트스토어 판매자배송
-- 쓱배송
-- 오늘드림 (3시간 배송)
-- 요기요 배달
-- 음식점 배달
+- 쓱배송 (당일배송)
+- 안전결제(번개페이)
+- 오늘도착 (당일배송)
+- 오늘드림 (당일 3시간 배송)
+- 요기요 익스프레스
+- 음식점 자체배달
 - 일반배송
+- 정기배송
 - 즉시배송
-- 직거래
+- 직거래(만남)
+- 직접시공/설치
 - 직진배송
 - 택배거래
+- 택배대여
 - 택배배송
-- 트럭배송
+- 택배배송 (검수 후 발송)
+- 택배배송 (우체국택배)
 - 판매자배송
-- 편의점택배
-- 포장
+- 포장 주문
 - 하루배송
+- 헬로페이 안전결제
+- 화물배송
 
 ## Full Platform Data (전체 플랫폼 데이터)
 
@@ -165,6 +186,36 @@ korea-commerce-map/
     "name": "중고거래",
     "nameEn": "Secondhand",
     "icon": "♻️"
+  },
+  {
+    "id": "rental",
+    "name": "렌탈/대여",
+    "nameEn": "Rental",
+    "icon": "🔄"
+  },
+  {
+    "id": "kids",
+    "name": "키즈/유아",
+    "nameEn": "Kids/Baby",
+    "icon": "🍼"
+  },
+  {
+    "id": "health",
+    "name": "헬스/건강식품",
+    "nameEn": "Health",
+    "icon": "💊"
+  },
+  {
+    "id": "pet",
+    "name": "반려동물",
+    "nameEn": "Pet",
+    "icon": "🐾"
+  },
+  {
+    "id": "subscription",
+    "name": "구독형 커머스",
+    "nameEn": "Subscription",
+    "icon": "📦"
   }
 ]
 ```
@@ -174,15 +225,59 @@ korea-commerce-map/
 ```json
 [
   {
+    "id": "epostmall",
+    "name": "우체국쇼핑",
+    "nameEn": "ePOST Mall",
+    "description": "국내 농수산물, 특산물, 곡물·잡곡, 가공식품, 전통시장 상품 등을 판매하는 공공 온라인 식품몰. 전국 우체국택배 배송망을 통해 신선식품 및 가공식품을 소비자에게 직배송",
+    "url": "https://mall.epost.go.kr",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "택배배송 (우체국택배)",
+      "산지직송 / 특산물 직배송"
+    ],
+    "deliveryTime": "2~5일 (상품 및 지역에 따라 다름)",
+    "minOrderAmount": "무료배송 기준은 상품/지역별 상이",
+    "features": [
+      "농수산물·특산물 중심 쇼핑몰",
+      "전국 우체국택배망 이용",
+      "전통시장 상품 및 지역 특산물 판매",
+      "곡물, 잡곡, 가공식품, 건강식품, 밀키트, 선물세트 등 다양한 식품군 취급"
+    ]
+  },
+  {
+    "id": "nonghyupmall",
+    "name": "농협몰",
+    "nameEn": "Nonghyup Mall",
+    "description": "농협이 운영하는 농축산물 및 식료품 중심의 온라인 마트. 과일·채소·쌀/잡곡·축산·수산물부터 가공식품, 생활잡화까지 폭넓게 취급하며 전국 배송 서비스 제공",
+    "url": "https://www.nonghyupmall.com",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "택배배송",
+      "마트배송 / 산지직송"
+    ],
+    "deliveryTime": "2~5일 (상품 및 지역에 따라 변동)",
+    "minOrderAmount": "무료배송 기준은 지역/상품별 상이",
+    "features": [
+      "농축산물 직거래 기반 마트배송",
+      "곡물·쌀/잡곡, 과일, 축산, 수산, 가공식품 등 다양한 품목",
+      "NH멤버스 통합회원 및 할인/쿠폰 혜택",
+      "산지직송 / 마트배송 형태 제공"
+    ]
+  },
+  {
     "id": "gmarket",
     "name": "G마켓",
     "nameEn": "Gmarket",
     "description": "국내 대표 오픈마켓. 다양한 판매자의 상품을 비교하고 구매 가능",
     "url": "https://www.gmarket.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "판매자배송",
@@ -197,15 +292,102 @@ korea-commerce-map/
     ]
   },
   {
+    "id": "fredit",
+    "name": "프레딧",
+    "nameEn": "Fredit",
+    "description": "풀무원 계열의 건강지향 식품 플랫폼. 샐러드·도시락·HMR 등 신선 간편식 중심으로 구성되며 정기배송 서비스 제공",
+    "url": "https://fredit.co.kr",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "새벽배송 (지역 제한)",
+      "정기배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "조건부 무료배송 (지역별 상이)",
+    "features": [
+      "건강식단 정기배송",
+      "풀무원 브랜드 연계상품",
+      "신선 간편식 전문"
+    ]
+  },
+  {
+    "id": "maeil",
+    "name": "매일유업",
+    "nameEn": "Maeil Dairy Mall",
+    "description": "매일유업 공식 온라인몰. 우유, 분유, 이유식, 발효유, 냉장식품 등 신선식품 중심의 브랜드 직영 플랫폼",
+    "url": "https://direct.maeil.com",
+    "categories": [
+      "fresh",
+      "kids",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "냉장배송",
+      "일반배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "40,000원 이상 무료배송",
+    "features": [
+      "브랜드 직영몰",
+      "유아식품 전문관",
+      "냉장식품 패키징"
+    ]
+  },
+  {
+    "id": "harimmall",
+    "name": "하림몰",
+    "nameEn": "Harim Mall",
+    "description": "하림 공식 온라인몰. 신선 닭고기, 육류, 간편식, 밀키트 등을 직배송하는 식품 전문 플랫폼",
+    "url": "https://www.harimmall.com",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "냉장배송",
+      "일반배송"
+    ],
+    "deliveryTime": "2~3일",
+    "minOrderAmount": "30,000원 이상 무료배송",
+    "features": [
+      "하림 신선육 직배송",
+      "밀키트 전문관",
+      "브랜드 멤버십 혜택"
+    ]
+  },
+  {
+    "id": "daiso",
+    "name": "다이소",
+    "nameEn": "Daiso",
+    "description": "전국 1,300여 개 오프라인 매장을 보유한 생활용품 전문 브랜드. 온라인몰을 통해 생활·주방·욕실·수납·문구 등 다양한 상품을 저렴한 가격에 제공",
+    "url": "https://www.daisomall.co.kr",
+    "categories": [
+      "living",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "30,000원 이상 무료배송",
+    "features": [
+      "1,000원 균일가 기반 인기 브랜드",
+      "생활잡화 전문 카테고리",
+      "오프라인 매장 연계 상품"
+    ]
+  },
+  {
     "id": "11st",
     "name": "11번가",
     "nameEn": "11st",
-    "description": "SK 그룹 계열 종합쇼핑몰. 아마존 글로벌 스토어 운영",
+    "description": "SK텔레콤 계열의 종합쇼핑몰. 아마존 글로벌 스토어 운영",
     "url": "https://www.11st.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "일반배송",
@@ -217,19 +399,17 @@ korea-commerce-map/
     "features": [
       "아마존 글로벌 스토어",
       "슈팅배송",
-      "11번가 라이브"
+      "라이브 커머스"
     ]
   },
   {
     "id": "auction",
     "name": "옥션",
     "nameEn": "Auction",
-    "description": "대한민국 최초의 온라인 경매 사이트. 현재는 오픈마켓으로 운영",
+    "description": "대한민국 최초의 온라인 경매 사이트 출신 오픈마켓",
     "url": "https://www.auction.co.kr",
     "categories": [
-      "general",
-      "electronics",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
       "판매자배송",
@@ -239,19 +419,18 @@ korea-commerce-map/
     "minOrderAmount": "판매자별 상이",
     "features": [
       "스마일클럽",
-      "올킬",
-      "옥션라이브"
+      "올킬 특가",
+      "옥션 라이브"
     ]
   },
   {
     "id": "interpark",
     "name": "인터파크",
     "nameEn": "Interpark",
-    "description": "공연, 티켓, 쇼핑을 아우르는 종합 플랫폼",
+    "description": "공연/티켓부터 쇼핑까지 아우르는 종합 플랫폼",
     "url": "https://www.interpark.com",
     "categories": [
-      "general",
-      "electronics"
+      "general"
     ],
     "deliveryMethods": [
       "일반배송"
@@ -260,21 +439,18 @@ korea-commerce-map/
     "minOrderAmount": "상품별 상이",
     "features": [
       "공연/티켓 예매",
-      "투어/여행",
-      "도서"
+      "투어/여행 서비스",
+      "도서 판매"
     ]
   },
   {
     "id": "naver-shopping",
     "name": "네이버 쇼핑",
     "nameEn": "Naver Shopping",
-    "description": "국내 최대 가격비교 및 쇼핑 플랫폼. 스마트스토어 운영",
+    "description": "국내 최대 포털의 가격비교 및 쇼핑 플랫폼. 스마트스토어 등을 통해 오픈마켓 기능 제공",
     "url": "https://shopping.naver.com",
     "categories": [
-      "general",
-      "electronics",
-      "fashion",
-      "beauty"
+      "general"
     ],
     "deliveryMethods": [
       "스마트스토어 판매자배송",
@@ -283,16 +459,38 @@ korea-commerce-map/
     "deliveryTime": "판매자별 상이",
     "minOrderAmount": "판매자별 상이",
     "features": [
-      "네이버페이",
+      "네이버페이 간편결제",
       "찜한상품 알림",
       "리뷰 기반 추천"
+    ]
+  },
+  {
+    "id": "coupang",
+    "name": "쿠팡",
+    "nameEn": "Coupang",
+    "description": "국내 최대 이커머스. 로켓배송(익일)과 로켓프레시(새벽배송)로 빠른 배송 제공",
+    "url": "https://www.coupang.com",
+    "categories": [
+      "general"
+    ],
+    "deliveryMethods": [
+      "로켓배송",
+      "로켓프레시",
+      "판매자배송"
+    ],
+    "deliveryTime": "주문 익일 도착 (로켓배송 기준)",
+    "minOrderAmount": "로켓배송 19,800원 이상 (와우회원 무료)",
+    "features": [
+      "로켓와우 멤버십",
+      "30일 내 무료반품",
+      "쿠팡 라이브"
     ]
   },
   {
     "id": "kurly",
     "name": "마켓컬리",
     "nameEn": "Market Kurly",
-    "description": "새벽배송의 선구자. 프리미엄 식품 및 신선식품 전문",
+    "description": "새벽배송 선두주자. 프리미엄 식료품 및 신선식품 전문 온라인마트",
     "url": "https://www.kurly.com",
     "categories": [
       "fresh",
@@ -303,19 +501,19 @@ korea-commerce-map/
       "샛별배송 (새벽배송)",
       "낮배송"
     ],
-    "deliveryTime": "당일 주문 시 익일 새벽 도착",
-    "minOrderAmount": "15,000원 이상 (무료배송 40,000원)",
+    "deliveryTime": "당일 밤 주문 시 다음날 새벽 도착",
+    "minOrderAmount": "기본 15,000원 (무료배송 40,000원 이상)",
     "features": [
-      "100% 신선보장",
-      "컬리퍼플박스",
-      "뷰티컬리"
+      "신선도 100% 보장",
+      "컬리 전용 포장재",
+      "뷰티컬리 전문관"
     ]
   },
   {
     "id": "bmart",
     "name": "B마트",
     "nameEn": "B-Mart",
-    "description": "배달의민족이 운영하는 즉시 배송 서비스",
+    "description": "배달의민족이 운영하는 즉시배달 장보기 서비스",
     "url": "https://www.baemin.com",
     "categories": [
       "quick-commerce",
@@ -324,19 +522,19 @@ korea-commerce-map/
     "deliveryMethods": [
       "즉시배송"
     ],
-    "deliveryTime": "30분~1시간 이내",
-    "minOrderAmount": "5,000원 이상",
+    "deliveryTime": "주문 후 30분~1시간 이내 도착",
+    "minOrderAmount": "5,000원 이상 주문",
     "features": [
       "24시간 운영",
-      "즉시배송",
-      "다양한 생필품"
+      "배민앱 연동",
+      "생필품 즉시배달"
     ]
   },
   {
     "id": "coupang-eats",
     "name": "쿠팡이츠",
     "nameEn": "Coupang Eats",
-    "description": "쿠팡이 운영하는 음식 배달 서비스",
+    "description": "쿠팡이 운영하는 음식 배달 앱. 한 주문당 한집 배달 원칙",
     "url": "https://www.coupangeats.com",
     "categories": [
       "food-delivery"
@@ -344,57 +542,57 @@ korea-commerce-map/
     "deliveryMethods": [
       "단건배달"
     ],
-    "deliveryTime": "30분~1시간",
+    "deliveryTime": "30분~1시간 내 배달",
     "minOrderAmount": "음식점별 상이",
     "features": [
-      "단건배달",
-      "와우 무료배달",
-      "예상시간 보장"
+      "단건배달 서비스",
+      "와우회원 무료배달",
+      "배달 예상시간 보장"
     ]
   },
   {
     "id": "yogiyo",
     "name": "요기요",
     "nameEn": "Yogiyo",
-    "description": "대한민국 주요 음식 배달 플랫폼",
+    "description": "배달앱 2위 서비스. 다양한 음식점 배달 주문 지원",
     "url": "https://www.yogiyo.co.kr",
     "categories": [
       "food-delivery"
     ],
     "deliveryMethods": [
-      "음식점 배달",
-      "요기요 배달"
+      "음식점 자체배달",
+      "요기요 익스프레스"
     ],
-    "deliveryTime": "30분~1시간",
+    "deliveryTime": "주문 후 평균 30~60분",
     "minOrderAmount": "음식점별 상이",
     "features": [
-      "슈퍼클럽",
-      "요마트",
-      "포인트 적립"
+      "요기패스 구독",
+      "요마트 장보기",
+      "포인트 적립제"
     ]
   },
   {
     "id": "baemin",
     "name": "배달의민족",
     "nameEn": "Baemin",
-    "description": "대한민국 1위 음식 배달 앱. B마트, 배민스토어 등 다양한 서비스 운영",
+    "description": "국내 1위 음식 배달 플랫폼. B마트 등 퀵커머스 서비스도 통합 운영",
     "url": "https://www.baemin.com",
     "categories": [
       "food-delivery",
       "quick-commerce"
     ],
     "deliveryMethods": [
-      "배민배달",
-      "가게배달",
-      "포장"
+      "배민 라이더스",
+      "음식점 자체배달",
+      "포장 주문"
     ],
-    "deliveryTime": "30분~1시간",
+    "deliveryTime": "주문 후 평균 30~60분",
     "minOrderAmount": "음식점별 상이",
     "features": [
-      "배민1",
-      "B마트",
-      "배민스토어",
-      "배민클럽"
+      "배민1 한집배달",
+      "B마트 즉시배달",
+      "배민 할인쿠폰",
+      "배민 구독클럽"
     ]
   },
   {
@@ -410,92 +608,129 @@ korea-commerce-map/
     ],
     "deliveryMethods": [
       "새벽배송",
-      "낮배송"
+      "당일배송"
     ],
-    "deliveryTime": "익일 새벽 도착",
-    "minOrderAmount": "25,000원 이상",
+    "deliveryTime": "밤 10시 이전 주문 시 익일 새벽 도착",
+    "minOrderAmount": "25,000원 이상 주문",
     "features": [
-      "친환경 인증",
-      "유기농 전문",
+      "친환경 인증 상품",
+      "유기농 전문관",
       "재사용 포장재"
     ]
   },
   {
-    "id": "ssglive",
+    "id": "ssg",
     "name": "SSG닷컴",
     "nameEn": "SSG.com",
-    "description": "신세계 그룹 통합 온라인 쇼핑몰. 이마트몰, 신세계몰 통합",
+    "description": "신세계 그룹 통합 온라인몰. 이마트몰과 백화점몰을 한곳에 운영",
     "url": "https://www.ssg.com",
     "categories": [
-      "general",
-      "grocery",
-      "fresh",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
-      "쓱배송",
+      "쓱배송 (당일배송)",
       "새벽배송",
-      "당일배송"
+      "택배배송"
     ],
-    "deliveryTime": "당일~익일",
+    "deliveryTime": "주문 당일~익일 배송",
     "minOrderAmount": "40,000원 이상 무료배송",
     "features": [
-      "이마트 온라인",
-      "신세계백화점",
-      "SSG페이"
+      "이마트몰 연계",
+      "신세계백화점 상품",
+      "SSG PAY 결제"
     ]
   },
   {
     "id": "lotteon",
     "name": "롯데ON",
     "nameEn": "Lotte ON",
-    "description": "롯데 그룹 통합 온라인 쇼핑몰",
+    "description": "롯데쇼핑 통합 온라인몰. 롯데마트, 롯데백화점 등을 통합 운영",
     "url": "https://www.lotteon.com",
     "categories": [
-      "general",
-      "grocery",
-      "fashion"
+      "general"
     ],
     "deliveryMethods": [
-      "롯데배송",
+      "롯데마트 당일배송",
       "새벽배송",
-      "당일배송"
+      "택배배송"
     ],
-    "deliveryTime": "당일~익일",
+    "deliveryTime": "당일~익일 배송",
     "minOrderAmount": "40,000원 이상 무료배송",
     "features": [
-      "롯데마트",
-      "롯데백화점",
-      "L.Point"
+      "L.Point 적립",
+      "백화점 상품관",
+      "통합 멤버십"
+    ]
+  },
+  {
+    "id": "homeplus",
+    "name": "홈플러스 온라인몰",
+    "nameEn": "Homeplus Online",
+    "description": "홈플러스의 온라인 장보기 서비스. 매장 직접배송으로 당일 신선식품 배송",
+    "url": "https://front.homeplus.co.kr",
+    "categories": [
+      "grocery",
+      "fresh"
+    ],
+    "deliveryMethods": [
+      "매직배송 (당일매장배송)",
+      "택배배송"
+    ],
+    "deliveryTime": "주문 당일 또는 지정일 배송",
+    "minOrderAmount": "40,000원 이상 무료배송 (지역별 상이)",
+    "features": [
+      "매장픽업 서비스",
+      "당일배송 시간지정",
+      "PB브랜드 할인전"
+    ]
+  },
+  {
+    "id": "costco",
+    "name": "코스트코 온라인몰",
+    "nameEn": "Costco Korea",
+    "description": "코스트코 회원전용 온라인몰. 대용량 식료품 및 생활용품 판매",
+    "url": "https://www.costco.co.kr",
+    "categories": [
+      "general"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~5일 (물류센터 배송)",
+    "minOrderAmount": "무료배송 기준 없음 (연회비 회원제)",
+    "features": [
+      "멤버십 회원제",
+      "묶음 대용량 판매",
+      "오프라인 연계 반품"
     ]
   },
   {
     "id": "musinsa",
     "name": "무신사",
     "nameEn": "Musinsa",
-    "description": "대한민국 최대 온라인 패션 스토어",
+    "description": "국내 최대 온라인 패션 스토어. 스트릿 브랜드 중심",
     "url": "https://www.musinsa.com",
     "categories": [
       "fashion"
     ],
     "deliveryMethods": [
       "일반배송",
-      "무신사 익일배송"
+      "무신사 당일배송"
     ],
-    "deliveryTime": "1~3일",
-    "minOrderAmount": "무료배송 기준 있음",
+    "deliveryTime": "1~3일 (일부 익일배송)",
+    "minOrderAmount": "브랜드별 상이 (일부 무료배송)",
     "features": [
-      "무신사 스탠다드",
-      "스타일 추천",
-      "코디 SNS"
+      "무신사 스탠다드 PB",
+      "코디 추천 및 리뷰",
+      "한정판 발매 (랄라뮤즈)"
     ]
   },
   {
     "id": "ably",
     "name": "에이블리",
     "nameEn": "Ably",
-    "description": "2030 여성 패션 전문 쇼핑 플랫폼",
-    "url": "https://m.a-bly.com",
+    "description": "2030 여성 대상 패션 쇼핑앱. AI 코디 추천 제공",
+    "url": "https://a-bly.com",
     "categories": [
       "fashion",
       "beauty"
@@ -507,15 +742,15 @@ korea-commerce-map/
     "minOrderAmount": "판매자별 상이",
     "features": [
       "AI 스타일 추천",
-      "셀럽 마켓",
-      "무료반품"
+      "셀럽 마켓 입점",
+      "무료 반품 혜택"
     ]
   },
   {
     "id": "zigzag",
     "name": "지그재그",
     "nameEn": "Zigzag",
-    "description": "여성 의류 쇼핑 플랫폼. 동대문 쇼핑몰 통합 검색",
+    "description": "여성 의류 쇼핑몰 모음 앱. 여러 쇼핑몰 상품을 한번에 검색·구매",
     "url": "https://www.zigzag.kr",
     "categories": [
       "fashion",
@@ -525,19 +760,19 @@ korea-commerce-map/
       "판매자배송",
       "직진배송"
     ],
-    "deliveryTime": "2~4일 (직진배송 익일)",
+    "deliveryTime": "2~4일 (직진배송 익일 배송)",
     "minOrderAmount": "판매자별 상이",
     "features": [
-      "직진배송",
-      "Z결제",
-      "스토어 즐겨찾기"
+      "직진배송 (통합배송)",
+      "Z결제 간편결제",
+      "쇼핑몰 즐겨찾기"
     ]
   },
   {
     "id": "brandi",
     "name": "브랜디",
     "nameEn": "Brandi",
-    "description": "MZ세대 여성 패션 쇼핑 플랫폼",
+    "description": "MZ세대 여성 패션 플랫폼. 하루배송 서비스 운영",
     "url": "https://www.brandi.co.kr",
     "categories": [
       "fashion"
@@ -549,16 +784,16 @@ korea-commerce-map/
     "deliveryTime": "익일~3일",
     "minOrderAmount": "판매자별 상이",
     "features": [
-      "하루배송",
-      "라이브 방송",
-      "셀럽 스토어"
+      "하루배송 전용관",
+      "라이브 방송 쇼핑",
+      "인플루언서 셀렉션"
     ]
   },
   {
     "id": "wconcept",
     "name": "W컨셉",
     "nameEn": "W Concept",
-    "description": "프리미엄 디자이너 패션 플랫폼",
+    "description": "프리미엄 디자이너 편집샵. 국내외 디자이너 브랜드 패션 판매",
     "url": "https://www.wconcept.co.kr",
     "categories": [
       "fashion"
@@ -569,16 +804,16 @@ korea-commerce-map/
     "deliveryTime": "2~4일",
     "minOrderAmount": "브랜드별 상이",
     "features": [
-      "프리미엄 브랜드",
-      "단독 상품",
-      "세일"
+      "디자이너 브랜드 한정판",
+      "단독 컬렉션",
+      "시즌 세일"
     ]
   },
   {
     "id": "29cm",
     "name": "29CM",
     "nameEn": "29CM",
-    "description": "감도 높은 취향을 위한 온라인 셀렉트샵",
+    "description": "취향 기반 셀렉트숍 컨셉의 패션/라이프스타일 몰",
     "url": "https://www.29cm.co.kr",
     "categories": [
       "fashion",
@@ -591,36 +826,36 @@ korea-commerce-map/
     "minOrderAmount": "브랜드별 상이",
     "features": [
       "에디터 큐레이션",
-      "브랜드 스토리",
-      "PT(특가전)"
+      "브랜드 스토리 소개",
+      "PT 기획전 (특가전)"
     ]
   },
   {
     "id": "olive-young",
     "name": "올리브영",
     "nameEn": "Olive Young",
-    "description": "대한민국 대표 H&B 스토어. 화장품, 건강식품 전문",
+    "description": "국내 대표 H&B 드럭스토어. 화장품, 건강식품 등 판매",
     "url": "https://www.oliveyoung.co.kr",
     "categories": [
       "beauty"
     ],
     "deliveryMethods": [
-      "오늘드림 (3시간 배송)",
+      "오늘드림 (당일 3시간 배송)",
       "일반배송"
     ],
-    "deliveryTime": "오늘드림 3시간, 일반 2~3일",
-    "minOrderAmount": "30,000원 이상 무료배송",
+    "deliveryTime": "오늘드림 평균 3시간, 일반 2~3일",
+    "minOrderAmount": "30,000원 이상 무료배송 (일반배송 기준)",
     "features": [
-      "오늘드림",
-      "매장픽업",
-      "CJ ONE 포인트"
+      "오늘드림 빠른배송",
+      "매장 픽업 서비스",
+      "CJ ONE 포인트 적립"
     ]
   },
   {
     "id": "himart",
     "name": "하이마트",
     "nameEn": "Himart",
-    "description": "롯데 그룹 가전제품 전문 유통 채널",
+    "description": "롯데그룹 계열 가전전문 쇼핑몰. 온오프라인 연계",
     "url": "https://www.e-himart.co.kr",
     "categories": [
       "electronics"
@@ -629,19 +864,19 @@ korea-commerce-map/
       "일반배송",
       "설치배송"
     ],
-    "deliveryTime": "2~7일 (설치 예약 필요)",
+    "deliveryTime": "2~7일 (설치 예약 시 별도 일정)",
     "minOrderAmount": "상품별 상이",
     "features": [
-      "가전 설치",
-      "렌탈 서비스",
-      "중고 가전"
+      "가전 제품 설치 서비스",
+      "렌탈 서비스 제공",
+      "중고 가전 보상판매"
     ]
   },
   {
     "id": "samsung",
     "name": "삼성닷컴",
     "nameEn": "Samsung.com",
-    "description": "삼성전자 공식 온라인 쇼핑몰",
+    "description": "삼성전자 공식 온라인몰. 삼성 제품 전체 판매",
     "url": "https://www.samsung.com/sec",
     "categories": [
       "electronics"
@@ -651,18 +886,18 @@ korea-commerce-map/
       "설치배송"
     ],
     "deliveryTime": "2~7일",
-    "minOrderAmount": "무료배송",
+    "minOrderAmount": "전상품 무료배송",
     "features": [
-      "멤버십 혜택",
-      "트레이드인",
-      "체험 스토어"
+      "멤버십 포인트 적립",
+      "트레이드인 보상판매",
+      "체험 스토어 연계"
     ]
   },
   {
     "id": "lg-best",
     "name": "LG전자 베스트샵",
     "nameEn": "LG Best Shop",
-    "description": "LG전자 공식 온라인 쇼핑몰",
+    "description": "LG전자 공식 온라인몰",
     "url": "https://www.lge.co.kr",
     "categories": [
       "electronics"
@@ -672,39 +907,39 @@ korea-commerce-map/
       "설치배송"
     ],
     "deliveryTime": "2~7일",
-    "minOrderAmount": "무료배송",
+    "minOrderAmount": "전상품 무료배송",
     "features": [
-      "멤버십",
-      "렌탈",
-      "AS 예약"
+      "LG 멤버십 할인",
+      "가전 제품 렌탈",
+      "A/S 예약 연계"
     ]
   },
   {
     "id": "ikea",
-    "name": "이케아",
+    "name": "이케아 온라인몰",
     "nameEn": "IKEA",
-    "description": "스웨덴 글로벌 가구 및 인테리어 브랜드",
-    "url": "https://www.ikea.com/kr",
+    "description": "글로벌 가구 및 인테리어 브랜드 IKEA의 한국 온라인몰",
+    "url": "https://www.ikea.com/kr/ko",
     "categories": [
       "living"
     ],
     "deliveryMethods": [
       "택배배송",
-      "트럭배송"
+      "화물배송"
     ],
     "deliveryTime": "2~7일 (지역별 상이)",
-    "minOrderAmount": "구매금액별 배송비 상이",
+    "minOrderAmount": "배송비 구매금액별 상이",
     "features": [
-      "DIY 조립",
-      "플래닝 서비스",
-      "가구 조립 서비스"
+      "DIY 조립 가구",
+      "온라인 플래너 도구",
+      "조립/설치 서비스"
     ]
   },
   {
     "id": "hanssem",
     "name": "한샘몰",
     "nameEn": "Hanssem Mall",
-    "description": "국내 대표 인테리어 가구 브랜드",
+    "description": "국내 대표 인테리어 가구 브랜드 한샘의 공식 쇼핑몰",
     "url": "https://mall.hanssem.com",
     "categories": [
       "living"
@@ -713,96 +948,299 @@ korea-commerce-map/
       "일반배송",
       "설치배송"
     ],
-    "deliveryTime": "상품별 상이",
+    "deliveryTime": "상품별 개별 안내",
     "minOrderAmount": "상품별 상이",
     "features": [
       "인테리어 컨설팅",
-      "리모델링",
-      "A/S"
+      "리모델링 서비스",
+      "AS 및 케어 서비스"
     ]
   },
   {
     "id": "ohouse",
     "name": "오늘의집",
     "nameEn": "Ohouse",
-    "description": "인테리어 플랫폼. 가구, 소품, 시공 서비스 제공",
+    "description": "인테리어 플랫폼. 가구, 소품 판매부터 시공 중개까지",
     "url": "https://ohou.se",
     "categories": [
       "living"
     ],
     "deliveryMethods": [
       "일반배송",
-      "설치배송"
+      "직접시공/설치"
     ],
-    "deliveryTime": "상품별 상이",
+    "deliveryTime": "상품별 상이 (시공 일정 협의)",
     "minOrderAmount": "상품별 상이",
     "features": [
-      "인테리어 커뮤니티",
-      "시공 서비스",
-      "3D 인테리어"
+      "인테리어 커뮤니티/노하우",
+      "시공 견적 서비스",
+      "3D 홈 디자인 툴"
     ]
   },
   {
     "id": "daangn",
     "name": "당근마켓",
     "nameEn": "Karrot",
-    "description": "동네 기반 중고거래 플랫폼",
+    "description": "동네 기반 중고거래 플랫폼. 근거리 직거래 중심",
     "url": "https://www.daangn.com",
     "categories": [
       "secondhand"
     ],
     "deliveryMethods": [
-      "직거래",
-      "택배거래"
+      "직거래(만남)",
+      "당근택배"
     ],
-    "deliveryTime": "판매자 협의",
+    "deliveryTime": "직거래시 즉시, 택배거래는 협의",
     "minOrderAmount": "없음",
     "features": [
-      "동네 인증",
-      "당근페이",
-      "비즈프로필"
+      "동네 인증 시스템",
+      "당근페이 간편결제",
+      "지역 생활 커뮤니티"
     ]
   },
   {
     "id": "bunjang",
     "name": "번개장터",
-    "nameEn": "Bungae Jangter",
-    "description": "대한민국 대표 중고거래 플랫폼",
+    "nameEn": "Bungae Jangteo",
+    "description": "국내 대표 온라인 중고장터 앱. 취미, 한정판 거래 활발",
     "url": "https://www.bunjang.co.kr",
     "categories": [
       "secondhand"
     ],
     "deliveryMethods": [
-      "직거래",
-      "번개페이 안전거래",
-      "편의점택배"
+      "직거래(만남)",
+      "번개택배",
+      "안전결제(번개페이)"
     ],
-    "deliveryTime": "판매자 협의",
+    "deliveryTime": "판매자와 협의",
     "minOrderAmount": "없음",
     "features": [
-      "번개페이",
-      "안전결제",
-      "스타샵"
+      "번개페이 에스크로",
+      "정품 감정 서비스",
+      "스타샵 (셀럽 중고마켓)"
     ]
   },
   {
     "id": "joonggonara",
     "name": "중고나라",
     "nameEn": "Joongonara",
-    "description": "국내 최대 중고거래 커뮤니티",
+    "description": "국내 최대 규모의 중고거래 커뮤니티 (네이버 카페 기반)",
     "url": "https://cafe.naver.com/joonggonara",
     "categories": [
       "secondhand"
     ],
     "deliveryMethods": [
-      "직거래",
+      "직거래(만남)",
       "택배거래"
     ],
-    "deliveryTime": "판매자 협의",
+    "deliveryTime": "판매자와 협의",
     "minOrderAmount": "없음",
     "features": [
-      "네이버 카페 기반",
-      "안전결제"
+      "네이버 카페 커뮤니티",
+      "안전결제 서비스",
+      "전문 중고업체 입점"
+    ]
+  },
+  {
+    "id": "hellomarket",
+    "name": "헬로마켓",
+    "nameEn": "HelloMarket",
+    "description": "수수료 없는 전국 중고거래 플랫폼. 패션 전문 '세컨웨어' 서비스 제공",
+    "url": "https://www.hellomarket.com",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "직거래(만남)",
+      "헬로페이 안전결제"
+    ],
+    "deliveryTime": "판매자와 협의",
+    "minOrderAmount": "없음",
+    "features": [
+      "판매 수수료 0%",
+      "헬로페이 에스크로",
+      "빈티지 패션 전문관"
+    ]
+  },
+  {
+    "id": "kream",
+    "name": "크림",
+    "nameEn": "KREAM",
+    "description": "한정판 스니커즈 및 스트릿웨어 거래 플랫폼. 검수센터를 통한 정품 거래",
+    "url": "https://kream.co.kr",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "택배배송 (검수 후 발송)"
+    ],
+    "deliveryTime": "결제 후 3~7일 (검수 포함)",
+    "minOrderAmount": "없음 (수수료 부과)",
+    "features": [
+      "전문 검수 시스템",
+      "한정판 럭키드로우",
+      "KREAM 포인트 리워드"
+    ]
+  },
+  {
+    "id": "soldout",
+    "name": "솔드아웃",
+    "nameEn": "Soldout",
+    "description": "무신사 운영 한정판 리셀 플랫폼. 한정판 패션, 스니커즈 거래 중개",
+    "url": "https://www.soldout.co.kr",
+    "categories": [
+      "secondhand"
+    ],
+    "deliveryMethods": [
+      "택배배송 (검수 후 발송)"
+    ],
+    "deliveryTime": "결제 후 3~7일 (검수 포함)",
+    "minOrderAmount": "없음 (수수료 부과)",
+    "features": [
+      "정품 300% 보상제",
+      "한정판 발매 캘린더",
+      "무신사 연동 혜택"
+    ]
+  },
+  {
+    "id": "momq",
+    "name": "맘큐",
+    "nameEn": "momQ",
+    "description": "유한킴벌리 직영 육아용품 쇼핑몰. 하기스 기저귀 등 공식 판매",
+    "url": "https://www.momq.co.kr",
+    "categories": [
+      "kids"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "조건부 무료배송 (상품별 상이)",
+    "features": [
+      "맘큐위키 육아정보",
+      "브랜드 회원 등급제",
+      "산모 교실 이벤트"
+    ]
+  },
+  {
+    "id": "kidikidi",
+    "name": "키디키디",
+    "nameEn": "Kidikidi",
+    "description": "이랜드리테일 운영 유아동 전문몰. 인기 베이비/키즈 브랜드 모음",
+    "url": "https://kidikidi.elandmall.co.kr",
+    "categories": [
+      "kids"
+    ],
+    "deliveryMethods": [
+      "일반배송"
+    ],
+    "deliveryTime": "2~4일",
+    "minOrderAmount": "브랜드별 상이",
+    "features": [
+      "베이비페어 상시진행",
+      "쿠폰팩/적립 이벤트",
+      "아동복 사이즈별 추천"
+    ]
+  },
+  {
+    "id": "petfriends",
+    "name": "펫프렌즈",
+    "nameEn": "PetFriends",
+    "description": "대표 반려동물용품 쇼핑몰. 서울/경기 당일 및 새벽배송 지원",
+    "url": "https://m.pet-friends.co.kr",
+    "categories": [
+      "pet"
+    ],
+    "deliveryMethods": [
+      "오늘도착 (당일배송)",
+      "새벽배송"
+    ],
+    "deliveryTime": "당일 또는 익일 새벽 도착",
+    "minOrderAmount": "20,000원 이상 (지역별 상이)",
+    "features": [
+      "신규회원 5천원 쿠폰",
+      "사료 정기배송 할인",
+      "수의사 상담 서비스"
+    ]
+  },
+  {
+    "id": "rental-closetshare",
+    "name": "클로젯셰어",
+    "nameEn": "ClosetShare",
+    "description": "패션 아이템 공유 플랫폼. 안 입는 옷을 맡기고 필요한 옷은 월구독으로 대여",
+    "url": "https://www.closetshare.com",
+    "categories": [
+      "rental"
+    ],
+    "deliveryMethods": [
+      "택배대여"
+    ],
+    "deliveryTime": "결제 후 1~2일 내 수령 (대여기간 2주 단위)",
+    "minOrderAmount": "멤버십 구독형",
+    "features": [
+      "의류/가방 멤버십 (월 79,000원~)",
+      "스타일리스트 추천박스",
+      "대여품 세탁 무료서비스"
+    ]
+  },
+  {
+    "id": "ople",
+    "name": "오플닷컴",
+    "nameEn": "Ople.com",
+    "description": "미국 건강식품 직구 전문몰. 해외 인기 비타민, 영양제 직배송",
+    "url": "https://www.ople.com",
+    "categories": [
+      "health"
+    ],
+    "deliveryMethods": [
+      "국제배송 (직구)"
+    ],
+    "deliveryTime": "주문 후 3~7일 (직배송)",
+    "minOrderAmount": "50,000원 이상 무료배송",
+    "features": [
+      "100% 미국 정품",
+      "회원 할인/적립",
+      "건강기능식품 카테고리세분화"
+    ]
+  },
+  {
+    "id": "iherb",
+    "name": "아이허브",
+    "nameEn": "iHerb",
+    "description": "해외 건강식품 No.1 직구몰. 5만여 종의 비타민, 천연제품 구매 가능",
+    "url": "https://kr.iherb.com",
+    "categories": [
+      "health"
+    ],
+    "deliveryMethods": [
+      "국제배송 (직구)"
+    ],
+    "deliveryTime": "주문 후 3~7일 (항공직송)",
+    "minOrderAmount": "40달러 이상 무료배송",
+    "features": [
+      "위클리 특가 할인",
+      "로열티 리워드 (추천인 코드)",
+      "한국어 고객지원"
+    ]
+  },
+  {
+    "id": "goodokmall",
+    "name": "구독몰",
+    "nameEn": "GoodOK Mall",
+    "description": "생필품 정기구독 플랫폼. 설정한 주기에 자동 결제/배송되는 쇼핑몰",
+    "url": "https://goodokmall.co.kr",
+    "categories": [
+      "subscription"
+    ],
+    "deliveryMethods": [
+      "정기배송"
+    ],
+    "deliveryTime": "설정한 배송주기에 맞춰 발송",
+    "minOrderAmount": "없음 (상품별 구독 가격 적용)",
+    "features": [
+      "구독 기간별 할인율",
+      "공유 시 추가적립 리워드",
+      "구독 관리 전용 앱"
     ]
   }
 ]

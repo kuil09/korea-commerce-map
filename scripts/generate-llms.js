@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * llms.txt 생성 스크립트
- * 템플릿과 데이터 파일을 사용하여 llms.txt를 생성합니다.
+ * llms.txt 및 llms-ctx-full.txt 생성 스크립트
+ * 템플릿과 데이터 파일을 사용하여 LLM용 파일들을 생성합니다.
  */
 
 const fs = require('fs');
@@ -198,10 +198,50 @@ function renderTemplate(template, data) {
   return result;
 }
 
+// llms-ctx-full.txt 템플릿 렌더링
+function renderFullContextTemplate(template, data) {
+  let result = template;
+  
+  // {{deliveryMethodsList}} 처리
+  const deliveryMethods = extractDeliveryMethods(data.platforms);
+  const deliveryMethodsList = deliveryMethods.map(d => `- ${d}`).join('\n');
+  result = result.replace(/\{\{deliveryMethodsList\}\}/g, deliveryMethodsList);
+  
+  // {{categoriesJson}} 처리 - JSON 형식으로 카테고리 데이터 삽입
+  const categoriesJson = JSON.stringify(data.categories, null, 2);
+  result = result.replace(/\{\{categoriesJson\}\}/g, categoriesJson);
+  
+  // {{platformsJson}} 처리 - JSON 형식으로 플랫폼 데이터 삽입
+  const platformsJson = JSON.stringify(data.platforms, null, 2);
+  result = result.replace(/\{\{platformsJson\}\}/g, platformsJson);
+  
+  // {{#each categories}} ... {{/each}} 블록 처리
+  const MAX_ITERATIONS = 100;
+  let iterations = 0;
+  while (result.includes('{{#each categories}}') && iterations < MAX_ITERATIONS) {
+    iterations++;
+    const categoriesBlock = findMatchingEachBlock(result, '{{#each categories}}');
+    if (!categoriesBlock) {
+      break;
+    }
+    const rendered = data.categories.map(category => {
+      let itemContent = categoriesBlock.content;
+      itemContent = itemContent.replace(/\{\{name\}\}/g, category.name);
+      itemContent = itemContent.replace(/\{\{nameEn\}\}/g, category.nameEn);
+      itemContent = itemContent.replace(/\{\{icon\}\}/g, category.icon);
+      itemContent = itemContent.replace(/\{\{id\}\}/g, category.id);
+      return itemContent;
+    }).join('');
+    result = result.replace(categoriesBlock.fullMatch, rendered);
+  }
+  
+  return result;
+}
+
 // 메인 실행
 function main() {
   try {
-    console.log('🚀 llms.txt 생성 시작...');
+    console.log('🚀 llms.txt 및 llms-ctx-full.txt 생성 시작...');
     
     // 데이터 로드 (YAML에서 플랫폼 데이터 읽기)
     const categories = loadJSON('categories.json');
@@ -209,9 +249,6 @@ function main() {
     
     console.log(`📦 ${categories.length}개의 카테고리 로드됨`);
     console.log(`📦 ${platforms.length}개의 플랫폼 로드됨`);
-    
-    // 템플릿 로드
-    const template = loadTemplate('llms.txt.template');
     
     // 카테고리별로 플랫폼 그룹화
     const platformsByCategory = groupPlatformsByCategory(categories, platforms);
@@ -223,18 +260,28 @@ function main() {
       platformsByCategory
     };
     
-    // 템플릿 렌더링
-    const output = renderTemplate(template, templateData);
-    
-    // 파일 저장
-    const outputPath = path.join(ROOT_DIR, 'llms.txt');
+    // llms.txt 생성
+    const llmsTemplate = loadTemplate('llms.txt.template');
+    const llmsOutput = renderTemplate(llmsTemplate, templateData);
+    const llmsOutputPath = path.join(ROOT_DIR, 'llms.txt');
     try {
-      fs.writeFileSync(outputPath, output, 'utf8');
+      fs.writeFileSync(llmsOutputPath, llmsOutput, 'utf8');
     } catch (error) {
-      throw new Error(`파일 저장 실패 (${outputPath}): ${error.message}`);
+      throw new Error(`파일 저장 실패 (${llmsOutputPath}): ${error.message}`);
     }
+    console.log(`✅ llms.txt 생성 완료: ${llmsOutputPath}`);
     
-    console.log(`✅ llms.txt 생성 완료: ${outputPath}`);
+    // llms-ctx-full.txt 생성
+    const fullCtxTemplate = loadTemplate('llms-ctx-full.txt.template');
+    const fullCtxOutput = renderFullContextTemplate(fullCtxTemplate, templateData);
+    const fullCtxOutputPath = path.join(ROOT_DIR, 'llms-ctx-full.txt');
+    try {
+      fs.writeFileSync(fullCtxOutputPath, fullCtxOutput, 'utf8');
+    } catch (error) {
+      throw new Error(`파일 저장 실패 (${fullCtxOutputPath}): ${error.message}`);
+    }
+    console.log(`✅ llms-ctx-full.txt 생성 완료: ${fullCtxOutputPath}`);
+    
   } catch (error) {
     console.error(`❌ 오류 발생: ${error.message}`);
     process.exit(1);
