@@ -869,9 +869,20 @@
       return '#';
     }
 
-    // Get sorted index letters for navigation
+    // Get sorted index letters for navigation (excluding double consonants which are merged)
+    const ALL_INDEX_LETTERS = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+    
+    // Mapping for double consonants to single consonants
+    const DOUBLE_CONSONANT_MAP = {
+      'ㄲ': 'ㄱ',
+      'ㄸ': 'ㄷ',
+      'ㅃ': 'ㅂ',
+      'ㅆ': 'ㅅ',
+      'ㅉ': 'ㅈ'
+    };
+
     function getAllIndexLetters() {
-      return ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+      return ALL_INDEX_LETTERS;
     }
 
     function groupServicesByInitial(services) {
@@ -887,11 +898,9 @@
         let initial = getInitialConsonant(firstChar);
         
         // Merge double consonants with single ones for display
-        if (initial === 'ㄲ') initial = 'ㄱ';
-        if (initial === 'ㄸ') initial = 'ㄷ';
-        if (initial === 'ㅃ') initial = 'ㅂ';
-        if (initial === 'ㅆ') initial = 'ㅅ';
-        if (initial === 'ㅉ') initial = 'ㅈ';
+        if (DOUBLE_CONSONANT_MAP[initial]) {
+          initial = DOUBLE_CONSONANT_MAP[initial];
+        }
         
         if (!groups[initial]) {
           groups[initial] = [];
