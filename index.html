@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대한민국 커머스 지도 - Korea Commerce Map</title>
+  <meta name="description" content="대한민국에 존재하는 커머스 서비스들의 특화 카테고리, 상호, 배송 수단, 배송 도착 보장 시간, 최소 주문 금액 등을 한눈에 비교하세요.">
+  <meta name="keywords" content="한국 커머스, 온라인 쇼핑, 쿠팡, 마켓컬리, 배달의민족, 새벽배송, 로켓배송, 이커머스">
+  <meta property="og:title" content="대한민국 커머스 지도">
+  <meta property="og:description" content="한눈에 보는 대한민국 온라인 쇼핑 서비스 - 배송, 카테고리, 특징 비교">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --background: #ffffff;
+      --foreground: #171717;
+      --zinc-50: #fafafa;
+      --zinc-100: #f4f4f5;
+      --zinc-200: #e4e4e7;
+      --zinc-300: #d4d4d8;
+      --zinc-400: #a1a1aa;
+      --zinc-500: #71717a;
+      --zinc-600: #52525b;
+      --zinc-700: #3f3f46;
+      --zinc-800: #27272a;
+      --zinc-900: #18181b;
+      --zinc-950: #09090b;
+      --blue-50: #eff6ff;
+      --blue-300: #93c5fd;
+      --blue-400: #60a5fa;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900-30: rgba(30, 58, 138, 0.3);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      background: var(--background);
+      color: var(--foreground);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .min-h-screen {
+      min-height: 100vh;
+    }
+
+    .bg-zinc-50 {
+      background-color: var(--zinc-50);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .dark\:bg-zinc-950 {
+        background-color: var(--zinc-950);
+      }
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--zinc-200);
+      background-color: white;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        border-color: var(--zinc-800);
+        background-color: var(--zinc-900);
+      }
+    }
+
+    .container {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--zinc-900);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      h1 {
+        color: var(--zinc-100);
+      }
+    }
+
+    .subtitle {
+      color: var(--zinc-600);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .subtitle {
+        color: var(--zinc-400);
+      }
+    }
+
+    /* Main */
+    main {
+      padding: 2rem 1rem;
+    }
+
+    @media (min-width: 640px) {
+      main {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      main {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+
+    .main-container {
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .space-y-6 > * + * {
+      margin-top: 1.5rem;
+    }
+
+    /* Search Bar */
+    .search-container {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      border-radius: 9999px;
+      border: 1px solid var(--zinc-200);
+      background-color: white;
+      padding: 0.75rem 1.25rem 0.75rem 3rem;
+      font-size: 0.875rem;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input::placeholder {
+      color: var(--zinc-400);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .search-input {
+        border-color: var(--zinc-700);
+        background-color: var(--zinc-900);
+        color: var(--zinc-100);
+      }
+      .search-input::placeholder {
+        color: var(--zinc-500);
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--zinc-400);
+    }
+
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .category-btn {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 9999px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color 0.2s, color 0.2s;
+      cursor: pointer;
+      border: none;
+      background-color: var(--zinc-100);
+      color: var(--zinc-700);
+    }
+
+    .category-btn:hover {
+      background-color: var(--zinc-200);
+    }
+
+    .category-btn.active {
+      background-color: var(--blue-600);
+      color: white;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .category-btn {
+        background-color: var(--zinc-800);
+        color: var(--zinc-300);
+      }
+      .category-btn:hover {
+        background-color: var(--zinc-700);
+      }
+      .category-btn.active {
+        background-color: var(--blue-600);
+        color: white;
+      }
+    }
+
+    /* Service Count */
+    .service-count {
+      font-size: 0.875rem;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .service-count {
+        color: var(--zinc-400);
+      }
+    }
+
+    /* Service Cards Grid */
+    .services-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Service Card */
+    .service-card {
+      display: block;
+      border-radius: 0.75rem;
+      border: 1px solid var(--zinc-200);
+      background-color: white;
+      padding: 1.5rem;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .service-card:hover {
+      border-color: var(--blue-300);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .service-card {
+        border-color: var(--zinc-800);
+        background-color: var(--zinc-900);
+      }
+      .service-card:hover {
+        border-color: var(--blue-600);
+      }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .card-logo {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--zinc-100);
+      font-size: 1.5rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-logo {
+        background-color: var(--zinc-800);
+      }
+    }
+
+    .card-content {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--zinc-900);
+    }
+
+    .service-card:hover .card-title {
+      color: var(--blue-600);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-title {
+        color: var(--zinc-100);
+      }
+      .service-card:hover .card-title {
+        color: var(--blue-400);
+      }
+    }
+
+    .card-title-en {
+      margin-left: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-title-en {
+        color: var(--zinc-400);
+      }
+    }
+
+    .card-description {
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+      color: var(--zinc-600);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-description {
+        color: var(--zinc-400);
+      }
+    }
+
+    .card-details {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .delivery-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .delivery-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 9999px;
+      background-color: var(--blue-50);
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--blue-700);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .delivery-tag {
+        background-color: var(--blue-900-30);
+        color: var(--blue-300);
+      }
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .info-row {
+        color: var(--zinc-400);
+      }
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .features {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 0.375rem;
+      background-color: var(--zinc-100);
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      color: var(--zinc-600);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .feature-tag {
+        background-color: var(--zinc-800);
+        color: var(--zinc-400);
+      }
+    }
+
+    /* Empty State */
+    .empty-state {
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .empty-state {
+        color: var(--zinc-400);
+      }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--zinc-200);
+      background-color: white;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      footer {
+        border-color: var(--zinc-800);
+        background-color: var(--zinc-900);
+      }
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .footer-content {
+        flex-direction: row;
+      }
+    }
+
+    .footer-text {
+      font-size: 0.875rem;
+      color: var(--zinc-500);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .footer-text {
+        color: var(--zinc-400);
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--blue-600);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .footer-link {
+        color: var(--blue-400);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <h1>🇰🇷 대한민국 커머스 지도</h1>
+          <p class="subtitle">한눈에 보는 대한민국 온라인 쇼핑 서비스 - 배송, 카테고리, 특징 비교</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-container">
+        <div class="space-y-6">
+          <div class="search-container">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="서비스 이름, 특징으로 검색..."
+              class="search-input"
+            >
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+
+          <div id="categoryFilter" class="category-filter"></div>
+
+          <div id="serviceCount" class="service-count"></div>
+
+          <div id="servicesGrid" class="services-grid"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p class="footer-text">© 2024 대한민국 커머스 지도. 이 사이트는 정보 제공 목적으로 운영됩니다.</p>
+          <div class="footer-links">
+            <a href="./llms.txt" class="footer-link">llms.txt</a>
+            <a href="https://github.com/kuil09/korea-commerce-map" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Categories data
+    const categories = [
+      { id: "grocery", name: "식료품/마트", nameEn: "Grocery", icon: "🛒" },
+      { id: "food-delivery", name: "음식 배달", nameEn: "Food Delivery", icon: "🍔" },
+      { id: "fashion", name: "패션/의류", nameEn: "Fashion", icon: "👗" },
+      { id: "electronics", name: "가전/전자", nameEn: "Electronics", icon: "📱" },
+      { id: "beauty", name: "뷰티/화장품", nameEn: "Beauty", icon: "💄" },
+      { id: "living", name: "생활/가구", nameEn: "Living/Furniture", icon: "🛋️" },
+      { id: "quick-commerce", name: "퀵커머스", nameEn: "Quick Commerce", icon: "⚡" },
+      { id: "general", name: "종합쇼핑몰", nameEn: "General Mall", icon: "🏬" },
+      { id: "fresh", name: "신선식품", nameEn: "Fresh Food", icon: "🥬" },
+      { id: "secondhand", name: "중고거래", nameEn: "Secondhand", icon: "♻️" },
+    ];
+
+    // Commerce services data
+    const commerceServices = [
+      // 종합쇼핑몰 (General Shopping Malls)
+      {
+        id: "coupang",
+        name: "쿠팡",
+        nameEn: "Coupang",
+        description: "대한민국 최대 이커머스 플랫폼. 로켓배송, 로켓프레시 등 빠른 배송 서비스 제공",
+        url: "https://www.coupang.com",
+        categories: ["general", "grocery", "electronics", "fashion", "fresh"],
+        deliveryMethods: ["로켓배송", "로켓프레시", "로켓직구", "판매자배송"],
+        deliveryTime: "당일~익일 (로켓배송)",
+        minOrderAmount: "무료배송 기준 있음",
+        features: ["로켓와우 멤버십", "쿠팡플레이", "로켓프레시"],
+      },
+      {
+        id: "gmarket",
+        name: "G마켓",
+        nameEn: "Gmarket",
+        description: "국내 대표 오픈마켓. 다양한 판매자의 상품을 비교하고 구매 가능",
+        url: "https://www.gmarket.co.kr",
+        categories: ["general", "electronics", "fashion"],
+        deliveryMethods: ["판매자배송", "스마일배송"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "판매자별 상이",
+        features: ["스마일클럽", "스마일배송", "G마켓 라이브"],
+      },
+      {
+        id: "11st",
+        name: "11번가",
+        nameEn: "11st",
+        description: "SK 그룹 계열 종합쇼핑몰. 아마존 글로벌 스토어 운영",
+        url: "https://www.11st.co.kr",
+        categories: ["general", "electronics", "fashion"],
+        deliveryMethods: ["일반배송", "로켓직송", "새벽배송"],
+        deliveryTime: "2~4일",
+        minOrderAmount: "무료배송 기준 있음",
+        features: ["아마존 글로벌 스토어", "슈팅배송", "11번가 라이브"],
+      },
+      {
+        id: "auction",
+        name: "옥션",
+        nameEn: "Auction",
+        description: "대한민국 최초의 온라인 경매 사이트. 현재는 오픈마켓으로 운영",
+        url: "https://www.auction.co.kr",
+        categories: ["general", "electronics", "fashion"],
+        deliveryMethods: ["판매자배송", "스마일배송"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "판매자별 상이",
+        features: ["스마일클럽", "올킬", "옥션라이브"],
+      },
+      {
+        id: "interpark",
+        name: "인터파크",
+        nameEn: "Interpark",
+        description: "공연, 티켓, 쇼핑을 아우르는 종합 플랫폼",
+        url: "https://www.interpark.com",
+        categories: ["general", "electronics"],
+        deliveryMethods: ["일반배송"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "상품별 상이",
+        features: ["공연/티켓 예매", "투어/여행", "도서"],
+      },
+      {
+        id: "naver-shopping",
+        name: "네이버 쇼핑",
+        nameEn: "Naver Shopping",
+        description: "국내 최대 가격비교 및 쇼핑 플랫폼. 스마트스토어 운영",
+        url: "https://shopping.naver.com",
+        categories: ["general", "electronics", "fashion", "beauty"],
+        deliveryMethods: ["스마트스토어 판매자배송", "네이버 도착보장"],
+        deliveryTime: "판매자별 상이",
+        minOrderAmount: "판매자별 상이",
+        features: ["네이버페이", "찜한상품 알림", "리뷰 기반 추천"],
+      },
+      {
+        id: "tmon",
+        name: "티몬",
+        nameEn: "TMON",
+        description: "소셜커머스에서 시작한 종합쇼핑몰",
+        url: "https://www.tmon.co.kr",
+        categories: ["general", "fashion", "beauty"],
+        deliveryMethods: ["일반배송", "슈퍼마트"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "상품별 상이",
+        features: ["타임특가", "슈퍼마트", "여행/레저"],
+      },
+      {
+        id: "wemakeprice",
+        name: "위메프",
+        nameEn: "WeMakePrice",
+        description: "특가 상품과 할인에 강점이 있는 쇼핑 플랫폼",
+        url: "https://www.wemakeprice.com",
+        categories: ["general", "fashion", "beauty"],
+        deliveryMethods: ["일반배송"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "상품별 상이",
+        features: ["특가", "포인트 적립", "여행/레저"],
+      },
+
+      // 퀵커머스/새벽배송 (Quick Commerce)
+      {
+        id: "kurly",
+        name: "마켓컬리",
+        nameEn: "Market Kurly",
+        description: "새벽배송의 선구자. 프리미엄 식품 및 신선식품 전문",
+        url: "https://www.kurly.com",
+        categories: ["fresh", "grocery", "quick-commerce"],
+        deliveryMethods: ["샛별배송 (새벽배송)", "낮배송"],
+        deliveryTime: "당일 주문 시 익일 새벽 도착",
+        minOrderAmount: "15,000원 이상 (무료배송 40,000원)",
+        features: ["100% 신선보장", "컬리퍼플박스", "뷰티컬리"],
+      },
+      {
+        id: "bmart",
+        name: "B마트",
+        nameEn: "B-Mart",
+        description: "배달의민족이 운영하는 즉시 배송 서비스",
+        url: "https://www.baemin.com",
+        categories: ["quick-commerce", "grocery"],
+        deliveryMethods: ["즉시배송"],
+        deliveryTime: "30분~1시간 이내",
+        minOrderAmount: "5,000원 이상",
+        features: ["24시간 운영", "즉시배송", "다양한 생필품"],
+      },
+      {
+        id: "coupang-eats",
+        name: "쿠팡이츠",
+        nameEn: "Coupang Eats",
+        description: "쿠팡이 운영하는 음식 배달 서비스",
+        url: "https://www.coupangeats.com",
+        categories: ["food-delivery"],
+        deliveryMethods: ["단건배달"],
+        deliveryTime: "30분~1시간",
+        minOrderAmount: "음식점별 상이",
+        features: ["단건배달", "와우 무료배달", "예상시간 보장"],
+      },
+      {
+        id: "yogiyo",
+        name: "요기요",
+        nameEn: "Yogiyo",
+        description: "대한민국 주요 음식 배달 플랫폼",
+        url: "https://www.yogiyo.co.kr",
+        categories: ["food-delivery"],
+        deliveryMethods: ["음식점 배달", "요기요 배달"],
+        deliveryTime: "30분~1시간",
+        minOrderAmount: "음식점별 상이",
+        features: ["슈퍼클럽", "요마트", "포인트 적립"],
+      },
+      {
+        id: "baemin",
+        name: "배달의민족",
+        nameEn: "Baemin",
+        description: "대한민국 1위 음식 배달 앱. B마트, 배민스토어 등 다양한 서비스 운영",
+        url: "https://www.baemin.com",
+        categories: ["food-delivery", "quick-commerce"],
+        deliveryMethods: ["배민배달", "가게배달", "포장"],
+        deliveryTime: "30분~1시간",
+        minOrderAmount: "음식점별 상이",
+        features: ["배민1", "B마트", "배민스토어", "배민클럽"],
+      },
+      {
+        id: "oasis",
+        name: "오아시스마켓",
+        nameEn: "Oasis Market",
+        description: "친환경 유기농 식품 전문 새벽배송 서비스",
+        url: "https://www.oasis.co.kr",
+        categories: ["fresh", "grocery", "quick-commerce"],
+        deliveryMethods: ["새벽배송", "낮배송"],
+        deliveryTime: "익일 새벽 도착",
+        minOrderAmount: "25,000원 이상",
+        features: ["친환경 인증", "유기농 전문", "재사용 포장재"],
+      },
+      {
+        id: "ssglive",
+        name: "SSG닷컴",
+        nameEn: "SSG.com",
+        description: "신세계 그룹 통합 온라인 쇼핑몰. 이마트몰, 신세계몰 통합",
+        url: "https://www.ssg.com",
+        categories: ["general", "grocery", "fresh", "fashion"],
+        deliveryMethods: ["쓱배송", "새벽배송", "당일배송"],
+        deliveryTime: "당일~익일",
+        minOrderAmount: "40,000원 이상 무료배송",
+        features: ["이마트 온라인", "신세계백화점", "SSG페이"],
+      },
+      {
+        id: "lotteon",
+        name: "롯데ON",
+        nameEn: "Lotte ON",
+        description: "롯데 그룹 통합 온라인 쇼핑몰",
+        url: "https://www.lotteon.com",
+        categories: ["general", "grocery", "fashion"],
+        deliveryMethods: ["롯데배송", "새벽배송", "당일배송"],
+        deliveryTime: "당일~익일",
+        minOrderAmount: "40,000원 이상 무료배송",
+        features: ["롯데마트", "롯데백화점", "L.Point"],
+      },
+      {
+        id: "homeplus",
+        name: "홈플러스 온라인",
+        nameEn: "Homeplus Online",
+        description: "홈플러스 온라인몰. 당일배송 및 새벽배송 지원",
+        url: "https://front.homeplus.co.kr",
+        categories: ["grocery", "fresh"],
+        deliveryMethods: ["당일배송", "익일배송", "새벽배송"],
+        deliveryTime: "당일~익일 새벽",
+        minOrderAmount: "40,000원 이상 무료배송",
+        features: ["마이홈플러스 멤버십", "홈플페이", "픽업 서비스"],
+      },
+
+      // 패션 (Fashion)
+      {
+        id: "musinsa",
+        name: "무신사",
+        nameEn: "Musinsa",
+        description: "대한민국 최대 온라인 패션 스토어",
+        url: "https://www.musinsa.com",
+        categories: ["fashion"],
+        deliveryMethods: ["일반배송", "무신사 익일배송"],
+        deliveryTime: "1~3일",
+        minOrderAmount: "무료배송 기준 있음",
+        features: ["무신사 스탠다드", "스타일 추천", "코디 SNS"],
+      },
+      {
+        id: "ably",
+        name: "에이블리",
+        nameEn: "Ably",
+        description: "2030 여성 패션 전문 쇼핑 플랫폼",
+        url: "https://m.a-bly.com",
+        categories: ["fashion", "beauty"],
+        deliveryMethods: ["판매자배송"],
+        deliveryTime: "2~5일",
+        minOrderAmount: "판매자별 상이",
+        features: ["AI 스타일 추천", "셀럽 마켓", "무료반품"],
+      },
+      {
+        id: "zigzag",
+        name: "지그재그",
+        nameEn: "Zigzag",
+        description: "여성 의류 쇼핑 플랫폼. 동대문 쇼핑몰 통합 검색",
+        url: "https://www.zigzag.kr",
+        categories: ["fashion", "beauty"],
+        deliveryMethods: ["판매자배송", "직진배송"],
+        deliveryTime: "2~4일 (직진배송 익일)",
+        minOrderAmount: "판매자별 상이",
+        features: ["직진배송", "Z결제", "스토어 즐겨찾기"],
+      },
+      {
+        id: "brandi",
+        name: "브랜디",
+        nameEn: "Brandi",
+        description: "MZ세대 여성 패션 쇼핑 플랫폼",
+        url: "https://www.brandi.co.kr",
+        categories: ["fashion"],
+        deliveryMethods: ["하루배송", "판매자배송"],
+        deliveryTime: "익일~3일",
+        minOrderAmount: "판매자별 상이",
+        features: ["하루배송", "라이브 방송", "셀럽 스토어"],
+      },
+      {
+        id: "wconcept",
+        name: "W컨셉",
+        nameEn: "W Concept",
+        description: "프리미엄 디자이너 패션 플랫폼",
+        url: "https://www.wconcept.co.kr",
+        categories: ["fashion"],
+        deliveryMethods: ["일반배송"],
+        deliveryTime: "2~4일",
+        minOrderAmount: "브랜드별 상이",
+        features: ["프리미엄 브랜드", "단독 상품", "세일"],
+      },
+      {
+        id: "29cm",
+        name: "29CM",
+        nameEn: "29CM",
+        description: "감도 높은 취향을 위한 온라인 셀렉트샵",
+        url: "https://www.29cm.co.kr",
+        categories: ["fashion", "living"],
+        deliveryMethods: ["일반배송"],
+        deliveryTime: "2~4일",
+        minOrderAmount: "브랜드별 상이",
+        features: ["에디터 큐레이션", "브랜드 스토리", "PT(특가전)"],
+      },
+
+      // 뷰티/화장품 (Beauty)
+      {
+        id: "olive-young",
+        name: "올리브영",
+        nameEn: "Olive Young",
+        description: "대한민국 대표 H&B 스토어. 화장품, 건강식품 전문",
+        url: "https://www.oliveyoung.co.kr",
+        categories: ["beauty"],
+        deliveryMethods: ["오늘드림 (3시간 배송)", "일반배송"],
+        deliveryTime: "오늘드림 3시간, 일반 2~3일",
+        minOrderAmount: "30,000원 이상 무료배송",
+        features: ["오늘드림", "매장픽업", "CJ ONE 포인트"],
+      },
+      {
+        id: "sephora",
+        name: "세포라",
+        nameEn: "Sephora",
+        description: "글로벌 프리미엄 뷰티 편집샵",
+        url: "https://www.sephora.co.kr",
+        categories: ["beauty"],
+        deliveryMethods: ["일반배송"],
+        deliveryTime: "2~4일",
+        minOrderAmount: "30,000원 이상 무료배송",
+        features: ["글로벌 브랜드", "세포라 컬렉션", "뷰티클래스"],
+      },
+
+      // 가전/전자 (Electronics)
+      {
+        id: "himart",
+        name: "하이마트",
+        nameEn: "Himart",
+        description: "롯데 그룹 가전제품 전문 유통 채널",
+        url: "https://www.e-himart.co.kr",
+        categories: ["electronics"],
+        deliveryMethods: ["일반배송", "설치배송"],
+        deliveryTime: "2~7일 (설치 예약 필요)",
+        minOrderAmount: "상품별 상이",
+        features: ["가전 설치", "렌탈 서비스", "중고 가전"],
+      },
+      {
+        id: "samsung",
+        name: "삼성닷컴",
+        nameEn: "Samsung.com",
+        description: "삼성전자 공식 온라인 쇼핑몰",
+        url: "https://www.samsung.com/sec",
+        categories: ["electronics"],
+        deliveryMethods: ["일반배송", "설치배송"],
+        deliveryTime: "2~7일",
+        minOrderAmount: "무료배송",
+        features: ["멤버십 혜택", "트레이드인", "체험 스토어"],
+      },
+      {
+        id: "lg-best",
+        name: "LG전자 베스트샵",
+        nameEn: "LG Best Shop",
+        description: "LG전자 공식 온라인 쇼핑몰",
+        url: "https://www.lge.co.kr",
+        categories: ["electronics"],
+        deliveryMethods: ["일반배송", "설치배송"],
+        deliveryTime: "2~7일",
+        minOrderAmount: "무료배송",
+        features: ["멤버십", "렌탈", "AS 예약"],
+      },
+
+      // 생활/가구 (Living/Furniture)
+      {
+        id: "ikea",
+        name: "이케아",
+        nameEn: "IKEA",
+        description: "스웨덴 글로벌 가구 및 인테리어 브랜드",
+        url: "https://www.ikea.com/kr",
+        categories: ["living"],
+        deliveryMethods: ["택배배송", "트럭배송"],
+        deliveryTime: "2~7일 (지역별 상이)",
+        minOrderAmount: "구매금액별 배송비 상이",
+        features: ["DIY 조립", "플래닝 서비스", "가구 조립 서비스"],
+      },
+      {
+        id: "hanssem",
+        name: "한샘몰",
+        nameEn: "Hanssem Mall",
+        description: "국내 대표 인테리어 가구 브랜드",
+        url: "https://mall.hanssem.com",
+        categories: ["living"],
+        deliveryMethods: ["일반배송", "설치배송"],
+        deliveryTime: "상품별 상이",
+        minOrderAmount: "상품별 상이",
+        features: ["인테리어 컨설팅", "리모델링", "A/S"],
+      },
+      {
+        id: "ohouse",
+        name: "오늘의집",
+        nameEn: "Ohouse",
+        description: "인테리어 플랫폼. 가구, 소품, 시공 서비스 제공",
+        url: "https://ohou.se",
+        categories: ["living"],
+        deliveryMethods: ["일반배송", "설치배송"],
+        deliveryTime: "상품별 상이",
+        minOrderAmount: "상품별 상이",
+        features: ["인테리어 커뮤니티", "시공 서비스", "3D 인테리어"],
+      },
+
+      // 중고거래 (Secondhand)
+      {
+        id: "daangn",
+        name: "당근마켓",
+        nameEn: "Karrot",
+        description: "동네 기반 중고거래 플랫폼",
+        url: "https://www.daangn.com",
+        categories: ["secondhand"],
+        deliveryMethods: ["직거래", "택배거래"],
+        deliveryTime: "판매자 협의",
+        minOrderAmount: "없음",
+        features: ["동네 인증", "당근페이", "비즈프로필"],
+      },
+      {
+        id: "bunjang",
+        name: "번개장터",
+        nameEn: "Bungae Jangter",
+        description: "대한민국 대표 중고거래 플랫폼",
+        url: "https://www.bunjang.co.kr",
+        categories: ["secondhand"],
+        deliveryMethods: ["직거래", "번개페이 안전거래", "편의점택배"],
+        deliveryTime: "판매자 협의",
+        minOrderAmount: "없음",
+        features: ["번개페이", "안전결제", "스타샵"],
+      },
+      {
+        id: "joonggonara",
+        name: "중고나라",
+        nameEn: "Joongonara",
+        description: "국내 최대 중고거래 커뮤니티",
+        url: "https://cafe.naver.com/joonggonara",
+        categories: ["secondhand"],
+        deliveryMethods: ["직거래", "택배거래"],
+        deliveryTime: "판매자 협의",
+        minOrderAmount: "없음",
+        features: ["네이버 카페 기반", "안전결제"],
+      },
+    ];
+
+    // State
+    let selectedCategory = null;
+    let searchQuery = "";
+
+    // Helper functions
+    function getServicesByCategory(categoryId) {
+      return commerceServices.filter(service => service.categories.includes(categoryId));
+    }
+
+    function searchServices(query) {
+      const lowerQuery = query.toLowerCase();
+      return commerceServices.filter(
+        service =>
+          service.name.toLowerCase().includes(lowerQuery) ||
+          service.nameEn.toLowerCase().includes(lowerQuery) ||
+          service.description.toLowerCase().includes(lowerQuery) ||
+          service.features.some(f => f.toLowerCase().includes(lowerQuery))
+      );
+    }
+
+    function getFilteredServices() {
+      let services = selectedCategory
+        ? getServicesByCategory(selectedCategory)
+        : commerceServices;
+
+      if (searchQuery.trim()) {
+        const searchResults = searchServices(searchQuery);
+        services = services.filter(s => searchResults.some(sr => sr.id === s.id));
+      }
+
+      return services;
+    }
+
+    // Render functions
+    function renderCategoryFilter() {
+      const container = document.getElementById("categoryFilter");
+      
+      let html = `
+        <button class="category-btn ${selectedCategory === null ? 'active' : ''}" data-category="">
+          🏪 전체
+        </button>
+      `;
+
+      categories.forEach(category => {
+        html += `
+          <button class="category-btn ${selectedCategory === category.id ? 'active' : ''}" data-category="${category.id}">
+            ${category.icon} ${category.name}
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Add event listeners
+      container.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const categoryId = btn.dataset.category || null;
+          selectedCategory = categoryId;
+          render();
+        });
+      });
+    }
+
+    function renderServiceCard(service) {
+      const deliveryMethodsHtml = service.deliveryMethods.slice(0, 3).map(method => 
+        `<span class="delivery-tag">🚚 ${method}</span>`
+      ).join('');
+
+      const featuresHtml = service.features.slice(0, 3).map(feature => 
+        `<span class="feature-tag">${feature}</span>`
+      ).join('');
+
+      const extraFeaturesHtml = service.features.length > 3 
+        ? `<span class="feature-tag">+${service.features.length - 3}</span>` 
+        : '';
+
+      return `
+        <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="service-card">
+          <div class="card-header">
+            <div class="card-logo">${service.name.charAt(0)}</div>
+            <div class="card-content">
+              <h3 class="card-title">
+                ${service.name}
+                <span class="card-title-en">${service.nameEn}</span>
+              </h3>
+              <p class="card-description">${service.description}</p>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="delivery-methods">${deliveryMethodsHtml}</div>
+            <div class="info-row">
+              <span class="info-item">
+                <span>⏱️</span>
+                <span>${service.deliveryTime}</span>
+              </span>
+            </div>
+            <div class="info-row">
+              <span class="info-item">
+                <span>💰</span>
+                <span>${service.minOrderAmount}</span>
+              </span>
+            </div>
+          </div>
+          <div class="features">
+            ${featuresHtml}
+            ${extraFeaturesHtml}
+          </div>
+        </a>
+      `;
+    }
+
+    function renderServicesGrid() {
+      const container = document.getElementById("servicesGrid");
+      const countContainer = document.getElementById("serviceCount");
+      const services = getFilteredServices();
+
+      countContainer.textContent = `총 ${services.length}개의 서비스`;
+
+      if (services.length === 0) {
+        container.innerHTML = '<div class="empty-state">검색 결과가 없습니다.</div>';
+        return;
+      }
+
+      container.innerHTML = services.map(renderServiceCard).join('');
+    }
+
+    function render() {
+      renderCategoryFilter();
+      renderServicesGrid();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      render();
+
+      // Search input handler
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderServicesGrid();
+      });
+    });
+  </script>
+</body>
+</html>
