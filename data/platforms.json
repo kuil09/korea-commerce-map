@@ -156,18 +156,6 @@
     "features": ["롯데마트", "롯데백화점", "L.Point"]
   },
   {
-    "id": "homeplus",
-    "name": "홈플러스 온라인",
-    "nameEn": "Homeplus Online",
-    "description": "홈플러스 온라인몰. 당일배송 및 새벽배송 지원",
-    "url": "https://front.homeplus.co.kr",
-    "categories": ["grocery", "fresh"],
-    "deliveryMethods": ["당일배송", "익일배송", "새벽배송"],
-    "deliveryTime": "당일~익일 새벽",
-    "minOrderAmount": "40,000원 이상 무료배송",
-    "features": ["마이홈플러스 멤버십", "홈플페이", "픽업 서비스"]
-  },
-  {
     "id": "musinsa",
     "name": "무신사",
     "nameEn": "Musinsa",
@@ -250,18 +238,6 @@
     "deliveryTime": "오늘드림 3시간, 일반 2~3일",
     "minOrderAmount": "30,000원 이상 무료배송",
     "features": ["오늘드림", "매장픽업", "CJ ONE 포인트"]
-  },
-  {
-    "id": "sephora",
-    "name": "세포라",
-    "nameEn": "Sephora",
-    "description": "글로벌 프리미엄 뷰티 편집샵",
-    "url": "https://www.sephora.co.kr",
-    "categories": ["beauty"],
-    "deliveryMethods": ["일반배송"],
-    "deliveryTime": "2~4일",
-    "minOrderAmount": "30,000원 이상 무료배송",
-    "features": ["글로벌 브랜드", "세포라 컬렉션", "뷰티클래스"]
   },
   {
     "id": "himart",
