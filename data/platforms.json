@@ -934,27 +934,6 @@
     ]
   },
   {
-    "id": "rental-billridge",
-    "name": "빌릿지",
-    "nameEn": "Billridge",
-    "description": "지역 기반 개인간 물품 대여 플랫폼. 사용하지 않는 물건을 이웃에게 단기 대여",
-    "url": "https://billridge.co.kr",
-    "categories": [
-      "rental"
-    ],
-    "deliveryMethods": [
-      "직접대여 (만나서 전달)",
-      "배송대여 (택배)"
-    ],
-    "deliveryTime": "대여자 협의",
-    "minOrderAmount": "없음 (보증금 제도 있음)",
-    "features": [
-      "빌릿지케어 대여보험",
-      "프리미엄 멤버십 (배송비 지원)",
-      "대여료 이웃 간 협의"
-    ]
-  },
-  {
     "id": "rental-closetshare",
     "name": "클로젯셰어",
     "nameEn": "ClosetShare",
