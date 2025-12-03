@@ -357,26 +357,6 @@ platforms:
       - "당일배송 시간지정"
       - "PB브랜드 할인전"
 
-  - id: gsfreshmall
-    name: "GS프레시몰"
-    nameEn: "GS Fresh Mall"
-    description: "GS리테일의 온라인 슈퍼. 새벽배송 중단 후 매장 1시간 퀵배송 제공"
-    url: "https://m.gsfresh.com"
-    categories:
-      - grocery
-      - fresh
-      - quick-commerce
-    deliveryMethods:
-      - "바로배달 (1시간)"
-      - "예약배송"
-      - "택배배송"
-    deliveryTime: "주문 1시간 내 또는 지정일 배송"
-    minOrderAmount: "지역별 30,000원 이상 무료배송"
-    features:
-      - "밀키트 전문관"
-      - "프라임 멤버십"
-      - "매장 픽업주문"
-
   - id: costco
     name: "코스트코 온라인몰"
     nameEn: "Costco Korea"
