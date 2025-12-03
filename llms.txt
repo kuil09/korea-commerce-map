@@ -89,6 +89,7 @@ korea-commerce-map/
 
 - 국제배송 (직구)
 - 낮배송
+- 냉장배송
 - 네이버 도착보장
 - 단건배달
 - 당근택배
@@ -104,6 +105,7 @@ korea-commerce-map/
 - 배송대여 (택배)
 - 번개택배
 - 새벽배송
+- 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
 - 설치배송
 - 스마일배송
@@ -193,6 +195,9 @@ korea-commerce-map/
 
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
+| 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
+| 매일유업 | Maeil Dairy Mall | https://mall.maeil.com | 1~3일 |
+| 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
 | 홈플러스 온라인몰 | Homeplus Online | https://front.homeplus.co.kr | 주문 당일 또는 지정일 배송 |
 
 

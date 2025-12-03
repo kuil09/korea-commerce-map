@@ -23,6 +23,73 @@
     ]
   },
   {
+    "id": "fredit",
+    "name": "프레딧",
+    "nameEn": "Fredit",
+    "description": "풀무원 계열의 건강지향 식품 플랫폼. 샐러드·도시락·HMR 등 신선 간편식 중심으로 구성되며 정기배송 서비스 제공",
+    "url": "https://fredit.co.kr",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "일반배송",
+      "새벽배송 (지역 제한)",
+      "정기배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "조건부 무료배송 (지역별 상이)",
+    "features": [
+      "건강식단 정기배송",
+      "풀무원 브랜드 연계상품",
+      "신선 간편식 전문"
+    ]
+  },
+  {
+    "id": "maeil",
+    "name": "매일유업",
+    "nameEn": "Maeil Dairy Mall",
+    "description": "매일유업 공식 온라인몰. 우유, 분유, 이유식, 발효유, 냉장식품 등 신선식품 중심의 브랜드 직영 플랫폼",
+    "url": "https://mall.maeil.com",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "냉장배송",
+      "일반배송"
+    ],
+    "deliveryTime": "1~3일",
+    "minOrderAmount": "40,000원 이상 무료배송",
+    "features": [
+      "브랜드 직영몰",
+      "유아식품 전문관",
+      "냉장식품 패키징"
+    ]
+  },
+  {
+    "id": "harimmall",
+    "name": "하림몰",
+    "nameEn": "Harim Mall",
+    "description": "하림 공식 온라인몰. 신선 닭고기, 육류, 간편식, 밀키트 등을 직배송하는 식품 전문 플랫폼",
+    "url": "https://www.harimmall.com",
+    "categories": [
+      "fresh",
+      "grocery"
+    ],
+    "deliveryMethods": [
+      "냉장배송",
+      "일반배송"
+    ],
+    "deliveryTime": "2~3일",
+    "minOrderAmount": "30,000원 이상 무료배송",
+    "features": [
+      "하림 신선육 직배송",
+      "밀키트 전문관",
+      "브랜드 멤버십 혜택"
+    ]
+  },
+  {
     "id": "daiso",
     "name": "다이소",
     "nameEn": "Daiso",
