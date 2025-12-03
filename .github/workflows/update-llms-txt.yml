@@ -46,5 +46,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add llms.txt
           git commit -m "chore: auto-update llms.txt"
-          git pull --rebase
+          git pull --rebase --autostash || true
           git push
