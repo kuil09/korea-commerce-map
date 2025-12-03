@@ -191,7 +191,7 @@ korea-commerce-map/
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
 | 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
-| 매일유업 | Maeil Dairy Mall | https://mall.maeil.com | 1~3일 |
+| 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |
 | 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
 | 홈플러스 온라인몰 | Homeplus Online | https://front.homeplus.co.kr | 주문 당일 또는 지정일 배송 |
 
