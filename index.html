@@ -165,9 +165,21 @@
       top: 0;
       z-index: 100;
       background-color: var(--zinc-50);
-      padding: 1rem 0;
-      /* Negative margin compensates for parent .space-y-6 spacing to maintain visual alignment */
+      padding: 1rem;
+      /* Negative top margin compensates for parent .space-y-6 vertical spacing */
       margin: -1rem 0 0 0;
+    }
+
+    @media (min-width: 640px) {
+      .sticky-filters {
+        padding: 1rem 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .sticky-filters {
+        padding: 1rem 2rem;
+      }
     }
 
     .sticky-filters.scrolled {
