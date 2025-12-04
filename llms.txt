@@ -169,6 +169,7 @@ korea-commerce-map/
 
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
+| 마리오몰 (마리오아울렛) | Mario Mall | https://www.mariomall.co.kr | 상품 및 판매자별 상이 |
 | 도매꾹 | Domeggook | https://domeggook.com | 상품 및 판매자별 상이 |
 | G마켓 | Gmarket | https://www.gmarket.co.kr | 2~5일 |
 | 11번가 | 11st | https://www.11st.co.kr | 2~4일 |
