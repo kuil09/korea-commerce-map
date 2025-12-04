@@ -83,6 +83,7 @@ korea-commerce-map/
 | health | 헬스/건강식품 | Health |
 | pet | 반려동물 | Pet |
 | subscription | 구독형 커머스 | Subscription |
+| travel | 여행 | Travel |
 
 
 ### Delivery Methods (배송 수단)
@@ -107,6 +108,7 @@ korea-commerce-map/
 - 새벽배송
 - 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
+- 서비스 예약
 - 설치배송
 - 스마일배송
 - 스마트스토어 판매자배송
@@ -152,6 +154,7 @@ korea-commerce-map/
 | health | 헬스/건강식품 | Health | 💊 |
 | pet | 반려동물 | Pet | 🐾 |
 | subscription | 구독형 커머스 | Subscription | 📦 |
+| travel | 여행 | Travel | ✈️ |
 
 
 ## Major Services (주요 서비스 목록)

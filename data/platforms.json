@@ -1,5 +1,27 @@
 [
   {
+    "id": "hanatour",
+    "name": "하나투어",
+    "nameEn": "HanaTour",
+    "description": "한국 대표 여행사. 해외/국내 패키지 여행, 항공권·호텔 예약, 자유여행, 투어/입장권, 여행 관련 서비스 일괄 제공",
+    "url": "https://www.hanatour.com",
+    "categories": [
+      "travel"
+    ],
+    "deliveryMethods": [
+      "서비스 예약"
+    ],
+    "deliveryTime": "여행 일정에 따름",
+    "minOrderAmount": "해당 없음",
+    "features": [
+      "패키지 여행",
+      "항공권·호텔 예약",
+      "자유여행 및 투어 예약",
+      "입장권·투어권 판매",
+      "여행 관련 부가 서비스"
+    ]
+  },
+  {
     "id": "domeggook",
     "name": "도매꾹",
     "nameEn": "Domeggook",
