@@ -165,6 +165,74 @@ korea-commerce-map/
 - 전체 context: llms-ctx-full.txt
 
 
+### 식료품/마트
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 우체국쇼핑 | ePOST Mall | https://mall.epost.go.kr | 2~5일 (상품 및 지역에 따라 다름) |
+| 농협몰 | Nonghyup Mall | https://www.nonghyupmall.com | 2~5일 (상품 및 지역에 따라 변동) |
+| 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
+| 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |
+| 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
+| 다이소 | Daiso | https://www.daisomall.co.kr | 2~4일 |
+| 마켓컬리 | Market Kurly | https://www.kurly.com | 당일 밤 주문 시 다음날 새벽 도착 |
+| B마트 | B-Mart | https://www.baemin.com | 주문 후 30분~1시간 이내 도착 |
+| 오아시스마켓 | Oasis Market | https://www.oasis.co.kr | 밤 10시 이전 주문 시 익일 새벽 도착 |
+| 홈플러스 온라인몰 | Homeplus Online | https://front.homeplus.co.kr | 주문 당일 또는 지정일 배송 |
+
+
+
+### 음식 배달
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 쿠팡이츠 | Coupang Eats | https://www.coupangeats.com | 30분~1시간 내 배달 |
+| 요기요 | Yogiyo | https://www.yogiyo.co.kr | 주문 후 평균 30~60분 |
+| 배달의민족 | Baemin | https://www.baemin.com | 주문 후 평균 30~60분 |
+
+
+
+### 패션/의류
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 무신사 | Musinsa | https://www.musinsa.com | 1~3일 (일부 익일배송) |
+| 에이블리 | Ably | https://a-bly.com | 2~5일 |
+| 지그재그 | Zigzag | https://www.zigzag.kr | 2~4일 (직진배송 익일 배송) |
+| 브랜디 | Brandi | https://www.brandi.co.kr | 익일~3일 |
+| W컨셉 | W Concept | https://www.wconcept.co.kr | 2~4일 |
+| 29CM | 29CM | https://www.29cm.co.kr | 2~4일 |
+
+
+
+### 가전/전자
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 하이마트 | Himart | https://www.e-himart.co.kr | 2~7일 (설치 예약 시 별도 일정) |
+| 삼성닷컴 | Samsung.com | https://www.samsung.com/sec | 2~7일 |
+| LG전자 베스트샵 | LG Best Shop | https://www.lge.co.kr | 2~7일 |
+
+
+
+### 뷰티/화장품
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 올리브영 | Olive Young | https://www.oliveyoung.co.kr | 오늘드림 평균 3시간, 일반 2~3일 |
+
+
+
+### 생활/가구
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 이케아 온라인몰 | IKEA | https://www.ikea.com/kr/ko | 2~7일 (지역별 상이) |
+| 한샘몰 | Hanssem Mall | https://mall.hanssem.com | 상품별 개별 안내 |
+| 오늘의집 | Ohouse | https://ohou.se | 상품별 상이 (시공 일정 협의) |
+
+
+
 ### 종합쇼핑몰
 
 | 서비스명 | 영문명 | URL | 배송시간 |
@@ -183,88 +251,6 @@ korea-commerce-map/
 
 
 
-### 퀵커머스
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 마켓컬리 | Market Kurly | https://www.kurly.com | 당일 밤 주문 시 다음날 새벽 도착 |
-| B마트 | B-Mart | https://www.baemin.com | 주문 후 30분~1시간 이내 도착 |
-| 배달의민족 | Baemin | https://www.baemin.com | 주문 후 평균 30~60분 |
-| 오아시스마켓 | Oasis Market | https://www.oasis.co.kr | 밤 10시 이전 주문 시 익일 새벽 도착 |
-
-
-
-### 신선식품
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 우체국쇼핑 | ePOST Mall | https://mall.epost.go.kr | 2~5일 (상품 및 지역에 따라 다름) |
-| 농협몰 | Nonghyup Mall | https://www.nonghyupmall.com | 2~5일 (상품 및 지역에 따라 변동) |
-| 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
-| 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |
-| 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
-| 홈플러스 온라인몰 | Homeplus Online | https://front.homeplus.co.kr | 주문 당일 또는 지정일 배송 |
-
-
-
-### 식료품/마트
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 다이소 | Daiso | https://www.daisomall.co.kr | 2~4일 |
-
-
-
-### 음식 배달
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 쿠팡이츠 | Coupang Eats | https://www.coupangeats.com | 30분~1시간 내 배달 |
-| 요기요 | Yogiyo | https://www.yogiyo.co.kr | 주문 후 평균 30~60분 |
-
-
-
-### 패션/의류
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 무신사 | Musinsa | https://www.musinsa.com | 1~3일 (일부 익일배송) |
-| 에이블리 | Ably | https://a-bly.com | 2~5일 |
-| 지그재그 | Zigzag | https://www.zigzag.kr | 2~4일 (직진배송 익일 배송) |
-| 브랜디 | Brandi | https://www.brandi.co.kr | 익일~3일 |
-| W컨셉 | W Concept | https://www.wconcept.co.kr | 2~4일 |
-| 29CM | 29CM | https://www.29cm.co.kr | 2~4일 |
-
-
-
-### 뷰티/화장품
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 올리브영 | Olive Young | https://www.oliveyoung.co.kr | 오늘드림 평균 3시간, 일반 2~3일 |
-
-
-
-### 가전/전자
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 하이마트 | Himart | https://www.e-himart.co.kr | 2~7일 (설치 예약 시 별도 일정) |
-| 삼성닷컴 | Samsung.com | https://www.samsung.com/sec | 2~7일 |
-| LG전자 베스트샵 | LG Best Shop | https://www.lge.co.kr | 2~7일 |
-
-
-
-### 생활/가구
-
-| 서비스명 | 영문명 | URL | 배송시간 |
-|---|---|---|---|
-| 이케아 온라인몰 | IKEA | https://www.ikea.com/kr/ko | 2~7일 (지역별 상이) |
-| 한샘몰 | Hanssem Mall | https://mall.hanssem.com | 상품별 개별 안내 |
-| 오늘의집 | Ohouse | https://ohou.se | 상품별 상이 (시공 일정 협의) |
-
-
-
 ### 중고거래
 
 | 서비스명 | 영문명 | URL | 배송시간 |
@@ -275,6 +261,56 @@ korea-commerce-map/
 | 헬로마켓 | HelloMarket | https://www.hellomarket.com | 판매자와 협의 |
 | 크림 | KREAM | https://kream.co.kr | 결제 후 3~7일 (검수 포함) |
 | 솔드아웃 | Soldout | https://www.soldout.co.kr | 결제 후 3~7일 (검수 포함) |
+
+
+
+### 렌탈/대여
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 클로젯셰어 | ClosetShare | https://www.closetshare.com | 결제 후 1~2일 내 수령 (대여기간 2주 단위) |
+
+
+
+### 키즈/유아
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 맘큐 | momQ | https://www.momq.co.kr | 1~3일 |
+| 키디키디 | Kidikidi | https://kidikidi.elandmall.co.kr | 2~4일 |
+
+
+
+### 헬스/건강식품
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 오플닷컴 | Ople.com | https://www.ople.com | 주문 후 3~7일 (직배송) |
+| 아이허브 | iHerb | https://kr.iherb.com | 주문 후 3~7일 (항공직송) |
+
+
+
+### 반려동물
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 펫프렌즈 | PetFriends | https://m.pet-friends.co.kr | 당일 또는 익일 새벽 도착 |
+
+
+
+### 구독형 커머스
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 구독몰 | GoodOK Mall | https://goodokmall.co.kr | 설정한 배송주기에 맞춰 발송 |
+
+
+
+### 여행
+
+| 서비스명 | 영문명 | URL | 배송시간 |
+|---|---|---|---|
+| 하나투어 | HanaTour | https://www.hanatour.com | 여행 일정에 따름 |
 
 
 

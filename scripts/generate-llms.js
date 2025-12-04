@@ -59,11 +59,12 @@ function loadTemplate(filename) {
 }
 
 // 카테고리별로 플랫폼 그룹화
+// categories.json의 순서를 그대로 사용하여 새 카테고리 추가 시 자동 반영
 function groupPlatformsByCategory(categories, platforms) {
   const result = [];
   
-  // 카테고리 순서 정의 (표시하고 싶은 순서)
-  const categoryOrder = ['general', 'quick-commerce', 'fresh', 'grocery', 'food-delivery', 'fashion', 'beauty', 'electronics', 'living', 'secondhand'];
+  // categories.json에서 카테고리 순서를 직접 추출 (하드코딩 제거)
+  const categoryOrder = categories.map(c => c.id);
   
   // 이미 할당된 플랫폼 추적
   const assignedPlatforms = new Set();
