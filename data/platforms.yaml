@@ -3,6 +3,24 @@
 # platforms.json은 이 파일에서 자동으로 생성됩니다.
 
 platforms:
+  - id: mariomall
+    name: "마리오몰 (마리오아울렛)"
+    nameEn: "Mario Mall"
+    description: "마리오아울렛의 공식 온라인몰. 패션, 생활용품, 디지털/가전, 리빙, 주방, 잡화, 일부 식품·건강용품 등 광범위한 상품을 취급하는 복합 쇼핑몰"
+    url: "https://www.mariomall.co.kr"
+    categories:
+      - general
+    deliveryMethods:
+      - "택배배송"
+      - "판매자배송"
+    deliveryTime: "상품 및 판매자별 상이"
+    minOrderAmount: "판매자/상품별 상이"
+    features:
+      - "국내 아울렛 브랜드의 공식 온라인몰"
+      - "패션, 가전, 리빙, 생활잡화 등 다품목 취급"
+      - "명품관, 가전관, 리빙/주방관, 패션/잡화관 포함"
+      - "옴니채널 (오프라인 아울렛 + 온라인몰) 기반 운영"
+
   - id: hanatour
     name: "하나투어"
     nameEn: "HanaTour"
