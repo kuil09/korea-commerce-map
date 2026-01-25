@@ -38,14 +38,16 @@
 ### 로컬에서 실행
 
 ```bash
-# Python 3을 사용한 간단한 로컬 서버
+# Python 3을 사용한 간단한 로컬 서버 (권장)
 python -m http.server 8000
 
-# 또는 Node.js npx를 사용
+# 또는 Node.js npx를 사용 (권장)
 npx serve .
 ```
 
 [http://localhost:8000](http://localhost:8000) 또는 [http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+
+> ⚠️ **참고**: 이 프로젝트는 순수 정적 사이트이므로 Parcel 등의 번들러를 사용하면 HMR(Hot Module Replacement) 관련 API 요청 오류(예: `/api/market-stats`, `/api/minimap` 404 오류)가 발생할 수 있습니다. 위의 권장 서버를 사용하시기 바랍니다.
 
 ## 🌐 배포
 
