@@ -1025,6 +1025,22 @@
   </div>
 
   <script>
+    // Sanitize strings before inserting into HTML to prevent XSS
+    const _sanitizeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    function esc(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/[&<>"']/g, ch => _sanitizeMap[ch]);
+    }
+    // Sanitize URLs: only allow http/https protocols
+    function escUrl(url) {
+      if (typeof url !== 'string') return '#';
+      try {
+        const parsed = new URL(url);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return esc(url);
+      } catch { /* invalid URL */ }
+      return '#';
+    }
+
     // Data will be loaded from external JSON files
     let categories = [];
     let commerceServices = [];
@@ -1189,8 +1205,8 @@
 
       categories.forEach(category => {
         html += `
-          <button class="category-btn ${selectedCategory === category.id ? 'active' : ''}" data-category="${category.id}">
-            ${category.icon} ${category.name}
+          <button class="category-btn ${selectedCategory === category.id ? 'active' : ''}" data-category="${esc(category.id)}">
+            ${esc(category.icon)} ${esc(category.name)}
           </button>
         `;
       });
@@ -1212,11 +1228,11 @@
 
     function renderServiceCard(service) {
       const deliveryMethodsHtml = service.deliveryMethods.slice(0, 3).map(method => 
-        `<span class="delivery-tag">🚚 ${method}</span>`
+        `<span class="delivery-tag">🚚 ${esc(method)}</span>`
       ).join('');
 
       const featuresHtml = service.features.slice(0, 3).map(feature => 
-        `<span class="feature-tag">${feature}</span>`
+        `<span class="feature-tag">${esc(feature)}</span>`
       ).join('');
 
       const extraFeaturesHtml = service.features.length > 3 
@@ -1227,21 +1243,21 @@
       const categoryTagsHtml = service.categories.map(categoryId => {
         const category = getCategoryById(categoryId);
         if (category) {
-          return `<span class="category-tag">${category.icon} ${category.name}</span>`;
+          return `<span class="category-tag">${esc(category.icon)} ${esc(category.name)}</span>`;
         }
         return '';
       }).join('');
 
       return `
-        <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="service-card">
+        <a href="${escUrl(service.url)}" target="_blank" rel="noopener noreferrer" class="service-card">
           <div class="card-header">
-            <div class="card-logo">${service.name.charAt(0)}</div>
+            <div class="card-logo">${esc(service.name.charAt(0))}</div>
             <div class="card-content">
               <h3 class="card-title">
-                ${service.name}
-                <span class="card-title-en">${service.nameEn}</span>
+                ${esc(service.name)}
+                <span class="card-title-en">${esc(service.nameEn)}</span>
               </h3>
-              <p class="card-description">${service.description}</p>
+              <p class="card-description">${esc(service.description)}</p>
               <div class="category-tags">${categoryTagsHtml}</div>
             </div>
           </div>
@@ -1250,13 +1266,13 @@
             <div class="info-row">
               <span class="info-item">
                 <span>⏱️</span>
-                <span>${service.deliveryTime}</span>
+                <span>${esc(service.deliveryTime)}</span>
               </span>
             </div>
             <div class="info-row">
               <span class="info-item">
                 <span>💰</span>
-                <span>${service.minOrderAmount}</span>
+                <span>${esc(service.minOrderAmount)}</span>
               </span>
             </div>
           </div>
@@ -1281,7 +1297,7 @@
       allLetters.forEach(letter => {
         const hasServices = groups[letter] && groups[letter].length > 0;
         const className = hasServices ? 'index-nav-btn' : 'index-nav-btn disabled';
-        html += `<button class="${className}" data-letter="${letter}" ${!hasServices ? 'disabled' : ''}>${letter}</button>`;
+        html += `<button class="${className}" data-letter="${esc(letter)}" ${!hasServices ? 'disabled' : ''}>${esc(letter)}</button>`;
       });
       
       containers.forEach(container => {
@@ -1326,9 +1342,9 @@
       allLetters.forEach(letter => {
         if (groups[letter] && groups[letter].length > 0) {
           html += `
-            <div id="section-${letter}" class="index-section">
+            <div id="section-${esc(letter)}" class="index-section">
               <div class="index-header">
-                <span class="index-letter">${letter}</span>
+                <span class="index-letter">${esc(letter)}</span>
                 <span class="index-count">${groups[letter].length}개</span>
               </div>
               <div class="services-grid">
