@@ -1028,12 +1028,16 @@
     // Sanitize strings before inserting into HTML to prevent XSS
     const _sanitizeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
     function esc(str) {
-      if (typeof str !== 'string') return str;
+      if (typeof str !== 'string') return '';
       return str.replace(/[&<>"']/g, ch => _sanitizeMap[ch]);
     }
     // Sanitize URLs: only allow http/https protocols
     function escUrl(url) {
-      try { const p = new URL(url); if (p.protocol === 'http:' || p.protocol === 'https:') return esc(url); } catch {}
+      if (typeof url !== 'string') return '#';
+      try {
+        const parsed = new URL(url);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return esc(url);
+      } catch { /* invalid URL */ }
       return '#';
     }
 
