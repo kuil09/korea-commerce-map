@@ -58,9 +58,17 @@ korea-commerce-map/
   "deliveryMethods": ["string (delivery method names)"],
   "deliveryTime": "string (delivery time description)",
   "minOrderAmount": "string (minimum order amount)",
-  "features": ["string (key features/services)"]
+  "features": ["string (key features/services)"],
+  "status": "active | rebranded | suspended | closed | unverified",
+  "verificationStatus": "verified | partial | unverified",
+  "lastVerifiedAt": "ISO date or null",
+  "verifiedFields": ["field names checked against sources"],
+  "sourceUrls": ["HTTPS evidence URLs"]
 }
 ```
+
+Records without explicit verification metadata are normalized to `unverified`.
+`lastVerifiedAt` applies only to the fields listed in `verifiedFields`.
 
 ## Vocabulary (정규화된 용어)
 
@@ -84,32 +92,36 @@ korea-commerce-map/
 | pet | 반려동물 | Pet |
 | subscription | 구독형 커머스 | Subscription |
 | travel | 여행 | Travel |
+| cross-border | 해외직구 | Cross-border Shopping |
 
 
 ### Delivery Methods (배송 수단)
 
+- N배송 (오늘·내일·일요·희망일배송)
+- 국내 판매자배송
+- 국제배송
 - 국제배송 (직구)
 - 낮배송
 - 냉장배송
-- 네이버 도착보장
 - 단건배달
 - 당근택배
 - 당일배송
 - 로켓배송
-- 로켓직송
 - 로켓프레시
 - 롯데마트 당일배송
 - 마트배송 / 산지직송
 - 매직배송 (당일매장배송)
+- 모바일·현장·배송 티켓
 - 무신사 당일배송
 - 배민 라이더스
 - 번개택배
 - 산지직송 / 특산물 직배송
+- 상품별 현지 배송
 - 새벽배송
-- 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
 - 서비스 예약
 - 설치배송
+- 슈팅배송
 - 스마일배송
 - 스마트스토어 판매자배송
 - 쓱배송 (당일배송)
@@ -131,6 +143,7 @@ korea-commerce-map/
 - 택배배송 (우체국택배)
 - 판매자배송
 - 포장 주문
+- 프레시 매니저 배송
 - 하루배송
 - 헬로페이 안전결제
 - 화물배송
@@ -155,6 +168,7 @@ korea-commerce-map/
 | pet | 반려동물 | Pet | 🐾 |
 | subscription | 구독형 커머스 | Subscription | 📦 |
 | travel | 여행 | Travel | ✈️ |
+| cross-border | 해외직구 | Cross-border Shopping | 🌏 |
 
 
 ## Major Services (주요 서비스 목록)
@@ -171,7 +185,7 @@ korea-commerce-map/
 |---|---|---|---|
 | 우체국쇼핑 | ePOST Mall | https://mall.epost.go.kr | 2~5일 (상품 및 지역에 따라 다름) |
 | 농협몰 | Nonghyup Mall | https://www.nonghyupmall.com | 2~5일 (상품 및 지역에 따라 변동) |
-| 프레딧 | Fredit | https://fredit.co.kr | 1~3일 |
+| 프레딧 | Fredit | https://m.fredit.co.kr | 지정일·시간 또는 상품별 상이 |
 | 매일유업 | Maeil Dairy Mall | https://direct.maeil.com | 1~3일 |
 | 하림몰 | Harim Mall | https://www.harimmall.com | 2~3일 |
 | 다이소 | Daiso | https://www.daisomall.co.kr | 2~4일 |
@@ -240,14 +254,15 @@ korea-commerce-map/
 | 마리오몰 (마리오아울렛) | Mario Mall | https://www.mariomall.co.kr | 상품 및 판매자별 상이 |
 | 도매꾹 | Domeggook | https://domeggook.com | 상품 및 판매자별 상이 |
 | G마켓 | Gmarket | https://www.gmarket.co.kr | 2~5일 |
-| 11번가 | 11st | https://www.11st.co.kr | 2~4일 |
+| 11번가 | 11st | https://www.11st.co.kr | 판매자별 상이; 슈팅배송은 상품·지역별 당일 또는 익일 |
 | 옥션 | Auction | https://www.auction.co.kr | 2~5일 |
-| 인터파크 | Interpark | https://www.interpark.com | 2~5일 |
-| 네이버 쇼핑 | Naver Shopping | https://shopping.naver.com | 판매자별 상이 |
+| 네이버플러스 스토어 | Naver Plus Store | https://shopping.naver.com | 판매자 및 N배송 유형별 상이 (당일~지정일) |
 | 쿠팡 | Coupang | https://www.coupang.com | 주문 익일 도착 (로켓배송 기준) |
 | SSG닷컴 | SSG.com | https://www.ssg.com | 주문 당일~익일 배송 |
 | 롯데ON | Lotte ON | https://www.lotteon.com | 당일~익일 배송 |
 | 코스트코 온라인몰 | Costco Korea | https://www.costco.co.kr | 2~5일 (물류센터 배송) |
+| 알리익스프레스 | AliExpress | https://ko.aliexpress.com | 상품·판매자·통관 여부별 상이 |
+| 테무 | Temu | https://www.temu.com/kr | 상품·판매자·통관 여부별 상이 |
 
 
 
@@ -311,6 +326,7 @@ korea-commerce-map/
 | 서비스명 | 영문명 | URL | 배송시간 |
 |---|---|---|---|
 | 하나투어 | HanaTour | https://www.hanatour.com | 여행 일정에 따름 |
+| NOL 인터파크 | NOL Interpark | https://nol.interpark.com | 예약·공연·여행 일정에 따름 |
 
 
 

@@ -8,6 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const { parseYAML } = require('./yaml-parser');
+const { normalizePlatforms } = require('./platform-metadata');
 
 // 경로 설정
 const ROOT_DIR = path.join(__dirname, '..');
@@ -19,7 +20,7 @@ function loadYAML(filename) {
   const filepath = path.join(DATA_DIR, filename);
   try {
     const content = fs.readFileSync(filepath, 'utf8');
-    return parseYAML(content);
+    return normalizePlatforms(parseYAML(content));
   } catch (error) {
     if (error.code === 'ENOENT') {
       throw new Error(`데이터 파일을 찾을 수 없습니다: ${filepath}`);

@@ -26,6 +26,13 @@
 | general | 종합쇼핑몰 | General Mall | 🏬 |
 | fresh | 신선식품 | Fresh Food | 🥬 |
 | secondhand | 중고거래 | Secondhand | ♻️ |
+| rental | 렌탈/대여 | Rental | 🔄 |
+| kids | 키즈/유아 | Kids/Baby | 🍼 |
+| health | 헬스/건강식품 | Health | 💊 |
+| pet | 반려동물 | Pet | 🐾 |
+| subscription | 구독형 커머스 | Subscription | 📦 |
+| travel | 여행 | Travel | ✈️ |
+| cross-border | 해외직구 | Cross-border Shopping | 🌏 |
 
 ## 데이터 소스 (Data Sources)
 

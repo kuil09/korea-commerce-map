@@ -170,7 +170,12 @@ function generateMarkdownReport(results) {
   markdown += '> 아래 스크린샷은 PR에서 추가/변경된 플랫폼의 실제 웹사이트 화면입니다.\n\n';
   
   for (const result of results) {
-    const changeLabel = result.changeType === 'added' ? '🆕 신규 추가' : '🔄 URL 변경';
+    const changeLabels = {
+      added: '🆕 신규 추가',
+      url_changed: '🔄 URL 변경',
+      updated: '✏️ 정보 변경'
+    };
+    const changeLabel = changeLabels[result.changeType] || result.changeType;
     
     markdown += `### ${result.name} (${result.nameEn})\n\n`;
     markdown += `- **변경 유형**: ${changeLabel}\n`;

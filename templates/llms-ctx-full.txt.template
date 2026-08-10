@@ -47,9 +47,17 @@ korea-commerce-map/
   "deliveryMethods": "string[] (delivery method names)",
   "deliveryTime": "string (delivery time description)",
   "minOrderAmount": "string (minimum order amount)",
-  "features": "string[] (key features)"
+  "features": "string[] (key features)",
+  "status": "active | rebranded | suspended | closed | unverified",
+  "verificationStatus": "verified | partial | unverified",
+  "lastVerifiedAt": "ISO date or null",
+  "verifiedFields": "string[] (fields checked against sources)",
+  "sourceUrls": "string[] (HTTPS evidence URLs)"
 }
 ```
+
+Records without explicit verification metadata are normalized to `unverified`.
+`lastVerifiedAt` applies only to the fields listed in `verifiedFields`.
 
 ## Vocabulary (정규화된 용어)
 

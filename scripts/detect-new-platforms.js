@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 새로 추가되거나 URL이 변경된 플랫폼을 감지하는 스크립트
+ * Detect added platforms and material platform data changes.
  * base 브랜치와 현재 브랜치의 platforms.yaml을 비교합니다.
  */
 
@@ -35,18 +35,14 @@ function getFileAtRef(ref, filepath) {
 }
 
 /**
- * 플랫폼 배열에서 URL 맵을 생성합니다.
+ * Build a platform map keyed by stable platform id.
  * @param {Array} platforms - 플랫폼 배열
- * @returns {Map} id -> {url, name} 맵
+ * @returns {Map} id -> platform map
  */
-function createPlatformUrlMap(platforms) {
+function createPlatformMap(platforms) {
   const map = new Map();
   for (const platform of platforms) {
-    map.set(platform.id, {
-      url: platform.url,
-      name: platform.name,
-      nameEn: platform.nameEn
-    });
+    map.set(platform.id, platform);
   }
   return map;
 }
@@ -67,7 +63,7 @@ function findChangedPlatforms(baseRef, headRef) {
   }
   
   const headPlatforms = parseYAML(headContent);
-  const headMap = createPlatformUrlMap(headPlatforms);
+  const headMap = createPlatformMap(headPlatforms);
   
   // base 브랜치에 파일이 없으면 모든 플랫폼이 새로 추가된 것
   if (!baseContent) {
@@ -82,7 +78,7 @@ function findChangedPlatforms(baseRef, headRef) {
   }
   
   const basePlatforms = parseYAML(baseContent);
-  const baseMap = createPlatformUrlMap(basePlatforms);
+  const baseMap = createPlatformMap(basePlatforms);
   
   const changedPlatforms = [];
   
@@ -109,6 +105,14 @@ function findChangedPlatforms(baseRef, headRef) {
         oldUrl: baseInfo.url,
         changeType: 'url_changed'
       });
+    } else if (JSON.stringify(baseInfo) !== JSON.stringify(headInfo)) {
+      changedPlatforms.push({
+        id,
+        name: headInfo.name,
+        nameEn: headInfo.nameEn,
+        url: headInfo.url,
+        changeType: 'updated'
+      });
     }
   }
   
@@ -132,7 +136,12 @@ function main() {
   } else {
     console.log(`📋 ${changedPlatforms.length}개의 변경된 플랫폼 발견:`);
     for (const p of changedPlatforms) {
-      const changeLabel = p.changeType === 'added' ? '🆕 추가됨' : '🔄 URL 변경됨';
+      const changeLabels = {
+        added: '🆕 추가됨',
+        url_changed: '🔄 URL 변경됨',
+        updated: '✏️ 정보 변경됨'
+      };
+      const changeLabel = changeLabels[p.changeType] || p.changeType;
       console.log(`   ${changeLabel}: ${p.name} (${p.nameEn})`);
       console.log(`      URL: ${p.url}`);
       if (p.oldUrl) {

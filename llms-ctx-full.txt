@@ -47,9 +47,17 @@ korea-commerce-map/
   "deliveryMethods": "string[] (delivery method names)",
   "deliveryTime": "string (delivery time description)",
   "minOrderAmount": "string (minimum order amount)",
-  "features": "string[] (key features)"
+  "features": "string[] (key features)",
+  "status": "active | rebranded | suspended | closed | unverified",
+  "verificationStatus": "verified | partial | unverified",
+  "lastVerifiedAt": "ISO date or null",
+  "verifiedFields": "string[] (fields checked against sources)",
+  "sourceUrls": "string[] (HTTPS evidence URLs)"
 }
 ```
+
+Records without explicit verification metadata are normalized to `unverified`.
+`lastVerifiedAt` applies only to the fields listed in `verifiedFields`.
 
 ## Vocabulary (정규화된 용어)
 
@@ -73,32 +81,36 @@ korea-commerce-map/
 | pet | 반려동물 | Pet |
 | subscription | 구독형 커머스 | Subscription |
 | travel | 여행 | Travel |
+| cross-border | 해외직구 | Cross-border Shopping |
 
 
 ### Delivery Methods (배송 수단)
 
+- N배송 (오늘·내일·일요·희망일배송)
+- 국내 판매자배송
+- 국제배송
 - 국제배송 (직구)
 - 낮배송
 - 냉장배송
-- 네이버 도착보장
 - 단건배달
 - 당근택배
 - 당일배송
 - 로켓배송
-- 로켓직송
 - 로켓프레시
 - 롯데마트 당일배송
 - 마트배송 / 산지직송
 - 매직배송 (당일매장배송)
+- 모바일·현장·배송 티켓
 - 무신사 당일배송
 - 배민 라이더스
 - 번개택배
 - 산지직송 / 특산물 직배송
+- 상품별 현지 배송
 - 새벽배송
-- 새벽배송 (지역 제한)
 - 샛별배송 (새벽배송)
 - 서비스 예약
 - 설치배송
+- 슈팅배송
 - 스마일배송
 - 스마트스토어 판매자배송
 - 쓱배송 (당일배송)
@@ -120,6 +132,7 @@ korea-commerce-map/
 - 택배배송 (우체국택배)
 - 판매자배송
 - 포장 주문
+- 프레시 매니저 배송
 - 하루배송
 - 헬로페이 안전결제
 - 화물배송
@@ -225,6 +238,12 @@ korea-commerce-map/
     "name": "여행",
     "nameEn": "Travel",
     "icon": "✈️"
+  },
+  {
+    "id": "cross-border",
+    "name": "해외직구",
+    "nameEn": "Cross-border Shopping",
+    "icon": "🌏"
   }
 ]
 ```
@@ -253,7 +272,12 @@ korea-commerce-map/
       "패션, 가전, 리빙, 생활잡화 등 다품목 취급",
       "명품관, 가전관, 리빙/주방관, 패션/잡화관 포함",
       "옴니채널 (오프라인 아울렛 + 온라인몰) 기반 운영"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "hanatour",
@@ -275,7 +299,12 @@ korea-commerce-map/
       "자유여행 및 투어 예약",
       "입장권·투어권 판매",
       "여행 관련 부가 서비스"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "domeggook",
@@ -297,7 +326,12 @@ korea-commerce-map/
       "다양한 품목군 취급 (의류, 잡화, 가전, 생활용품, 식품 등)",
       "도매가 공급 / 대량구매 지원",
       "사업자회원 중심 / 일반 소비자도 일부 이용 가능"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "epostmall",
@@ -320,7 +354,12 @@ korea-commerce-map/
       "전국 우체국택배망 이용",
       "전통시장 상품 및 지역 특산물 판매",
       "곡물, 잡곡, 가공식품, 건강식품, 밀키트, 선물세트 등 다양한 식품군 취급"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "nonghyupmall",
@@ -343,7 +382,12 @@ korea-commerce-map/
       "곡물·쌀/잡곡, 과일, 축산, 수산, 가공식품 등 다양한 품목",
       "NH멤버스 통합회원 및 할인/쿠폰 혜택",
       "산지직송 / 마트배송 형태 제공"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "gmarket",
@@ -364,29 +408,53 @@ korea-commerce-map/
       "스마일클럽",
       "스마일배송",
       "G마켓 라이브"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "fredit",
     "name": "프레딧",
     "nameEn": "Fredit",
-    "description": "풀무원 계열의 건강지향 식품 플랫폼. 샐러드·도시락·HMR 등 신선 간편식 중심으로 구성되며 정기배송 서비스 제공",
-    "url": "https://fredit.co.kr",
+    "description": "hy가 운영하는 정기구독 기반 라이프스타일 플랫폼. 유제품, 건강기능식품, 신선식품과 생활용품 등을 프레시 매니저 및 택배 채널로 제공",
+    "url": "https://m.fredit.co.kr",
     "categories": [
       "fresh",
-      "grocery"
+      "grocery",
+      "health",
+      "subscription"
     ],
     "deliveryMethods": [
-      "일반배송",
-      "새벽배송 (지역 제한)",
+      "프레시 매니저 배송",
+      "택배배송",
       "정기배송"
     ],
-    "deliveryTime": "1~3일",
-    "minOrderAmount": "조건부 무료배송 (지역별 상이)",
+    "deliveryTime": "지정일·시간 또는 상품별 상이",
+    "minOrderAmount": "상품 및 배송 방식별 상이",
     "features": [
-      "건강식단 정기배송",
-      "풀무원 브랜드 연계상품",
-      "신선 간편식 전문"
+      "hy 공식 온라인 플랫폼",
+      "프레시 매니저 정기구독",
+      "콜드체인 배송",
+      "건강·신선식품 및 생활용품"
+    ],
+    "status": "active",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "name",
+      "description",
+      "url",
+      "categories",
+      "deliveryMethods",
+      "features",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://www.hy.co.kr/business/distribution/subscription",
+      "https://m.fredit.co.kr"
     ]
   },
   {
@@ -410,7 +478,12 @@ korea-commerce-map/
       "브랜드 직영몰",
       "유아식품 전문관",
       "냉장식품 패키징"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "harimmall",
@@ -432,7 +505,12 @@ korea-commerce-map/
       "하림 신선육 직배송",
       "밀키트 전문관",
       "브랜드 멤버십 혜택"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "daiso",
@@ -453,28 +531,46 @@ korea-commerce-map/
       "1,000원 균일가 기반 인기 브랜드",
       "생활잡화 전문 카테고리",
       "오프라인 매장 연계 상품"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "11st",
     "name": "11번가",
     "nameEn": "11st",
-    "description": "SK텔레콤 계열의 종합쇼핑몰. 아마존 글로벌 스토어 운영",
+    "description": "11번가 주식회사가 운영하는 종합 오픈마켓. 판매자 상품과 빠른배송 전용 상품, 라이브 커머스 등을 제공",
     "url": "https://www.11st.co.kr",
     "categories": [
       "general"
     ],
     "deliveryMethods": [
-      "일반배송",
-      "로켓직송",
-      "새벽배송"
+      "판매자배송",
+      "슈팅배송"
     ],
-    "deliveryTime": "2~4일",
-    "minOrderAmount": "무료배송 기준 있음",
+    "deliveryTime": "판매자별 상이; 슈팅배송은 상품·지역별 당일 또는 익일",
+    "minOrderAmount": "판매자 및 상품별 상이",
     "features": [
-      "아마존 글로벌 스토어",
       "슈팅배송",
-      "라이브 커머스"
+      "LIVE11 라이브 커머스",
+      "AI 쇼핑메이트"
+    ],
+    "status": "active",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "description",
+      "deliveryMethods",
+      "deliveryTime",
+      "features",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://www.11stcorp.com/pr",
+      "https://www.fnnews.com/news/202604301629168039"
     ]
   },
   {
@@ -496,47 +592,87 @@ korea-commerce-map/
       "스마일클럽",
       "올킬 특가",
       "옥션 라이브"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "interpark",
-    "name": "인터파크",
-    "nameEn": "Interpark",
-    "description": "공연/티켓부터 쇼핑까지 아우르는 종합 플랫폼",
-    "url": "https://www.interpark.com",
+    "name": "NOL 인터파크",
+    "nameEn": "NOL Interpark",
+    "description": "놀유니버스가 운영하는 여행·공연 예약 플랫폼. 국내외 여행 상품과 공연, 스포츠, 전시·행사 티켓 예매를 제공",
+    "url": "https://nol.interpark.com",
     "categories": [
-      "general"
+      "travel"
     ],
     "deliveryMethods": [
-      "일반배송"
+      "서비스 예약",
+      "모바일·현장·배송 티켓"
     ],
-    "deliveryTime": "2~5일",
-    "minOrderAmount": "상품별 상이",
+    "deliveryTime": "예약·공연·여행 일정에 따름",
+    "minOrderAmount": "해당 없음",
     "features": [
-      "공연/티켓 예매",
-      "투어/여행 서비스",
-      "도서 판매"
+      "국내외 여행 예약",
+      "공연·스포츠·전시 티켓 예매",
+      "NOL 서비스 연계"
+    ],
+    "status": "rebranded",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "name",
+      "nameEn",
+      "description",
+      "url",
+      "categories",
+      "deliveryMethods",
+      "features",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://nol.interpark.com",
+      "https://tmanager.interpark.com/html/ticketdesignnotice.html"
     ]
   },
   {
     "id": "naver-shopping",
-    "name": "네이버 쇼핑",
-    "nameEn": "Naver Shopping",
-    "description": "국내 최대 포털의 가격비교 및 쇼핑 플랫폼. 스마트스토어 등을 통해 오픈마켓 기능 제공",
+    "name": "네이버플러스 스토어",
+    "nameEn": "Naver Plus Store",
+    "description": "네이버의 AI 기반 쇼핑 플랫폼. 스마트스토어 상품 탐색·비교·구매와 개인화 추천, N배송 서비스를 제공",
     "url": "https://shopping.naver.com",
     "categories": [
       "general"
     ],
     "deliveryMethods": [
       "스마트스토어 판매자배송",
-      "네이버 도착보장"
+      "N배송 (오늘·내일·일요·희망일배송)"
     ],
-    "deliveryTime": "판매자별 상이",
-    "minOrderAmount": "판매자별 상이",
+    "deliveryTime": "판매자 및 N배송 유형별 상이 (당일~지정일)",
+    "minOrderAmount": "판매자별 상이; 멤버십 N배송 혜택 조건 별도",
     "features": [
-      "네이버페이 간편결제",
-      "찜한상품 알림",
-      "리뷰 기반 추천"
+      "쇼핑 AI 에이전트 베타",
+      "스마트스토어 연계",
+      "네이버플러스 멤버십",
+      "N배송"
+    ],
+    "status": "active",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "name",
+      "nameEn",
+      "description",
+      "deliveryMethods",
+      "deliveryTime",
+      "features",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://www.navercorp.com/media/pressReleasesDetail?seq=32352",
+      "https://www.navercorp.com/media/pressReleasesDetail?seq=34353"
     ]
   },
   {
@@ -559,7 +695,12 @@ korea-commerce-map/
       "로켓와우 멤버십",
       "30일 내 무료반품",
       "쿠팡 라이브"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "kurly",
@@ -582,7 +723,12 @@ korea-commerce-map/
       "신선도 100% 보장",
       "컬리 전용 포장재",
       "뷰티컬리 전문관"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "bmart",
@@ -603,7 +749,12 @@ korea-commerce-map/
       "24시간 운영",
       "배민앱 연동",
       "생필품 즉시배달"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "coupang-eats",
@@ -623,7 +774,12 @@ korea-commerce-map/
       "단건배달 서비스",
       "와우회원 무료배달",
       "배달 예상시간 보장"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "yogiyo",
@@ -644,7 +800,12 @@ korea-commerce-map/
       "요기패스 구독",
       "요마트 장보기",
       "포인트 적립제"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "baemin",
@@ -668,7 +829,12 @@ korea-commerce-map/
       "B마트 즉시배달",
       "배민 할인쿠폰",
       "배민 구독클럽"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "oasis",
@@ -691,7 +857,12 @@ korea-commerce-map/
       "친환경 인증 상품",
       "유기농 전문관",
       "재사용 포장재"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "ssg",
@@ -713,7 +884,12 @@ korea-commerce-map/
       "이마트몰 연계",
       "신세계백화점 상품",
       "SSG PAY 결제"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "lotteon",
@@ -735,7 +911,12 @@ korea-commerce-map/
       "L.Point 적립",
       "백화점 상품관",
       "통합 멤버십"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "homeplus",
@@ -757,7 +938,12 @@ korea-commerce-map/
       "매장픽업 서비스",
       "당일배송 시간지정",
       "PB브랜드 할인전"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "costco",
@@ -777,7 +963,12 @@ korea-commerce-map/
       "멤버십 회원제",
       "묶음 대용량 판매",
       "오프라인 연계 반품"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "musinsa",
@@ -798,7 +989,12 @@ korea-commerce-map/
       "무신사 스탠다드 PB",
       "코디 추천 및 리뷰",
       "한정판 발매 (랄라뮤즈)"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "ably",
@@ -819,7 +1015,12 @@ korea-commerce-map/
       "AI 스타일 추천",
       "셀럽 마켓 입점",
       "무료 반품 혜택"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "zigzag",
@@ -841,7 +1042,12 @@ korea-commerce-map/
       "직진배송 (통합배송)",
       "Z결제 간편결제",
       "쇼핑몰 즐겨찾기"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "brandi",
@@ -862,7 +1068,12 @@ korea-commerce-map/
       "하루배송 전용관",
       "라이브 방송 쇼핑",
       "인플루언서 셀렉션"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "wconcept",
@@ -882,7 +1093,12 @@ korea-commerce-map/
       "디자이너 브랜드 한정판",
       "단독 컬렉션",
       "시즌 세일"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "29cm",
@@ -903,7 +1119,12 @@ korea-commerce-map/
       "에디터 큐레이션",
       "브랜드 스토리 소개",
       "PT 기획전 (특가전)"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "olive-young",
@@ -924,7 +1145,12 @@ korea-commerce-map/
       "오늘드림 빠른배송",
       "매장 픽업 서비스",
       "CJ ONE 포인트 적립"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "himart",
@@ -945,7 +1171,12 @@ korea-commerce-map/
       "가전 제품 설치 서비스",
       "렌탈 서비스 제공",
       "중고 가전 보상판매"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "samsung",
@@ -966,7 +1197,12 @@ korea-commerce-map/
       "멤버십 포인트 적립",
       "트레이드인 보상판매",
       "체험 스토어 연계"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "lg-best",
@@ -987,7 +1223,12 @@ korea-commerce-map/
       "LG 멤버십 할인",
       "가전 제품 렌탈",
       "A/S 예약 연계"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "ikea",
@@ -1008,7 +1249,12 @@ korea-commerce-map/
       "DIY 조립 가구",
       "온라인 플래너 도구",
       "조립/설치 서비스"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "hanssem",
@@ -1029,7 +1275,12 @@ korea-commerce-map/
       "인테리어 컨설팅",
       "리모델링 서비스",
       "AS 및 케어 서비스"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "ohouse",
@@ -1050,7 +1301,12 @@ korea-commerce-map/
       "인테리어 커뮤니티/노하우",
       "시공 견적 서비스",
       "3D 홈 디자인 툴"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "daangn",
@@ -1071,7 +1327,12 @@ korea-commerce-map/
       "동네 인증 시스템",
       "당근페이 간편결제",
       "지역 생활 커뮤니티"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "bunjang",
@@ -1093,7 +1354,12 @@ korea-commerce-map/
       "번개페이 에스크로",
       "정품 감정 서비스",
       "스타샵 (셀럽 중고마켓)"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "joonggonara",
@@ -1114,7 +1380,12 @@ korea-commerce-map/
       "네이버 카페 커뮤니티",
       "안전결제 서비스",
       "전문 중고업체 입점"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "hellomarket",
@@ -1135,7 +1406,12 @@ korea-commerce-map/
       "판매 수수료 0%",
       "헬로페이 에스크로",
       "빈티지 패션 전문관"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "kream",
@@ -1155,7 +1431,12 @@ korea-commerce-map/
       "전문 검수 시스템",
       "한정판 럭키드로우",
       "KREAM 포인트 리워드"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "soldout",
@@ -1175,7 +1456,12 @@ korea-commerce-map/
       "정품 300% 보상제",
       "한정판 발매 캘린더",
       "무신사 연동 혜택"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "momq",
@@ -1195,7 +1481,12 @@ korea-commerce-map/
       "맘큐위키 육아정보",
       "브랜드 회원 등급제",
       "산모 교실 이벤트"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "kidikidi",
@@ -1215,7 +1506,12 @@ korea-commerce-map/
       "베이비페어 상시진행",
       "쿠폰팩/적립 이벤트",
       "아동복 사이즈별 추천"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "petfriends",
@@ -1236,7 +1532,12 @@ korea-commerce-map/
       "신규회원 5천원 쿠폰",
       "사료 정기배송 할인",
       "수의사 상담 서비스"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "rental-closetshare",
@@ -1256,7 +1557,12 @@ korea-commerce-map/
       "의류/가방 멤버십 (월 79,000원~)",
       "스타일리스트 추천박스",
       "대여품 세탁 무료서비스"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "ople",
@@ -1276,7 +1582,12 @@ korea-commerce-map/
       "100% 미국 정품",
       "회원 할인/적립",
       "건강기능식품 카테고리세분화"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "iherb",
@@ -1296,7 +1607,12 @@ korea-commerce-map/
       "위클리 특가 할인",
       "로열티 리워드 (추천인 코드)",
       "한국어 고객지원"
-    ]
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
   },
   {
     "id": "goodokmall",
@@ -1316,6 +1632,85 @@ korea-commerce-map/
       "구독 기간별 할인율",
       "공유 시 추가적립 리워드",
       "구독 관리 전용 앱"
+    ],
+    "status": "unverified",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": null,
+    "verifiedFields": [],
+    "sourceUrls": []
+  },
+  {
+    "id": "aliexpress",
+    "name": "알리익스프레스",
+    "nameEn": "AliExpress",
+    "description": "한국 소비자를 위한 한국어 서비스를 제공하는 글로벌 종합 마켓플레이스. 해외직구 상품과 국내 판매자의 K-Venue 상품을 취급",
+    "url": "https://ko.aliexpress.com",
+    "categories": [
+      "general",
+      "cross-border"
+    ],
+    "deliveryMethods": [
+      "국제배송",
+      "국내 판매자배송"
+    ],
+    "deliveryTime": "상품·판매자·통관 여부별 상이",
+    "minOrderAmount": "상품 및 판매자별 상이",
+    "features": [
+      "글로벌 해외직구 마켓플레이스",
+      "한국어 서비스",
+      "K-Venue 국내 상품관"
+    ],
+    "status": "active",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "name",
+      "nameEn",
+      "description",
+      "url",
+      "categories",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://ko.aliexpress.com",
+      "https://www.ftc.go.kr/www/selectBbsNttView.do?bordCd=3&key=12&nttSn=43676"
+    ]
+  },
+  {
+    "id": "temu",
+    "name": "테무",
+    "nameEn": "Temu",
+    "description": "한국어 웹과 앱을 제공하는 글로벌 종합 마켓플레이스. 패션, 생활, 뷰티, 전자제품 등 다양한 해외직구 상품을 취급",
+    "url": "https://www.temu.com/kr",
+    "categories": [
+      "general",
+      "cross-border"
+    ],
+    "deliveryMethods": [
+      "국제배송",
+      "상품별 현지 배송"
+    ],
+    "deliveryTime": "상품·판매자·통관 여부별 상이",
+    "minOrderAmount": "주문 및 프로모션 조건별 상이",
+    "features": [
+      "글로벌 해외직구 마켓플레이스",
+      "한국어 웹·앱 서비스",
+      "배송 추적 및 구매 보호"
+    ],
+    "status": "active",
+    "verificationStatus": "partial",
+    "lastVerifiedAt": "2026-08-11",
+    "verifiedFields": [
+      "name",
+      "nameEn",
+      "description",
+      "url",
+      "categories",
+      "status"
+    ],
+    "sourceUrls": [
+      "https://www.temu.com/kr",
+      "https://www.ftc.go.kr/www/selectBbsNttView.do?bordCd=3&key=12&nttSn=43676"
     ]
   }
 ]

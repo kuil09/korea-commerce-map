@@ -115,21 +115,38 @@ platforms:
   - id: fredit
     name: "프레딧"
     nameEn: "Fredit"
-    description: "풀무원 계열의 건강지향 식품 플랫폼. 샐러드·도시락·HMR 등 신선 간편식 중심으로 구성되며 정기배송 서비스 제공"
-    url: "https://fredit.co.kr"
+    description: "hy가 운영하는 정기구독 기반 라이프스타일 플랫폼. 유제품, 건강기능식품, 신선식품과 생활용품 등을 프레시 매니저 및 택배 채널로 제공"
+    url: "https://m.fredit.co.kr"
     categories:
       - fresh
       - grocery
+      - health
+      - subscription
     deliveryMethods:
-      - "일반배송"
-      - "새벽배송 (지역 제한)"
+      - "프레시 매니저 배송"
+      - "택배배송"
       - "정기배송"
-    deliveryTime: "1~3일"
-    minOrderAmount: "조건부 무료배송 (지역별 상이)"
+    deliveryTime: "지정일·시간 또는 상품별 상이"
+    minOrderAmount: "상품 및 배송 방식별 상이"
     features:
-      - "건강식단 정기배송"
-      - "풀무원 브랜드 연계상품"
-      - "신선 간편식 전문"
+      - "hy 공식 온라인 플랫폼"
+      - "프레시 매니저 정기구독"
+      - "콜드체인 배송"
+      - "건강·신선식품 및 생활용품"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "name"
+      - "description"
+      - "url"
+      - "categories"
+      - "deliveryMethods"
+      - "features"
+      - "status"
+    sourceUrls:
+      - "https://www.hy.co.kr/business/distribution/subscription"
+      - "https://m.fredit.co.kr"
 
   - id: maeil
     name: "매일유업"
@@ -188,20 +205,31 @@ platforms:
   - id: 11st
     name: "11번가"
     nameEn: "11st"
-    description: "SK텔레콤 계열의 종합쇼핑몰. 아마존 글로벌 스토어 운영"
+    description: "11번가 주식회사가 운영하는 종합 오픈마켓. 판매자 상품과 빠른배송 전용 상품, 라이브 커머스 등을 제공"
     url: "https://www.11st.co.kr"
     categories:
       - general
     deliveryMethods:
-      - "일반배송"
-      - "로켓직송"
-      - "새벽배송"
-    deliveryTime: "2~4일"
-    minOrderAmount: "무료배송 기준 있음"
-    features:
-      - "아마존 글로벌 스토어"
+      - "판매자배송"
       - "슈팅배송"
-      - "라이브 커머스"
+    deliveryTime: "판매자별 상이; 슈팅배송은 상품·지역별 당일 또는 익일"
+    minOrderAmount: "판매자 및 상품별 상이"
+    features:
+      - "슈팅배송"
+      - "LIVE11 라이브 커머스"
+      - "AI 쇼핑메이트"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "description"
+      - "deliveryMethods"
+      - "deliveryTime"
+      - "features"
+      - "status"
+    sourceUrls:
+      - "https://www.11stcorp.com/pr"
+      - "https://www.fnnews.com/news/202604301629168039"
 
   - id: auction
     name: "옥션"
@@ -221,37 +249,68 @@ platforms:
       - "옥션 라이브"
 
   - id: interpark
-    name: "인터파크"
-    nameEn: "Interpark"
-    description: "공연/티켓부터 쇼핑까지 아우르는 종합 플랫폼"
-    url: "https://www.interpark.com"
+    name: "NOL 인터파크"
+    nameEn: "NOL Interpark"
+    description: "놀유니버스가 운영하는 여행·공연 예약 플랫폼. 국내외 여행 상품과 공연, 스포츠, 전시·행사 티켓 예매를 제공"
+    url: "https://nol.interpark.com"
     categories:
-      - general
+      - travel
     deliveryMethods:
-      - "일반배송"
-    deliveryTime: "2~5일"
-    minOrderAmount: "상품별 상이"
+      - "서비스 예약"
+      - "모바일·현장·배송 티켓"
+    deliveryTime: "예약·공연·여행 일정에 따름"
+    minOrderAmount: "해당 없음"
     features:
-      - "공연/티켓 예매"
-      - "투어/여행 서비스"
-      - "도서 판매"
+      - "국내외 여행 예약"
+      - "공연·스포츠·전시 티켓 예매"
+      - "NOL 서비스 연계"
+    status: "rebranded"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "name"
+      - "nameEn"
+      - "description"
+      - "url"
+      - "categories"
+      - "deliveryMethods"
+      - "features"
+      - "status"
+    sourceUrls:
+      - "https://nol.interpark.com"
+      - "https://tmanager.interpark.com/html/ticketdesignnotice.html"
 
   - id: naver-shopping
-    name: "네이버 쇼핑"
-    nameEn: "Naver Shopping"
-    description: "국내 최대 포털의 가격비교 및 쇼핑 플랫폼. 스마트스토어 등을 통해 오픈마켓 기능 제공"
+    name: "네이버플러스 스토어"
+    nameEn: "Naver Plus Store"
+    description: "네이버의 AI 기반 쇼핑 플랫폼. 스마트스토어 상품 탐색·비교·구매와 개인화 추천, N배송 서비스를 제공"
     url: "https://shopping.naver.com"
     categories:
       - general
     deliveryMethods:
       - "스마트스토어 판매자배송"
-      - "네이버 도착보장"
-    deliveryTime: "판매자별 상이"
-    minOrderAmount: "판매자별 상이"
+      - "N배송 (오늘·내일·일요·희망일배송)"
+    deliveryTime: "판매자 및 N배송 유형별 상이 (당일~지정일)"
+    minOrderAmount: "판매자별 상이; 멤버십 N배송 혜택 조건 별도"
     features:
-      - "네이버페이 간편결제"
-      - "찜한상품 알림"
-      - "리뷰 기반 추천"
+      - "쇼핑 AI 에이전트 베타"
+      - "스마트스토어 연계"
+      - "네이버플러스 멤버십"
+      - "N배송"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "name"
+      - "nameEn"
+      - "description"
+      - "deliveryMethods"
+      - "deliveryTime"
+      - "features"
+      - "status"
+    sourceUrls:
+      - "https://www.navercorp.com/media/pressReleasesDetail?seq=32352"
+      - "https://www.navercorp.com/media/pressReleasesDetail?seq=34353"
 
   - id: coupang
     name: "쿠팡"
@@ -883,3 +942,65 @@ platforms:
       - "구독 기간별 할인율"
       - "공유 시 추가적립 리워드"
       - "구독 관리 전용 앱"
+
+  - id: aliexpress
+    name: "알리익스프레스"
+    nameEn: "AliExpress"
+    description: "한국 소비자를 위한 한국어 서비스를 제공하는 글로벌 종합 마켓플레이스. 해외직구 상품과 국내 판매자의 K-Venue 상품을 취급"
+    url: "https://ko.aliexpress.com"
+    categories:
+      - general
+      - cross-border
+    deliveryMethods:
+      - "국제배송"
+      - "국내 판매자배송"
+    deliveryTime: "상품·판매자·통관 여부별 상이"
+    minOrderAmount: "상품 및 판매자별 상이"
+    features:
+      - "글로벌 해외직구 마켓플레이스"
+      - "한국어 서비스"
+      - "K-Venue 국내 상품관"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "name"
+      - "nameEn"
+      - "description"
+      - "url"
+      - "categories"
+      - "status"
+    sourceUrls:
+      - "https://ko.aliexpress.com"
+      - "https://www.ftc.go.kr/www/selectBbsNttView.do?bordCd=3&key=12&nttSn=43676"
+
+  - id: temu
+    name: "테무"
+    nameEn: "Temu"
+    description: "한국어 웹과 앱을 제공하는 글로벌 종합 마켓플레이스. 패션, 생활, 뷰티, 전자제품 등 다양한 해외직구 상품을 취급"
+    url: "https://www.temu.com/kr"
+    categories:
+      - general
+      - cross-border
+    deliveryMethods:
+      - "국제배송"
+      - "상품별 현지 배송"
+    deliveryTime: "상품·판매자·통관 여부별 상이"
+    minOrderAmount: "주문 및 프로모션 조건별 상이"
+    features:
+      - "글로벌 해외직구 마켓플레이스"
+      - "한국어 웹·앱 서비스"
+      - "배송 추적 및 구매 보호"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "name"
+      - "nameEn"
+      - "description"
+      - "url"
+      - "categories"
+      - "status"
+    sourceUrls:
+      - "https://www.temu.com/kr"
+      - "https://www.ftc.go.kr/www/selectBbsNttView.do?bordCd=3&key=12&nttSn=43676"
