@@ -1,0 +1,42 @@
+name: Audit platform data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 1 1 * *'
+  pull_request:
+    paths:
+      - 'data/categories.json'
+      - 'data/platforms.yaml'
+      - 'data/platforms.json'
+      - 'scripts/platform-metadata.js'
+      - 'scripts/validate-data.js'
+      - 'scripts/check-platform-links.js'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Rebuild generated data
+        run: node scripts/sync-yaml-to-json.js
+
+      - name: Validate data
+        run: node scripts/validate-data.js
+
+      - name: Check generated data drift
+        run: git diff --exit-code -- data/platforms.json
+
+      - name: Audit platform links
+        if: github.event_name != 'pull_request'
+        run: node scripts/check-platform-links.js >> "$GITHUB_STEP_SUMMARY"

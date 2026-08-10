@@ -9,6 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const { parseYAML } = require('./yaml-parser');
+const { normalizePlatforms } = require('./platform-metadata');
 
 // 경로 설정
 const ROOT_DIR = path.join(__dirname, '..');
@@ -21,7 +22,7 @@ function main() {
     // YAML 파일 읽기
     const yamlPath = path.join(DATA_DIR, 'platforms.yaml');
     const content = fs.readFileSync(yamlPath, 'utf8');
-    const platforms = parseYAML(content);
+    const platforms = normalizePlatforms(parseYAML(content));
     
     console.log(`📦 ${platforms.length}개의 플랫폼 파싱됨`);
     

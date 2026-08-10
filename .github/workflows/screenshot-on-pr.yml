@@ -221,7 +221,12 @@ jobs:
               body += `> 스크린샷은 [GitHub Actions 아티팩트](${artifactUrl})에서도 다운로드할 수 있습니다.\n\n`;
               
               for (const result of results) {
-                const changeLabel = result.changeType === 'added' ? '🆕 신규 추가' : '🔄 URL 변경';
+                const changeLabels = {
+                  added: '🆕 신규 추가',
+                  url_changed: '🔄 URL 변경',
+                  updated: '✏️ 정보 변경'
+                };
+                const changeLabel = changeLabels[result.changeType] || result.changeType;
                 
                 body += `### ${result.name} (${result.nameEn})\n\n`;
                 body += `| 항목 | 내용 |\n`;

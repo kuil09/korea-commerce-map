@@ -23,7 +23,9 @@
 │   └── data-contribution.md  # 데이터 기여 가이드
 ├── scripts/
 │   ├── sync-yaml-to-json.js  # YAML→JSON 동기화
-│   └── generate-llms.js      # llms.txt 생성
+│   ├── generate-llms.js      # llms.txt 생성
+│   ├── validate-data.js      # 데이터 및 생성물 검증
+│   └── check-platform-links.js # 플랫폼 링크 점검
 ├── index.html       # 메인 페이지 (HTML, CSS, JS 포함)
 ├── favicon.ico      # 파비콘
 ├── llms.txt         # LLM 친화적 정보 파일
@@ -46,6 +48,17 @@ npx serve .
 ```
 
 [http://localhost:8000](http://localhost:8000) 또는 [http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+
+### Validate data
+
+```bash
+node scripts/sync-yaml-to-json.js
+node scripts/generate-llms.js
+node scripts/validate-data.js
+node scripts/check-platform-links.js
+```
+
+Link audit failures require manual review and never change a platform status automatically.
 
 ## 🌐 배포
 

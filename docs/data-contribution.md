@@ -70,20 +70,8 @@ generate-llms.js ──> llms.txt
 
 ### 현재 카테고리 목록
 
-```json
-[
-  { "id": "grocery", "name": "식료품/마트", "nameEn": "Grocery", "icon": "🛒" },
-  { "id": "food-delivery", "name": "음식 배달", "nameEn": "Food Delivery", "icon": "🍔" },
-  { "id": "fashion", "name": "패션/의류", "nameEn": "Fashion", "icon": "👗" },
-  { "id": "electronics", "name": "가전/전자", "nameEn": "Electronics", "icon": "📱" },
-  { "id": "beauty", "name": "뷰티/화장품", "nameEn": "Beauty", "icon": "💄" },
-  { "id": "living", "name": "생활/가구", "nameEn": "Living/Furniture", "icon": "🛋️" },
-  { "id": "quick-commerce", "name": "퀵커머스", "nameEn": "Quick Commerce", "icon": "⚡" },
-  { "id": "general", "name": "종합쇼핑몰", "nameEn": "General Mall", "icon": "🏬" },
-  { "id": "fresh", "name": "신선식품", "nameEn": "Fresh Food", "icon": "🥬" },
-  { "id": "secondhand", "name": "중고거래", "nameEn": "Secondhand", "icon": "♻️" }
-]
-```
+Read the canonical category list from `data/categories.json`. Do not copy the
+list into this guide because duplicated lists become stale.
 
 ### 카테고리 추가 규칙
 
@@ -124,6 +112,14 @@ platforms:
     features:
       - "주요 특징 1"
       - "주요 특징 2"
+    status: "active"
+    verificationStatus: "partial"
+    lastVerifiedAt: "2026-08-11"
+    verifiedFields:
+      - "url"
+      - "status"
+    sourceUrls:
+      - "https://example.com/official-policy"
 ```
 
 ### 필드 설명
@@ -140,6 +136,19 @@ platforms:
 | `deliveryTime` | string | ✅ | 일반적인 배송 소요 시간 |
 | `minOrderAmount` | string | ✅ | 최소 주문 금액 또는 관련 정보 |
 | `features` | array | ✅ | 주요 특징/서비스 목록 |
+| `status` | string | 선택 | 서비스 상태 (`active`, `rebranded`, `suspended`, `closed`, `unverified`) |
+| `verificationStatus` | string | 선택 | 근거 검증 범위 (`verified`, `partial`, `unverified`) |
+| `lastVerifiedAt` | string | 조건부 | `verifiedFields`를 확인한 ISO 날짜 |
+| `verifiedFields` | array | 조건부 | 출처와 대조한 필드 이름 |
+| `sourceUrls` | array | 조건부 | 검증에 사용한 HTTPS 근거 URL |
+
+### Verification metadata
+
+- Missing metadata is normalized to `unverified`; never invent a verification date.
+- `lastVerifiedAt` covers only the fields listed in `verifiedFields`.
+- Prefer official service pages, official policy/help pages, and official notices.
+- A failed automated link check is a manual-review signal, not proof that a service closed.
+- Preserve an existing `id` when a service is rebranded.
 
 ### 플랫폼 추가 예시
 
@@ -203,6 +212,8 @@ platforms:
 | `scripts/sync-yaml-to-json.js` | `platforms.yaml` → `platforms.json` 변환 |
 | `scripts/generate-llms.js` | 데이터를 사용하여 `llms.txt` 생성 |
 | `scripts/yaml-parser.js` | YAML 파싱을 위한 공통 모듈 |
+| `scripts/validate-data.js` | Validate schemas, references, metadata, and generated JSON |
+| `scripts/check-platform-links.js` | Produce a non-destructive URL review report |
 
 ### YAML → JSON 동기화 실행 방법
 
@@ -261,12 +272,16 @@ AI 에이전트나 기여자가 스크립트를 실행할 수 없는 환경에�
 - [ ] `categories` 필드의 값들이 `categories.json`에 정의된 `id`와 일치하나요?
 - [ ] URL이 유효한 형식인가요?
 - [ ] 문자열이 큰따옴표로 올바르게 감싸져 있나요?
+- [ ] Verified claims list exact fields in `verifiedFields`.
+- [ ] Every partial or verified record has `lastVerifiedAt` and `sourceUrls`.
+- [ ] Link failures were reviewed manually instead of being treated as closure proof.
 
 ### 동기화 관련
 
 - [ ] `platforms.json`을 직접 편집하지 않았나요?
 - [ ] 스크립트 실행이 가능한 경우: `node scripts/sync-yaml-to-json.js` 실행 후 스크립트가 생성한 `platforms.json` 변경사항 커밋
 - [ ] 스크립트 실행이 불가능한 경우: PR 설명에 동기화 필요성 명시
+- [ ] Run `node scripts/validate-data.js` after regenerating derived files.
 
 ### 새 카테고리 추가 시
 

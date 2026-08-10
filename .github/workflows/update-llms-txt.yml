@@ -11,6 +11,8 @@ on:
       - 'templates/llms-ctx-full.txt.template'
       - 'scripts/generate-llms.js'
       - 'scripts/sync-yaml-to-json.js'
+      - 'scripts/platform-metadata.js'
+      - 'scripts/validate-data.js'
 
 permissions:
   contents: write
@@ -32,6 +34,9 @@ jobs:
 
       - name: Generate llms.txt and llms-ctx-full.txt
         run: node scripts/generate-llms.js
+
+      - name: Validate source and generated data
+        run: node scripts/validate-data.js
 
       - name: Check for changes
         id: check
